@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UserControls\" />
+    <ProjectReference Include="..\Comms\Comms.csproj" />
   </ItemGroup>
 
 </Project>

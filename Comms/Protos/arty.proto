@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "Comms";
+
+package arty;
+
+service Arty
+{
+	rpc notifySubscribe(subscribeNotification) returns (MsgStatus);
+	rpc notifyUnsubscribe(unsubscribeNotification) returns (MsgStatus);
+	rpc receiveNewCoords(Coords) returns (MsgStatus);
+}
+
+message Coords
+{
+	double Az = 1;
+	double Dist = 2;
+}
+
+message MsgStatus
+{
+	int32 statusCode = 1;
+}
+
+message subscribeNotification
+{
+	string Callsign = 1;
+}
+
+message unsubscribeNotification
+{
+	string Callsign = 1;
+}

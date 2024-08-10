@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PitBoss", "PitBoss\PitBoss.csproj", "{283A97EA-C5E6-4769-BE98-E07D7E8F03EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comms", "Comms\Comms.csproj", "{7D6AA02B-65B8-4920-9131-21684DF599DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comms", "Comms\Comms.csproj", "{7D6AA02B-65B8-4920-9131-21684DF599DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

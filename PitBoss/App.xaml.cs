@@ -9,6 +9,7 @@ namespace PitBoss
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }
