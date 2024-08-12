@@ -27,8 +27,7 @@ namespace PitBoss.UserControls
 
         private void Connect_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Instance.GunBattery.BeginAcceptingConnections();
-            DataManager.Instance.GunBattery.TrySubscribeToSpotter(spotterIp_TextBox.Text);
+            DataManager.Instance.StartClient();
         }
     }
 }

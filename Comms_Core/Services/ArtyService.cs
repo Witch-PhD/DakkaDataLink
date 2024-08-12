@@ -1,14 +1,14 @@
 ﻿
 using Grpc.Core;
 
-namespace Comms.Services
+namespace Comms_Core.Services
 {
     public class ArtyService : Arty.ArtyBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        public ArtyService(ILogger<GreeterService> logger)
+        //private readonly ILogger<GreeterService> _logger;
+        public ArtyService()
         {
-            _logger = logger;
+            //_logger = logger;
         }
 
     //    public override Task<MsgStatus> notifySubscribe(subscribeNotification subData, ServerCallContext context)
@@ -33,7 +33,12 @@ namespace Comms.Services
 
         public override async Task openStream(IAsyncStreamReader<Coords> requestStream, IServerStreamWriter<Coords> responseStream, ServerCallContext context)
         {
-            return null;
+           //
+           //PitBoss.DataManager.
+           //while (await requestStream.MoveNext(context.CancellationToken))
+           //{
+           //    Coords newCoords = requestStream.Current;
+           //}
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using Comms_Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PitBoss
 {
-    internal class DataManager
+    public class DataManager
     {
         private static DataManager? m_Instance;
         public static DataManager Instance
@@ -22,40 +22,30 @@ namespace PitBoss
             }
             private set { }
         }
-        private DataManager() { }
 
-        private Comms.Spotter? m_spotter;
-        public Comms.Spotter Spotter
+        gRpcServerHandler serverHandler = gRpcServerHandler.Instance;
+        gRpcClientHandler clientHandler = gRpcClientHandler.Instance;
+
+        public void StartServer()
         {
-            get
-            {
-                if (m_spotter == null)
-                {
-                    m_spotter = Comms.Spotter.Instance;
-                }
-                return (m_spotter);
-            }
-            private set
-            {
-                
-            }
+            serverHandler.StartServer();
         }
 
-        private Comms.GunBattery? m_gunBattery;
-        public Comms.GunBattery GunBattery
+        public void StartClient()
         {
-            get
-            {
-                if (m_gunBattery == null)
-                {
-                    m_gunBattery = Comms.GunBattery.Instance;
-                }
-                return (m_gunBattery);
-            }
-            private set
-            {
-
-            }
+            clientHandler.connectToServer(serverHandler.ListeningIp + ":" + serverHandler.ListeningPort);
         }
+
+        public void SendNewCoords(double _az, double _dist)
+        {
+            //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
+            serverHandler.sendNewCoords(_az, _dist);
+        }
+
+        public void NewCoordsReceived(Coords coords)
+        {
+            Console.WriteLine($"DataManager.NewCoordsReceived(), Az: {coords.Az}, Dist: {coords.Dist}");
+        }
+
     }
 }

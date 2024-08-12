@@ -9,7 +9,7 @@
   "Kestrel": {
     "Endpoints": {
       "gRPC": {
-        "Url": "http://localhost:5005",
+        "Url": "http://localhost:5010",
         "Protocols": "Http1AndHttp2"
       }
     }

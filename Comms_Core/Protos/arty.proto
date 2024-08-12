@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Comms";
+option csharp_namespace = "Comms_Core";
 
 package arty;
 
@@ -9,7 +9,7 @@ service Arty
 	rpc notifySubscribe(subscribeNotification) returns (MsgStatus);
 	rpc notifyUnsubscribe(unsubscribeNotification) returns (MsgStatus);
 	rpc receiveNewCoords(Coords) returns (MsgStatus);
-	rpc openStream(Coords) returns (Coords);
+	rpc openStream(stream Coords) returns (stream Coords);
 }
 
 message Coords

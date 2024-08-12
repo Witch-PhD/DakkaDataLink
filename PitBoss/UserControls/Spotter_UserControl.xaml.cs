@@ -27,7 +27,12 @@ namespace PitBoss.UserControls
 
         private void OpenConnection_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Instance.Spotter.BeginAcceptingConnections();
+            DataManager.Instance.StartServer();
+        }
+
+        private void SendCoords_Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataManager.Instance.SendNewCoords(45.0, 155.0);
         }
     }
 }

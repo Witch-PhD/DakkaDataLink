@@ -16,7 +16,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        <Button Grid.Row="0" Grid.Column="0" x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" Margin="5,5,5,5"/>
         <Button Grid.Row="2" Grid.Column="1" x:Name="OpenConnection_Button" Content="Open Connection" Click="OpenConnection_Button_Click" Margin="5,5,5,5"/>
 
     </Grid>
