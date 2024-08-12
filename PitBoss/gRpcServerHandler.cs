@@ -60,9 +60,6 @@ namespace PitBoss
             theServer = null;
         }
 
-        
-
-
 
         /// <summary>
         /// Called remotely by a connecting gun.

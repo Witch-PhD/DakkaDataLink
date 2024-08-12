@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PitBoss.Constants;
 
 namespace PitBoss
 {
@@ -23,11 +24,21 @@ namespace PitBoss
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
 
+        
+
         public MainWindow()
         {
+            
             AllocConsole();
+
+            
+
+
+
             InitializeComponent();
         }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

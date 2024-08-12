@@ -7,18 +7,12 @@
         xmlns:userControls="clr-namespace:PitBoss.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <userControls:Spotter_UserControl Grid.Column="0" Grid.Row="0"/>
-        <userControls:GunBattery_UserControl Grid.Column="0" Grid.Row="1"/>
-
-    </Grid>
+    <TabControl >
+        <TabItem x:Name="Spotter_TabItem" Header="Spotter">
+            <userControls:Spotter_UserControl/>
+        </TabItem>
+        <TabItem x:Name="Gunner_TabControl" Header="Gunner">
+            <userControls:GunBattery_UserControl/>
+        </TabItem>
+    </TabControl>
 </Window>

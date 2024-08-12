@@ -23,16 +23,28 @@ namespace PitBoss.UserControls
         public Spotter_UserControl()
         {
             InitializeComponent();
+            Az_TextBox.DataContext = DataManager.Instance;
+            Dist_TextBox.DataContext = DataManager.Instance;
         }
 
         private void OpenConnection_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Instance.StartServer();
+            if (DataManager.Instance.ConnectionStatus == Constants.ConnectionStatus.Connected_As_Spotter)
+            {
+                DataManager.Instance.StopServer();
+                OpenConnection_Button.Content = "Open Connections";
+            }
+            else
+            {
+                DataManager.Instance.StartServer();
+                OpenConnection_Button.Content = "Stop Connection";
+            }
+            
         }
 
         private void SendCoords_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Instance.SendNewCoords(45.0, 155.0);
+            DataManager.Instance.SendNewCoords(DataManager.Instance.LatestAz, DataManager.Instance.LatestDist);
         }
     }
 }

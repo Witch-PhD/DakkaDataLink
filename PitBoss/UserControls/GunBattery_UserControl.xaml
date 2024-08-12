@@ -16,11 +16,31 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Az: </TextBlock>
+                <TextBox x:Name="Az_TextBox" Text="{Binding Path=LatestAz}" Width="75"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Dist: </TextBlock>
+                <TextBox x:Name="Dist_TextBox" Text="{Binding Path=LatestDist}" Width="75"/>
+            </StackPanel>
+           
+        </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Spotter IP: " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="spotterIp_TextBox" Text="" Height="25" Margin="5,5,5,5"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Spotter IP: " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="spotterIp_TextBox" Text="http://localhost:5005" Height="25" Margin="5,5,5,5"/>
-
-        <Button Grid.Row="2" Grid.Column="1" x:Name="Connect_Button" Content="Connect" Click="Connect_Button_Click" Margin="5,5,5,5"/>
+        <Button Grid.Row="2" Grid.Column="1" x:Name="Connect_Button" Content="Connect" Click="Connect_Button_Click" Height="30" Width="60" Margin="5,5,5,5"/>
+        <StackPanel Grid.Row="2" Grid.Column="0" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Transparency: "/>
+                <TextBox x:Name="OverlayTransparency_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" Width="50"/>
+            </StackPanel>
+            
+            <Slider x:Name="OverlayTransparency_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}"/>
+            <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" Height="30" Width="120" Margin="5,5,5,5"/>
+        </StackPanel>
+        
 
     </Grid>
 </UserControl>

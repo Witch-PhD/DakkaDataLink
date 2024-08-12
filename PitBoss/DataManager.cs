@@ -1,13 +1,15 @@
 ﻿using Comms_Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PitBoss
 {
-    public class DataManager
+    public class DataManager : INotifyPropertyChanged
     {
         private static DataManager? m_Instance;
         public static DataManager Instance
@@ -23,17 +25,113 @@ namespace PitBoss
             private set { }
         }
 
+        
+        private DataManager()
+        {
+            
+        }
+
+        ~DataManager()
+        {
+            
+        }
+
         gRpcServerHandler serverHandler = gRpcServerHandler.Instance;
         gRpcClientHandler clientHandler = gRpcClientHandler.Instance;
+
+        private double m_LatestAz = 0.0;
+        public double LatestAz
+        {
+            get
+            {
+                return m_LatestAz;
+            }
+            set
+            {
+                m_LatestAz = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double AzTickSize = 1.0;
+
+        private double m_LatestDist = 0.0;
+        public double LatestDist
+        {
+            get
+            {
+                return m_LatestDist;
+            }
+            set
+            {
+                m_LatestDist = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double DistTickSize = 8.0;
+
+        private Constants.ConnectionStatus m_ConnectionStatus = Constants.ConnectionStatus.Disconnected;
+        public Constants.ConnectionStatus ConnectionStatus
+        {
+            get
+            {
+                return m_ConnectionStatus;
+            }
+            set
+            {
+                if (value != m_ConnectionStatus)
+                {
+                    m_ConnectionStatus = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int m_ConnectedClients = 0;
+        public int ConnectedClients
+        {
+            get
+            {
+                return m_ConnectedClients;
+            }
+            set
+            {
+                if (m_ConnectedClients != value)
+                {
+                    m_ConnectedClients = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
 
         public void StartServer()
         {
             serverHandler.StartServer();
         }
 
-        public void StartClient()
+        public void StopServer()
         {
-            clientHandler.connectToServer(serverHandler.ListeningIp + ":" + serverHandler.ListeningPort);
+            serverHandler.StopServer();
+        }
+
+        public void StartClient(string targetIpAndPort)
+        {
+            clientHandler.connectToServer(targetIpAndPort);
+        }
+
+        public void StopClient()
+        {
+            clientHandler.disconnectFromServer();
         }
 
         public void SendNewCoords(double _az, double _dist)
@@ -42,10 +140,15 @@ namespace PitBoss
             serverHandler.sendNewCoords(_az, _dist);
         }
 
+        
         public void NewCoordsReceived(Coords coords)
         {
+            LatestAz = coords.Az;
+            LatestDist = coords.Dist;
             Console.WriteLine($"DataManager.NewCoordsReceived(), Az: {coords.Az}, Dist: {coords.Dist}");
         }
 
+
+        
     }
 }

@@ -9,6 +9,18 @@ namespace PitBoss
     /// </summary>
     public partial class App : Application
     {
+        MainWindow mainWindow;
+
+        private void OnStartup(object sender, StartupEventArgs e)
+        {
+            mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            
+        }
 
     }
 
