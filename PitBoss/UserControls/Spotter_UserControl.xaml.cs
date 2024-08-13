@@ -20,12 +20,16 @@ namespace PitBoss.UserControls
     /// </summary>
     public partial class Spotter_UserControl : UserControl
     {
+        List<Key> keysToMonitor = new List<Key>();
+        string keyMsg;
         public Spotter_UserControl()
         {
             InitializeComponent();
             Az_TextBox.DataContext = DataManager.Instance;
             Dist_TextBox.DataContext = DataManager.Instance;
+
         }
+
 
         private void OpenConnection_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -37,6 +41,7 @@ namespace PitBoss.UserControls
             else
             {
                 DataManager.Instance.StartServer();
+                SpotterKeystrokeHandler.Instance.Activate();
                 OpenConnection_Button.Content = "Stop Connection";
             }
             

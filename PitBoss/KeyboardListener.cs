@@ -49,10 +49,11 @@ namespace PitBoss
 
         public event RawKeyEventHandler KeyDown;
         public event RawKeyEventHandler KeyUp;
-
+        private static InterceptKeys.LowLevelKeyboardProc m_hookCallBack;
         public KeyboardListener()
         {
-            hookId = InterceptKeys.SetHook((InterceptKeys.LowLevelKeyboardProc)HookCallback);
+            m_hookCallBack = HookCallback;
+            hookId = InterceptKeys.SetHook(m_hookCallBack);
         }
 
         ~KeyboardListener()

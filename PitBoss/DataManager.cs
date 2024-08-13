@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PitBoss
 {
@@ -28,12 +29,13 @@ namespace PitBoss
         
         private DataManager()
         {
+            //App.KListener.KeyDown += KListener_KeyDown;
             
         }
 
         ~DataManager()
         {
-            
+            //App.KListener.KeyDown -= KListener_KeyDown;
         }
 
         gRpcServerHandler serverHandler = gRpcServerHandler.Instance;
@@ -49,11 +51,18 @@ namespace PitBoss
             set
             {
                 m_LatestAz = value;
+                if (m_LatestAz >= 360.0)
+                {
+                    m_LatestAz -= 360.0;
+                }
+                else if (m_LatestAz < 0.0)
+                {
+                    m_LatestAz += 360.0;
+                }
                 OnPropertyChanged();
             }
         }
 
-        public double AzTickSize = 1.0;
 
         private double m_LatestDist = 0.0;
         public double LatestDist
@@ -69,7 +78,6 @@ namespace PitBoss
             }
         }
 
-        public double DistTickSize = 8.0;
 
         private Constants.ConnectionStatus m_ConnectionStatus = Constants.ConnectionStatus.Disconnected;
         public Constants.ConnectionStatus ConnectionStatus
@@ -117,6 +125,7 @@ namespace PitBoss
         public void StartServer()
         {
             serverHandler.StartServer();
+            
         }
 
         public void StopServer()
