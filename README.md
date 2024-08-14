@@ -20,6 +20,10 @@ https://dotnet.microsoft.com/en-us/download/dotnet/8.0 </br>
 Specifically, you will want to get the .Net Desktop Runtime. Most likely x64, but if your computer is older you may need x86 instead.
 
 ### To start using it:
+Due to the peer-to-peer nature of the program, the person that is the Spotter will need to set up Port Forwarding in their router for port number 50082.</br>
+If you do not know how to do that, this is a good starting point:</br>
+[How To Set Up Port Forwarding](https://support.source-elements.com/source-elements/step-by-step-port-forwarding-guide)
+
 The spotter will open The Pit Boss, and click on the "Open Connections" button on the Spotter tab.
 Any gunners wishing to join will open their own copies of The Pit Boss and enter their Spotter's IP address and port number then click "Connect"</br>
 Find your IP with this website:</br>
