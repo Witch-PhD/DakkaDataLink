@@ -20,8 +20,11 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Az: " FontSize="20" Width="45" Margin="3,3,3,3"/>
-                <TextBox x:Name="Az_TextBox" FontSize="20" Width="60" Margin="3,3,3,3">
+                <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5"/>
+                <TextBox x:Name="Az_TextBox" FontSize="20" Width="60" Margin="5,5,5,5">
+                    <TextBox.ToolTip>
+                        Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
+                    </TextBox.ToolTip>
                     <TextBox.Text>
                         <Binding Path="LatestAz" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
@@ -33,8 +36,11 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="3,3,3,3"/>
-                <TextBox x:Name="Dist_TextBox" FontSize="20" Width="60" Margin="3,3,3,3">
+                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5"/>
+                <TextBox x:Name="Dist_TextBox" FontSize="20" Width="60" Margin="5,5,5,5">
+                    <TextBox.ToolTip>
+                        Right Ctrl + Up/Down Arrow for 1 meter step. Right Shift + Up/Down Arrow for 10 meter step.
+                    </TextBox.ToolTip>
                     <TextBox.Text>
                         <Binding Path="LatestDist" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
@@ -45,9 +51,17 @@
                 </TextBox>
             </StackPanel>
 
-            <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5"/>
+            <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5">
+                <Button.ToolTip>
+                    Right Ctrl + NumPad Zero to send.
+                </Button.ToolTip>
+            </Button>
             
-            <Button Grid.Row="1" Grid.Column="0" x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,55,5,5"/>
+            <Button x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,35,5,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Listening Port: " Margin="5,5,0,5"/>
+                <TextBlock x:Name="ListeningPort_TextBlock" Text="5005" Margin="0,5,5,5"/><!--Text="{Binding Path=ListeningPort}"-->
+            </StackPanel>
         </StackPanel>
 
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
