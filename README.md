@@ -1,6 +1,8 @@
 Oi ya nobz! We'z got a new Dakka Tool from one uh da Weird Boyz!
 ======
 
+![82DK](https://github.com/user-attachments/assets/e51c404e-2b40-4184-85b7-e6c2132cebc1)
+
 The Pit Boss is a Windows program for Foxhole I am working on that will allow for more accurate relaying of artillery Az/Dist readouts from a spotter to the gunners.</br>
 
 This is accomplished by providing both the spotter and the gunners with an overlay, similar to Discord or Steam, that will show the spotter's currently intended Az/Dist for the guns to fire at.</br>
