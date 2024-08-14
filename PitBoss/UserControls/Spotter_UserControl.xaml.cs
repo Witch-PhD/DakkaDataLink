@@ -25,8 +25,9 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
-            Az_TextBox.DataContext = DataManager.Instance;
-            Dist_TextBox.DataContext = DataManager.Instance;
+            DataContext = DataManager.Instance;
+            //Az_TextBox.DataContext = DataManager.Instance;
+            //Dist_TextBox.DataContext = DataManager.Instance;
 
         }
         DataManager dataManager;

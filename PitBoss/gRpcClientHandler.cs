@@ -58,6 +58,7 @@ namespace PitBoss
                 Console.WriteLine($"gRpcClientHandler connecting to {m_channelTarget}");
                 openGrpcChannel();
                 clientShutdownTokenSource = new CancellationTokenSource();
+                clientShutdownTokenSource.Token.ThrowIfCancellationRequested();
                 receiveTask = new Task(receivingTask);
                 dataManager.ClientHandlerActive = true;
                 receiveTask.Start();
@@ -80,10 +81,14 @@ namespace PitBoss
             outgoingStream = duplexStream.RequestStream;
         }
 
-        public void disconnectFromServer()
+        public async void disconnectFromServer()
         {
-            duplexStream.Dispose();
             dataManager.ClientHandlerActive = false;
+            clientShutdownTokenSource.Cancel();
+            Thread.Sleep(100);
+            duplexStream.Dispose();
+            
+            await receiveTask;
         }
 
         public async void receivingTask()
@@ -101,12 +106,20 @@ namespace PitBoss
                 }
                 catch (RpcException ex)
                 {
-                    Console.WriteLine($"gRpcClientHandler.receivingTask() RpcException: {ex.Message}");
-                    duplexStream.Dispose();
-                    openGrpcChannel();
-                    Thread.Sleep(1000);
+                    if (ex.StatusCode == StatusCode.Cancelled)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"gRpcClientHandler.receivingTask() RpcException: {ex.Message}");
+                        duplexStream.Dispose();
+                        openGrpcChannel();
+                        Thread.Sleep(1000);
+                    }
                 }
             }
+            Console.WriteLine("gRpcClientHandler.receivingTask() ending.");
         }
     }
 }

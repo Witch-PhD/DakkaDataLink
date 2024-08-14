@@ -112,6 +112,24 @@ namespace PitBoss
             }
         }
 
+        private int m_ServerActiveListeningPort = 50082;
+        public int ServerActiveListeningPort
+        {
+            get
+            {
+                return m_ServerActiveListeningPort;
+            }
+            set
+            {
+                if (value != m_ServerActiveListeningPort)
+                {
+                    m_ServerActiveListeningPort = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private int m_ConnectedClients = 0;
         public int ConnectedClients
         {

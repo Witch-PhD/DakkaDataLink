@@ -32,6 +32,7 @@ namespace PitBoss
             AllocConsole();
 #endif
             InitializeComponent();
+            this.Title = "The Pit Boss";
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

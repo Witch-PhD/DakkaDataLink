@@ -3,6 +3,7 @@ using Comms_Core.Services;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,10 +39,12 @@ namespace PitBoss
             get; set;
         }
 
+
+
         public static List<IServerStreamWriter<Coords>> outgoingStreams;
 
-        public string ListeningIp = "0.0.0.0";
-        public int ListeningPort = 5005;
+        public string ListeningIp = "0.0.0.0"; // TODO: Likely need to find the available IP addresses on the local machine.
+        private int defaultListeningPort = 0; // TODO: Set this to 0 to get it auto-assigned?
         private Server? theServer;
         public void StartServer()
         {
@@ -49,11 +52,20 @@ namespace PitBoss
             theServer = new Server
             {
                 Services = { Arty.BindService(this) },
-                Ports = { new ServerPort(ListeningIp, ListeningPort, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(ListeningIp, defaultListeningPort, ServerCredentials.Insecure) }
 
             };
             theServer.Start();
-            Console.WriteLine($"Server listening on {ListeningIp}:{ListeningPort}");
+            Thread.Sleep(100);
+            IEnumerator<ServerPort> portsEnumerator = theServer.Ports.GetEnumerator();
+            //portsEnumerator.Reset();
+            foreach (ServerPort port in theServer.Ports)
+            {
+                //Console.WriteLine($"Server listening on {ListeningIp}:{port.BoundPort}");
+                dataManager.ServerActiveListeningPort = port.BoundPort;
+            }
+            //dataManager.ServerActiveListeningPort = theServer.Ports[portsEnumerator];
+            Console.WriteLine($"Server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
         }
 
         public async void StopServer()
@@ -62,6 +74,7 @@ namespace PitBoss
             await serverShutdown;
             dataManager.ServerHandlerActive = false;
             theServer = null;
+            Console.WriteLine($"Server stopped.");
         }
 
 
@@ -74,25 +87,35 @@ namespace PitBoss
         /// <returns></returns>
         public override async Task openStream(IAsyncStreamReader<Coords> requestStream, IServerStreamWriter<Coords> responseStream, ServerCallContext context)
         {
-           
-            outgoingStreams.Add(responseStream);
-            dataManager.ConnectedClients++;
-            Console.WriteLine($"openStream(): {context.Peer}. Connected. {dataManager.ConnectedClients} connections now active.");
-            while (await requestStream.MoveNext(context.CancellationToken))
+            string currentPeer = context.Peer;
+            try
             {
-                //Coords newCoords = requestStream.Current;
-                _ = requestStream.Current;
-            }
+                outgoingStreams.Add(responseStream);
+                //dataManager.ConnectedClients++;
+                Console.WriteLine($"openStream(): {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
+                while (await requestStream.MoveNext(context.CancellationToken))
+                {
+                    if (context.CancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+                    //Coords newCoords = requestStream.Current;
+                    _ = requestStream.Current;
+                }
 
-            outgoingStreams.Remove(responseStream);
-            dataManager.ConnectedClients--;
-            Console.WriteLine($"openStream(): {context.Peer}. Disconnected. {dataManager.ConnectedClients} connections now active.");
+            }
+            finally
+            {
+                outgoingStreams.Remove(responseStream);
+                //dataManager.ConnectedClients--;
+                Console.WriteLine($"openStream(): {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
+            }
         }
 
         public async void sendNewCoords(double _az, double _dist)
         {
             //Console.WriteLine($"sendNewCoords entered");
-            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {dataManager.ConnectedClients} guns.");
+            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {outgoingStreams.Count} guns.");
             foreach (IServerStreamWriter<Coords> gun in outgoingStreams)
             {
                 
