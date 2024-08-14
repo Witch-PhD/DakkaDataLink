@@ -107,6 +107,7 @@ namespace PitBoss
             finally
             {
                 outgoingStreams.Remove(responseStream);
+                dataManager.ConnectedClients = outgoingStreams.Count;
                 //dataManager.ConnectedClients--;
                 Console.WriteLine($"openStream(): {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
             }
