@@ -16,12 +16,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5"/>
-                <TextBox x:Name="Az_TextBox" FontSize="20" Width="60" Margin="5,5,5,5">
+                <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
                     <TextBox.ToolTip>
                         Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
                     </TextBox.ToolTip>
@@ -37,7 +36,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5"/>
-                <TextBox x:Name="Dist_TextBox" FontSize="20" Width="60" Margin="5,5,5,5">
+                <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
                     <TextBox.ToolTip>
                         Right Ctrl + Up/Down Arrow for 1 meter step. Right Shift + Up/Down Arrow for 10 meter step.
                     </TextBox.ToolTip>
@@ -56,26 +55,12 @@
                     Right Ctrl + NumPad Zero to send.
                 </Button.ToolTip>
             </Button>
-            
+
             <Button x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,35,5,5"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Listening Port: " Margin="5,5,0,5"/>
                 <TextBlock x:Name="ListeningPort_TextBlock" Margin="0,5,5,5" Text="{Binding Path=ServerActiveListeningPort}" />
             </StackPanel>
         </StackPanel>
-
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
-            <StackPanel >
-                <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="Transparency: " Margin="3,3,3,3"/>
-                    <TextBox x:Name="OverlayTransparency_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
-                </StackPanel>
-
-                <Slider x:Name="OverlayTransparency_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}" HorizontalAlignment="Left" Margin="3,3,3,3"/>
-
-            </StackPanel>
-        </GroupBox>
-
     </Grid>
 </UserControl>

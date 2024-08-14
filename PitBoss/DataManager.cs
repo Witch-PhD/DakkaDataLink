@@ -32,11 +32,27 @@ namespace PitBoss
         
         private DataManager()
         {
-           
+            m_userOptions = new UserOptions();
         }
 
         private gRpcServerHandler serverHandler;
         private gRpcClientHandler clientHandler;
+        private UserOptions m_userOptions;
+        public UserOptions userOptions
+        {
+            get
+            {
+                return m_userOptions;
+            }
+            set
+            {
+                if (m_userOptions != value)
+                {
+                    m_userOptions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -146,6 +162,8 @@ namespace PitBoss
                 }
             }
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

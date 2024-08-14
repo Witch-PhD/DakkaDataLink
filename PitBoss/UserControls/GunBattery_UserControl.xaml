@@ -13,7 +13,6 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="Firing Coordinates">
             <StackPanel Margin="3,3,3,3">
@@ -30,19 +29,8 @@
         </GroupBox>
 
         
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
-            <StackPanel >
-                <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="Transparency: " Margin="3,3,3,3"/>
-                    <TextBox x:Name="OverlayTransparency_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
-                </StackPanel>
-
-                <Slider x:Name="OverlayTransparency_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}" HorizontalAlignment="Left" Margin="3,3,3,3"/>
-                
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Grid.Row="2" Grid.Column="0" Header="Connection Settings">
+        
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Connection Settings">
             <StackPanel >
                 <StackPanel Orientation="Horizontal" >
                     <TextBlock Text="Spotter IP: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>

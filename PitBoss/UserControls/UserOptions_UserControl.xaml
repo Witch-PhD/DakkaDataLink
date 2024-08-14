@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="PitBoss.UserControls.UserOptions_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PitBoss.UserControls"
+             xmlns:validators="clr-namespace:PitBoss.Validators"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <UserControl.Resources>
+        <validators:IntMinMaxValidator x:Key="intMinMaxValidator"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Overlay Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="Opacity: " Margin="3,3,3,3"/>
+                        <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
+                    </StackPanel>
+                    <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}" HorizontalAlignment="Left" Margin="3,3,3,3"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="70" Margin="3,3,3,3">Label Color:</TextBlock>
+                        <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="70" Margin="3,3,3,3">Value Color:</TextBlock>
+                        <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="70" Margin="3,3,3,3">Font Size:</TextBlock>
+                        <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3">
+                            <TextBox.ToolTip>
+                                Min: 8, Max: 72
+                            </TextBox.ToolTip>
+                            <TextBox.Text>
+                                <Binding Path="userOptions.OverlayFontSize" NotifyOnValidationError="True">
+                                    <Binding.ValidationRules>
+                                        <validators:IntMinMaxValidator Min="8" Max="72"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

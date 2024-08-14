@@ -1,0 +1,32 @@
+﻿<Window x:Class="PitBoss.UserControls.Overlay_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PitBoss.UserControls"
+        mc:Ignorable="d"
+        Title="Overlay_Window" Height="100" Width="100" AllowsTransparency="True" WindowStyle="None" PreviewMouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
+    <Window.Background>
+        <SolidColorBrush x:Name="BackGroundBrush" Opacity="0.5" Color="DarkGray"/>
+    </Window.Background>
+    <Border x:Name="MainBorder">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="AzLabel_TextBlock"  Grid.Row="0" Grid.Column="0" Text="Az: " Foreground="{Binding Path=OverlayLabelsFontColor}" FontSize="{Binding Path=OverlayFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="2,2,2,2"/>
+            <TextBlock x:Name="DistLabel_TextBlock" Grid.Row="1" Grid.Column="0" Text="Dist: " Foreground="{Binding Path=OverlayLabelsFontColor}" FontSize="{Binding Path=OverlayFontSize}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="2,2,2,2"/>
+
+            <TextBlock x:Name="AzValue_TextBlock" Grid.Row="0" Grid.Column="1" Text="{Binding Path=LatestAz}" Foreground="{Binding userOptions.OverlayValuesFontColor}" FontSize="{Binding userOptions.OverlayFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="2,2,2,2">
+
+            </TextBlock>
+            <TextBlock x:Name="DistValue_TextBlock" Grid.Row="1" Grid.Column="1" Text="{Binding Path=LatestDist}" Foreground="{Binding userOptions.OverlayValuesFontColor}" FontSize="{Binding userOptions.OverlayFontSize}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2,2,2,2"/>
+        </Grid>
+    </Border>
+</Window>

@@ -10,26 +10,36 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PitBoss.UserControls
 {
     /// <summary>
-    /// Interaction logic for GunnerOverlay_UserControl.xaml
+    /// Interaction logic for Overlay_Window.xaml
     /// </summary>
-    public partial class GunnerOverlay_UserControl : UserControl
+    public partial class Overlay_Window : Window
     {
-        public GunnerOverlay_UserControl()
+        DataManager dataManager;
+        public Overlay_Window()
         {
+            dataManager = DataManager.Instance;
             InitializeComponent();
-            DataContext = DataManager.Instance;
+            //DataContext = DataManager.Instance;
+            AzLabel_TextBlock.DataContext = dataManager.userOptions;
+            DistLabel_TextBlock.DataContext = dataManager.userOptions;
+
+            AzValue_TextBlock.DataContext = dataManager;
+            DistValue_TextBlock.DataContext = dataManager;
+
+            Topmost = true;
+            
         }
+
+        
 
         private void MainBorder_MouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
         {
-            Window parentWindow = Window.GetWindow(this);
-            parentWindow.DragMove();
+            DragMove();
         }
     }
 }

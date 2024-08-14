@@ -11,8 +11,11 @@
         <TabItem x:Name="Spotter_TabItem" Header="Spotter">
             <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
         </TabItem>
-        <TabItem x:Name="Gunner_TabControl" Header="Gunner">
+        <TabItem x:Name="Gunner_TabItem" Header="Gunner">
             <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
+        </TabItem>
+        <TabItem x:Name="Options_TabItem" Header="Options">
+            <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
         </TabItem>
     </TabControl>
 </Window>

@@ -91,7 +91,7 @@ namespace PitBoss
             try
             {
                 outgoingStreams.Add(responseStream);
-                //dataManager.ConnectedClients++;
+                dataManager.ConnectedClients = outgoingStreams.Count;
                 Console.WriteLine($"openStream(): {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
                 while (await requestStream.MoveNext(context.CancellationToken))
                 {

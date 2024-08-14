@@ -54,38 +54,15 @@ namespace PitBoss.UserControls
             DataManager.Instance.SendCoords();
         }
 
-        public void CloseAllWindows()
+        private void TextBox_UpdateOnEnter(object sender, KeyEventArgs args)
         {
-            overlayWindow?.Close();
-        }
-
-        GunnerOverlay_Window? overlayWindow;
-        private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (overlayWindow == null)
+            if (args.Key == Key.Enter)
             {
-
-                overlayWindow = new GunnerOverlay_Window();
-                overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
-                OverlayTransparency_Slider.IsEnabled = true;
-                OverlayTransparency_Slider.DataContext = overlayWindow.BackGroundBrush;
-                OverlayTransparency_TextBox.DataContext = overlayWindow.BackGroundBrush;
-                overlayWindow.Closing += (o, ev) =>
+                TextBox textBox = sender as TextBox;
+                if (textBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate())
                 {
-                    overlayWindow = null;
-                };
-
-                overlayWindow.Show();
-                overlayWindow.BackGroundBrush.Opacity = 0.1;
-            }
-            else
-            {
-                OverlayTransparency_Slider.DataContext = null;
-                OverlayTransparency_TextBox.DataContext = null;
-                OverlayTransparency_TextBox.Text = "N/A";
-                OverlayTransparency_Slider.IsEnabled = false;
-                overlayWindow.Close();
+                    textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+                }
             }
         }
     }
