@@ -20,22 +20,23 @@ namespace PitBoss.UserControls
     /// </summary>
     public partial class Spotter_UserControl : UserControl
     {
-        List<Key> keysToMonitor = new List<Key>();
-        string keyMsg;
+        
         public Spotter_UserControl()
         {
+            dataManager = DataManager.Instance;
             InitializeComponent();
             Az_TextBox.DataContext = DataManager.Instance;
             Dist_TextBox.DataContext = DataManager.Instance;
 
         }
-
+        DataManager dataManager;
 
         private void OpenConnection_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (DataManager.Instance.ConnectionStatus == Constants.ConnectionStatus.Connected_As_Spotter)
+            if (dataManager.ServerHandlerActive)
             {
                 DataManager.Instance.StopServer();
+                SpotterKeystrokeHandler.Instance.Deactivate();
                 OpenConnection_Button.Content = "Open Connections";
             }
             else
@@ -49,7 +50,42 @@ namespace PitBoss.UserControls
 
         private void SendCoords_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Instance.SendNewCoords(DataManager.Instance.LatestAz, DataManager.Instance.LatestDist);
+            DataManager.Instance.SendCoords();
+        }
+
+        public void CloseAllWindows()
+        {
+            overlayWindow?.Close();
+        }
+
+        GunnerOverlay_Window? overlayWindow;
+        private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (overlayWindow == null)
+            {
+
+                overlayWindow = new GunnerOverlay_Window();
+                overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
+                OverlayTransparency_Slider.IsEnabled = true;
+                OverlayTransparency_Slider.DataContext = overlayWindow.BackGroundBrush;
+                OverlayTransparency_TextBox.DataContext = overlayWindow.BackGroundBrush;
+                overlayWindow.Closing += (o, ev) =>
+                {
+                    overlayWindow = null;
+                };
+
+                overlayWindow.Show();
+                overlayWindow.BackGroundBrush.Opacity = 0.1;
+            }
+            else
+            {
+                OverlayTransparency_Slider.DataContext = null;
+                OverlayTransparency_TextBox.DataContext = null;
+                OverlayTransparency_TextBox.Text = "N/A";
+                OverlayTransparency_Slider.IsEnabled = false;
+                overlayWindow.Close();
+            }
         }
     }
 }

@@ -71,11 +71,6 @@ namespace PitBoss
                 rightCtrlHeldDown = true;
             }
 
-
-
-
-
-
             if (rightShiftHeldDown)
             {
                 azIncrement = largeAzIncrement;
@@ -91,6 +86,8 @@ namespace PitBoss
                 return;
             }
 
+            // TODO: Make this a switch statement.
+
             //////// Distance ////////
             if (args.Key == Key.Up)
             {
@@ -102,7 +99,7 @@ namespace PitBoss
             }
 
             //////// Azimuth ////////
-            if (args.Key == Key.Right)
+            else if (args.Key == Key.Right)
             {
                 dataManager.LatestAz += azIncrement;
             }
@@ -111,10 +108,17 @@ namespace PitBoss
                 dataManager.LatestAz -= azIncrement;
             }
 
+            //////// Send New Coords ////////
+            else if (args.Key == Key.NumPad0)
+            {
+                if (rightCtrlHeldDown)
+                {
+                    dataManager.SendCoords();
+                }
+            }
 
-            
         }
-        
+
         internal void handleKeyUp(RawKeyEventArgs args)
         {
             if (!m_IsActive)

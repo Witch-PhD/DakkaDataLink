@@ -20,6 +20,9 @@ namespace PitBoss
                 if (m_Instance == null)
                 {
                     m_Instance = new DataManager();
+                    m_Instance.serverHandler = gRpcServerHandler.Instance;
+                    m_Instance.clientHandler = gRpcClientHandler.Instance;
+
                 }
                 return m_Instance;
             }
@@ -29,17 +32,11 @@ namespace PitBoss
         
         private DataManager()
         {
-            //App.KListener.KeyDown += KListener_KeyDown;
-            
+           
         }
 
-        ~DataManager()
-        {
-            //App.KListener.KeyDown -= KListener_KeyDown;
-        }
-
-        gRpcServerHandler serverHandler = gRpcServerHandler.Instance;
-        gRpcClientHandler clientHandler = gRpcClientHandler.Instance;
+        private gRpcServerHandler serverHandler;
+        private gRpcClientHandler clientHandler;
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -79,18 +76,36 @@ namespace PitBoss
         }
 
 
-        private Constants.ConnectionStatus m_ConnectionStatus = Constants.ConnectionStatus.Disconnected;
-        public Constants.ConnectionStatus ConnectionStatus
+        private bool m_ClientHandlerActive = false;
+        public bool ClientHandlerActive
         {
             get
             {
-                return m_ConnectionStatus;
+                return m_ClientHandlerActive;
             }
             set
             {
-                if (value != m_ConnectionStatus)
+                if (value != m_ClientHandlerActive)
                 {
-                    m_ConnectionStatus = value;
+                    m_ClientHandlerActive = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool m_ServerHandlerActive = false;
+        public bool ServerHandlerActive
+        {
+            get
+            {
+                return m_ServerHandlerActive;
+            }
+            set
+            {
+                if (value != m_ServerHandlerActive)
+                {
+                    m_ServerHandlerActive = value;
 
                     OnPropertyChanged();
                 }
@@ -121,11 +136,9 @@ namespace PitBoss
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-
         public void StartServer()
         {
             serverHandler.StartServer();
-            
         }
 
         public void StopServer()
@@ -143,10 +156,10 @@ namespace PitBoss
             clientHandler.disconnectFromServer();
         }
 
-        public void SendNewCoords(double _az, double _dist)
+        public void SendCoords()
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
-            serverHandler.sendNewCoords(_az, _dist);
+            serverHandler.sendNewCoords(LatestAz, LatestDist);
         }
 
         

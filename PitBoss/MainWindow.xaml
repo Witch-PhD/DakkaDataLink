@@ -9,10 +9,10 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl >
         <TabItem x:Name="Spotter_TabItem" Header="Spotter">
-            <userControls:Spotter_UserControl/>
+            <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
         </TabItem>
         <TabItem x:Name="Gunner_TabControl" Header="Gunner">
-            <userControls:GunBattery_UserControl/>
+            <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
         </TabItem>
     </TabControl>
 </Window>

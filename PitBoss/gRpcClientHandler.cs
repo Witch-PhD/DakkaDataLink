@@ -27,8 +27,11 @@ namespace PitBoss
             }
             private set { }
         }
-        private gRpcClientHandler() { }
-
+        private gRpcClientHandler()
+        {
+            dataManager = DataManager.Instance;
+        }
+        private DataManager dataManager;
         AsyncDuplexStreamingCall<Coords, Coords> duplexStream;
         public IAsyncStreamReader<Comms_Core.Coords> incomingStream;
         public IClientStreamWriter<Comms_Core.Coords> outgoingStream;
@@ -38,62 +41,70 @@ namespace PitBoss
         Arty.ArtyClient artyConnection;
         Channel channel;
 
-        internal Constants.ConnectionStatus connectionStatus = Constants.ConnectionStatus.Disconnected;
 
+        private string m_channelTarget = "";
         //public bool Connected = false;
         public void connectToServer(string channelTarget)
         {
-            if (connectionStatus == ConnectionStatus.Connected_As_Gunner)
+            if (dataManager.ClientHandlerActive)
             {
                 Console.WriteLine("gRpcClientHandler already connected. Aborting new connection attempt.");
                 return;
             }
+            
             try
             {
-                Console.WriteLine($"gRpcClientHandler connecting to {channelTarget}");
-                channel = new Grpc.Core.Channel(channelTarget, ChannelCredentials.Insecure);
-                artyConnection = new Arty.ArtyClient(channel);
+                m_channelTarget = channelTarget;
+                Console.WriteLine($"gRpcClientHandler connecting to {m_channelTarget}");
+                openGrpcChannel();
                 clientShutdownTokenSource = new CancellationTokenSource();
-
-                duplexStream = artyConnection.openStream();
-                incomingStream = duplexStream.ResponseStream;
-                outgoingStream = duplexStream.RequestStream;
-
                 receiveTask = new Task(receivingTask);
-                connectionStatus = ConnectionStatus.Connected_As_Gunner;
+                dataManager.ClientHandlerActive = true;
                 receiveTask.Start();
                 
             }
             catch (RpcException ex)
             {
                 Console.WriteLine($"RpcException: {ex.Message}");
-                connectionStatus = ConnectionStatus.Error;
+                dataManager.ClientHandlerActive = false;
             }
+        }
+
+        private void openGrpcChannel()
+        {
+            channel = new Grpc.Core.Channel(m_channelTarget, ChannelCredentials.Insecure);
+            artyConnection = new Arty.ArtyClient(channel);
+
+            duplexStream = artyConnection.openStream();
+            incomingStream = duplexStream.ResponseStream;
+            outgoingStream = duplexStream.RequestStream;
         }
 
         public void disconnectFromServer()
         {
             duplexStream.Dispose();
-            connectionStatus = Constants.ConnectionStatus.Disconnected;
+            dataManager.ClientHandlerActive = false;
         }
 
         public async void receivingTask()
         {
             Console.WriteLine("gRpcClientHandler.receivingTask() started.");
-            while (connectionStatus == Constants.ConnectionStatus.Connected_As_Gunner)
+            while (dataManager.ClientHandlerActive)
             {
                 try
                 {
                     if (await incomingStream.MoveNext(clientShutdownTokenSource.Token))
                     {
                         Coords newCoords = incomingStream.Current;
-                        DataManager.Instance.NewCoordsReceived(newCoords);
+                        dataManager.NewCoordsReceived(newCoords);
                     }
                 }
                 catch (RpcException ex)
                 {
                     Console.WriteLine($"gRpcClientHandler.receivingTask() RpcException: {ex.Message}");
-                    disconnectFromServer();
+                    duplexStream.Dispose();
+                    openGrpcChannel();
+                    Thread.Sleep(1000);
                 }
             }
         }

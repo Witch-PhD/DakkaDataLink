@@ -25,6 +25,7 @@ namespace PitBoss.UserControls
             DataContext = DataManager.Instance;
             
             Topmost = true;
+            
         }
 
   

@@ -8,12 +8,12 @@ namespace PitBoss
 {
     public static class Constants
     {
-        public enum ConnectionStatus
-        {
-            Disconnected,
-            Connected_As_Gunner,
-            Connected_As_Spotter,
-            Error
-        }
+        //public enum ConnectionStatus
+        //{
+        //    Disconnected,
+        //    Connected_As_Gunner,
+        //    Connected_As_Spotter,
+        //    Error
+        //}
     }
 }

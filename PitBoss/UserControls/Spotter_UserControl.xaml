@@ -13,35 +13,55 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
-            <TextBox x:Name="Az_TextBox">
-                <TextBox.Text>
-                    <Binding Path="LatestAz" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox x:Name="Dist_TextBox">
-                <TextBox.Text>
-                    <Binding Path="LatestDist" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Az: " FontSize="20" Width="45" Margin="3,3,3,3"/>
+                <TextBox x:Name="Az_TextBox" FontSize="20" Width="60" Margin="3,3,3,3">
+                    <TextBox.Text>
+                        <Binding Path="LatestAz" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="3,3,3,3"/>
+                <TextBox x:Name="Dist_TextBox" FontSize="20" Width="60" Margin="3,3,3,3">
+                    <TextBox.Text>
+                        <Binding Path="LatestDist" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+
+            <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5"/>
+            
+            <Button Grid.Row="1" Grid.Column="0" x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,55,5,5"/>
         </StackPanel>
-        <Button Grid.Row="0" Grid.Column="1" x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" Margin="5,5,5,5"/>
-        <Button Grid.Row="2" Grid.Column="1" x:Name="OpenConnection_Button" Content="Open Connection" Click="OpenConnection_Button_Click" Margin="5,5,5,5"/>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
+            <StackPanel >
+                <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Transparency: " Margin="3,3,3,3"/>
+                    <TextBox x:Name="OverlayTransparency_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
+                </StackPanel>
+
+                <Slider x:Name="OverlayTransparency_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}" HorizontalAlignment="Left" Margin="3,3,3,3"/>
+
+            </StackPanel>
+        </GroupBox>
 
     </Grid>
 </UserControl>

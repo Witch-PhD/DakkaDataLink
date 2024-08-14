@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using PitBoss.UserControls;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,31 +19,25 @@ namespace PitBoss
     /// </summary>
     public partial class MainWindow : Window
     {
+#if DEBUG
         [DllImport("Kernel32")]
         public static extern void AllocConsole();
 
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
-
-        
-
+#endif
         public MainWindow()
         {
-            
+#if DEBUG
             AllocConsole();
-
-            
-
-
-
+#endif
             InitializeComponent();
         }
 
-        
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-
+            theSpotterUserControl.CloseAllWindows();
+            theGunnerUserControl.CloseAllWindows();
         }
     }
 }

@@ -24,12 +24,13 @@ namespace PitBoss.UserControls
         public GunBattery_UserControl()
         {
             InitializeComponent();
-            DataContext = DataManager.Instance;
+            dataManager = DataManager.Instance;
+            DataContext = dataManager;
         }
-
+        DataManager dataManager;
         private void Connect_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (DataManager.Instance.ConnectionStatus == Constants.ConnectionStatus.Connected_As_Gunner)
+            if (dataManager.ClientHandlerActive)
             {
                 DataManager.Instance.StopClient();
                 Connect_Button.Content = "Connect";
@@ -49,7 +50,10 @@ namespace PitBoss.UserControls
             }
         }
 
-
+        public void CloseAllWindows()
+        {
+            overlayWindow?.Close();
+        }
 
         GunnerOverlay_Window? overlayWindow;
         private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)

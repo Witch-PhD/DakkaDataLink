@@ -12,6 +12,7 @@ namespace PitBoss
     public class gRpcServerHandler : ArtyService
     {
         private static gRpcServerHandler? m_Instance;
+        private DataManager dataManager;
         public static gRpcServerHandler Instance
         {
             get
@@ -30,6 +31,7 @@ namespace PitBoss
         private gRpcServerHandler()
         {
             outgoingStreams = new List<IServerStreamWriter<Coords>>();
+            dataManager = DataManager.Instance;
         }
         public ServerCallContext CallContext
         {
@@ -38,11 +40,12 @@ namespace PitBoss
 
         public static List<IServerStreamWriter<Coords>> outgoingStreams;
 
-        public string ListeningIp = "127.0.0.1";
+        public string ListeningIp = "0.0.0.0";
         public int ListeningPort = 5005;
         private Server? theServer;
         public void StartServer()
         {
+            dataManager.ServerHandlerActive = true;
             theServer = new Server
             {
                 Services = { Arty.BindService(this) },
@@ -57,6 +60,7 @@ namespace PitBoss
         {
             Task serverShutdown = theServer.KillAsync();
             await serverShutdown;
+            dataManager.ServerHandlerActive = false;
             theServer = null;
         }
 
@@ -70,10 +74,10 @@ namespace PitBoss
         /// <returns></returns>
         public override async Task openStream(IAsyncStreamReader<Coords> requestStream, IServerStreamWriter<Coords> responseStream, ServerCallContext context)
         {
-            Console.WriteLine($"openStream() received from {context.Peer}");
-            
+           
             outgoingStreams.Add(responseStream);
-            
+            dataManager.ConnectedClients++;
+            Console.WriteLine($"openStream(): {context.Peer}. Connected. {dataManager.ConnectedClients} connections now active.");
             while (await requestStream.MoveNext(context.CancellationToken))
             {
                 //Coords newCoords = requestStream.Current;
@@ -81,14 +85,17 @@ namespace PitBoss
             }
 
             outgoingStreams.Remove(responseStream);
+            dataManager.ConnectedClients--;
+            Console.WriteLine($"openStream(): {context.Peer}. Disconnected. {dataManager.ConnectedClients} connections now active.");
         }
 
         public async void sendNewCoords(double _az, double _dist)
         {
-            Console.WriteLine($"sendNewCoords entered");
+            //Console.WriteLine($"sendNewCoords entered");
+            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {dataManager.ConnectedClients} guns.");
             foreach (IServerStreamWriter<Coords> gun in outgoingStreams)
             {
-                Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist}");
+                
                 await gun.WriteAsync(new Coords { Az = _az, Dist = _dist });
             }
         }
