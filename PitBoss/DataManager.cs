@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PitBoss
@@ -22,7 +23,8 @@ namespace PitBoss
                     m_Instance = new DataManager();
                     m_Instance.serverHandler = gRpcServerHandler.Instance;
                     m_Instance.clientHandler = gRpcClientHandler.Instance;
-
+                    m_Instance.m_userOptions = new UserOptions();
+                    m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
                 }
                 return m_Instance;
             }
@@ -32,12 +34,15 @@ namespace PitBoss
         
         private DataManager()
         {
-            m_userOptions = new UserOptions();
+            //m_userOptions = new UserOptions();
+            
         }
 
         private gRpcServerHandler serverHandler;
         private gRpcClientHandler clientHandler;
         private UserOptions m_userOptions;
+        private ArtilleryProfiles m_ArtyProfiles;
+        
         public UserOptions userOptions
         {
             get
@@ -77,7 +82,7 @@ namespace PitBoss
         }
 
 
-        private double m_LatestDist = 0.0;
+        private double m_LatestDist = 100.0;
         public double LatestDist
         {
             get
@@ -86,7 +91,20 @@ namespace PitBoss
             }
             set
             {
-                m_LatestDist = value;
+                // Order of these checks is important.
+                if (value < m_ArtyProfiles.CurrentProfile.MinDist)
+                {
+                    m_LatestDist = m_ArtyProfiles.CurrentProfile.MinDist;
+                }
+                else if (value <= m_ArtyProfiles.CurrentProfile.MaxDist)
+                {
+                    m_LatestDist = value;
+                }
+                else
+                {
+                    m_LatestDist = m_ArtyProfiles.CurrentProfile.MaxDist;
+                }
+                
                 OnPropertyChanged();
             }
         }
@@ -198,11 +216,12 @@ namespace PitBoss
             serverHandler.sendNewCoords(LatestAz, LatestDist);
         }
 
-        
+        public event EventHandler<bool> newCoordsReceived;
         public void NewCoordsReceived(Coords coords)
         {
             LatestAz = coords.Az;
             LatestDist = coords.Dist;
+            newCoordsReceived?.Invoke(this, true);
             Console.WriteLine($"DataManager.NewCoordsReceived(), Az: {coords.Az}, Dist: {coords.Dist}");
         }
 

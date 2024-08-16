@@ -44,7 +44,7 @@ namespace PitBoss
         public static List<IServerStreamWriter<Coords>> outgoingStreams;
 
         public string ListeningIp = "0.0.0.0"; // TODO: Likely need to find the available IP addresses on the local machine.
-        private int defaultListeningPort = 50082; // TODO: Set this to 0 to get it auto-assigned?
+        private int m_listeningPort = Constants.SERVER_PORT;
         private Server? theServer;
         public void StartServer()
         {
@@ -52,7 +52,7 @@ namespace PitBoss
             theServer = new Server
             {
                 Services = { Arty.BindService(this) },
-                Ports = { new ServerPort(ListeningIp, defaultListeningPort, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(ListeningIp, m_listeningPort, ServerCredentials.Insecure) }
 
             };
             theServer.Start();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,7 +20,7 @@ namespace PitBoss.UserControls
     /// <summary>
     /// Interaction logic for UserOptions_UserControl.xaml
     /// </summary>
-    public partial class UserOptions_UserControl : UserControl
+    public partial class UserOptions_UserControl : UserControl, INotifyPropertyChanged
     {
         public UserOptions_UserControl()
         {
@@ -27,7 +29,7 @@ namespace PitBoss.UserControls
 
             initComboBoxes();
             DataContext = dataManager;
-
+            //dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
@@ -59,6 +61,10 @@ namespace PitBoss.UserControls
             ValueColor_ComboBox.Items.Add(nameof(Brushes.Gray));
             ValueColor_ComboBox.Items.Add(nameof(Brushes.DarkGray));
 
+            foreach (string artyName in ArtilleryProfiles.Instance.ArtyProfilesDict.Keys)
+            {
+                ArtyProfile_ComboBox.Items.Add(artyName);
+            }
         }
 
         public void CloseAllWindows()
@@ -96,6 +102,20 @@ namespace PitBoss.UserControls
             }
         }
 
+        private bool m_FlashOnNewCoords = true;
+        public bool FlashOnNewCoords
+        {
+            get { return m_FlashOnNewCoords; }
+            set { m_FlashOnNewCoords = value; OnPropertyChanged(); }
+        }
+        private void OnNewCoordsReceived(object sender, bool args)
+        {
+            if (m_FlashOnNewCoords)
+            {
+                overlayWindow.FlashOverlay();
+            }
+        }
+
         private void TextBox_UpdateOnEnter(object sender, KeyEventArgs args)
         {
             if (args.Key == Key.Enter)
@@ -106,6 +126,19 @@ namespace PitBoss.UserControls
                     textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
                 }
             }
+        }
+
+        private void ArtyProfile_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ArtilleryProfiles.Instance.CurrentProfile = ArtilleryProfiles.Instance.ArtyProfilesDict[ArtyProfile_ComboBox.SelectedValue as string];
+            dataManager.LatestDist = ArtilleryProfiles.Instance.CurrentProfile.MinDist;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

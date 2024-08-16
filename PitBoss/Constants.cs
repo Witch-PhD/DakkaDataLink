@@ -8,6 +8,7 @@ namespace PitBoss
 {
     public static class Constants
     {
+        public static int SERVER_PORT = 50082;
         //public enum ConnectionStatus
         //{
         //    Disconnected,

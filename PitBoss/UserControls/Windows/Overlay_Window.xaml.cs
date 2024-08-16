@@ -35,7 +35,16 @@ namespace PitBoss.UserControls
             
         }
 
-        
+        internal void FlashOverlay()
+        {
+            Task flashTask = Task.Run(() =>
+            {
+                SolidColorBrush originalColor = BackGroundBrush;
+                BackGroundBrush = Brushes.DarkRed;
+                Thread.Sleep(500);
+                BackGroundBrush = originalColor;
+            });
+        }
 
         private void MainBorder_MouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
         {

@@ -13,7 +13,7 @@ namespace PitBoss
     {
         public UserOptions()
         {
-        
+            
         }
 
         private double m_OverlayTransparency = 0.5;

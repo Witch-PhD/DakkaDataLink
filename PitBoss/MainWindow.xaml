@@ -7,12 +7,12 @@
         xmlns:userControls="clr-namespace:PitBoss.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <TabControl >
-        <TabItem x:Name="Spotter_TabItem" Header="Spotter">
-            <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
-        </TabItem>
+    <TabControl x:Name="Main_TabControl">
         <TabItem x:Name="Gunner_TabItem" Header="Gunner">
             <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
+        </TabItem>
+        <TabItem x:Name="Spotter_TabItem" Header="Spotter">
+            <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
         </TabItem>
         <TabItem x:Name="Options_TabItem" Header="Options">
             <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>

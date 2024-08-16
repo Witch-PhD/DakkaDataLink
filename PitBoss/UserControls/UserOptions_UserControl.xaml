@@ -58,5 +58,13 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
+
+        <GroupBox Header="Spotter Settings" Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Artillery Profile: " Margin="3,3,3,3"/>
+                <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
+            </StackPanel>
+            
+        </GroupBox>
     </Grid>
 </UserControl>

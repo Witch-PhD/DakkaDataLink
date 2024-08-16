@@ -60,10 +60,6 @@
                 <TextBlock x:Name="ConnectedClientsCount_TextBlock" Text="{Binding Path=ConnectedClients}"/>
             </StackPanel>
             <Button x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,5,5,5"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Listening Port: " Margin="5,5,0,5"/>
-                <TextBlock x:Name="ListeningPort_TextBlock" Margin="0,5,5,5" Text="{Binding Path=ServerActiveListeningPort}" />
-            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

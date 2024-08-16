@@ -10,15 +10,16 @@ namespace PitBoss
     internal class SpotterKeystrokeHandler
     {
         DataManager dataManager = DataManager.Instance;
+        ArtilleryProfiles artyProfiles = ArtilleryProfiles.Instance;
         private bool m_IsActive = false;
         bool rightCtrlHeldDown = false;
         bool rightShiftHeldDown = false;
 
         double smallDistIncrement = 1.0;
-        double largeDistIncrement = 10.0;
+        double largeDistIncrement = 8.0;
 
         double smallAzIncrement = 1.0;
-        double largeAzIncrement = 15.0;
+        double largeAzIncrement = 10.0;
 
         double azIncrement;
         double distIncrement;
@@ -74,12 +75,12 @@ namespace PitBoss
             if (rightShiftHeldDown)
             {
                 azIncrement = largeAzIncrement;
-                distIncrement = largeDistIncrement;
+                distIncrement = artyProfiles.CurrentProfile.DistTickSize * 3.0;
             }
             else if (rightCtrlHeldDown)
             {
                 azIncrement = smallAzIncrement;
-                distIncrement = smallDistIncrement;
+                distIncrement = artyProfiles.CurrentProfile.DistTickSize;
             }
             else
             {

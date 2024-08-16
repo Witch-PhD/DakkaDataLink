@@ -38,14 +38,20 @@ namespace PitBoss.UserControls
             {
                 DataManager.Instance.StopClient();
                 Connect_Button.Content = "Connect";
+
+                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                mainWindow.SetOperatingMode(MainWindow.ProgramOperatingMode.eIdle);
             }
             else
             {
-                bool validIP = IPEndPoint.TryParse(spotterIp_TextBox.Text, out _);
+                bool validIP = IPEndPoint.TryParse(spotterIp_TextBox.Text + $":{Constants.SERVER_PORT}", out _);
                 if (validIP)
                 {
-                    DataManager.Instance.StartClient(spotterIp_TextBox.Text);
+                    DataManager.Instance.StartClient(spotterIp_TextBox.Text + $":{Constants.SERVER_PORT}");
                     Connect_Button.Content = "Disconnect";
+
+                    MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.SetOperatingMode(MainWindow.ProgramOperatingMode.eGunner);
                 }
                 else
                 {
