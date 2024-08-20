@@ -43,6 +43,7 @@ namespace PitBoss
         private UserOptions m_userOptions;
         private ArtilleryProfiles m_ArtyProfiles;
         
+
         public UserOptions userOptions
         {
             get
@@ -54,6 +55,29 @@ namespace PitBoss
                 if (m_userOptions != value)
                 {
                     m_userOptions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        
+
+        public enum ProgramOperatingMode
+        {
+            eIdle,
+            eSpotter,
+            eGunner
+        }
+        private ProgramOperatingMode m_operatingMode;
+        public ProgramOperatingMode OperatingMode
+        {
+            get
+            { return m_operatingMode; }
+            set
+            {
+                if (value != m_operatingMode)
+                {
+                    m_operatingMode = value;
                     OnPropertyChanged();
                 }
             }
@@ -213,7 +237,19 @@ namespace PitBoss
         public void SendCoords()
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
-            serverHandler.sendNewCoords(LatestAz, LatestDist);
+
+            if (ServerHandlerActive)
+            {
+                serverHandler.sendNewCoords(LatestAz, LatestDist);
+            }
+            else if (ClientHandlerActive)
+            {
+                clientHandler.sendNewCoords(LatestAz, LatestDist);
+            }
+            else
+            {
+                // wut
+            }
         }
 
         public event EventHandler<bool> newCoordsReceived;

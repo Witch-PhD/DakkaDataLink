@@ -43,34 +43,29 @@ namespace PitBoss
             //theGunnerUserControl.CloseAllWindows();
         }
 
-        public enum ProgramOperatingMode
-        {
-            eIdle,
-            eSpotter,
-            eGunner
-        }
-
-        public void SetOperatingMode(ProgramOperatingMode mode)
+        public void SetOperatingMode(DataManager.ProgramOperatingMode mode)
         {
             switch (mode)
             {
-                case ProgramOperatingMode.eIdle:
-                    Gunner_TabItem.IsEnabled = true;
-                    Spotter_TabItem.IsEnabled = true;
-                    //Gunner_TabItem.Visibility = Visibility.Visible;
-                    //Spotter_TabItem.Visibility = Visibility.Visible;
+                case DataManager.ProgramOperatingMode.eIdle:
+                    //Gunner_TabItem.IsEnabled = true;
+                    //Spotter_TabItem.IsEnabled = true;
+                    Gunner_TabItem.Visibility = Visibility.Collapsed;
+                    Spotter_TabItem.Visibility = Visibility.Collapsed;
                     break;
 
-                case ProgramOperatingMode.eSpotter:
-                    Spotter_TabItem.IsSelected = true;
-                    Gunner_TabItem.IsEnabled = false;
-                    //Gunner_TabItem.Visibility = Visibility.Collapsed;
+                case DataManager.ProgramOperatingMode.eSpotter:
+                    //Spotter_TabItem.IsSelected = true;
+                    //Gunner_TabItem.IsEnabled = false;
+                    Spotter_TabItem.Visibility = Visibility.Visible;
+                    Gunner_TabItem.Visibility = Visibility.Collapsed;
                     break;
 
-                case ProgramOperatingMode.eGunner:
-                    Gunner_TabItem.IsSelected = true;
-                    Spotter_TabItem.IsEnabled = false;
-                    //Spotter_TabItem.Visibility = Visibility.Collapsed;
+                case DataManager.ProgramOperatingMode.eGunner:
+                    //Gunner_TabItem.IsSelected = true;
+                    //Spotter_TabItem.IsEnabled = false;
+                    Gunner_TabItem.Visibility= Visibility.Visible;
+                    Spotter_TabItem.Visibility = Visibility.Collapsed;
                     break;
 
                 default:

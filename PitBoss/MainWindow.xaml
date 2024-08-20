@@ -8,13 +8,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <TabControl x:Name="Main_TabControl">
-        <TabItem x:Name="Gunner_TabItem" Header="Gunner">
+        <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">
             <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
         </TabItem>
-        <TabItem x:Name="Spotter_TabItem" Header="Spotter">
+        <TabItem x:Name="Spotter_TabItem" Header="Spotter" Visibility="Collapsed">
             <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
         </TabItem>
-        <TabItem x:Name="Options_TabItem" Header="Options">
+        <TabItem x:Name="Options_TabItem" Header="Options" IsSelected="True">
             <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
         </TabItem>
     </TabControl>

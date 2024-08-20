@@ -15,7 +15,32 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="Overlay Settings">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Connection Settings">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="I am a: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <RadioButton x:Name="gunnerMode_RadioButton" GroupName="operatingModesRadioGroup" IsChecked="True" Content="Gunner" Margin="5,5,5,5"/>
+                    <RadioButton x:Name="spotterMode_RadioButton" GroupName="operatingModesRadioGroup" Content="Spotter" Margin="5,5,5,5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Server's IP: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>
+                    <TextBox x:Name="serverIp_TextBox" Text="" Height="25" Width="125" Margin="5,5,5,5">
+                        <TextBox.ToolTip>
+                            ex: 192.168.0.1
+                        </TextBox.ToolTip>
+                    </TextBox>
+                    
+                </StackPanel>
+                <Button x:Name="ConnectToServer_Button" Content="Connect to Server" Click="ConnectToServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
+                <Button x:Name="StartServer_Button" Content="Start as Server" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,15,5,5"/>
+            </StackPanel>
+            
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -28,20 +53,20 @@
                         <TextBlock Text="Opacity: " Margin="3,3,3,3"/>
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
-                    <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Width="200" Value="{Binding Path=Opacity}" HorizontalAlignment="Left" Margin="3,3,3,3"/>
+                    <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Label Color:</TextBlock>
+                        <TextBlock Width="100" Margin="3,3,3,3">Label Color:</TextBlock>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Value Color:</TextBlock>
+                        <TextBlock Width="100" Margin="3,3,3,3">Value Color:</TextBlock>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Font Size:</TextBlock>
+                        <TextBlock Width="100" Margin="3,3,3,3">Font Size:</TextBlock>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72

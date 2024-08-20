@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,15 +27,17 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
-
-            initComboBoxes();
             DataContext = dataManager;
+            initComboBoxes();
+            
             //dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
         private void initComboBoxes()
         {
+            BrushConverter converter = new BrushConverter();
+
             LabelColor_ComboBox.Items.Add(nameof(Brushes.Red));
             LabelColor_ComboBox.Items.Add(nameof(Brushes.Orange));
             LabelColor_ComboBox.Items.Add(nameof(Brushes.Yellow));
@@ -65,6 +68,7 @@ namespace PitBoss.UserControls
             {
                 ArtyProfile_ComboBox.Items.Add(artyName);
             }
+            ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
         }
 
         public void CloseAllWindows()
@@ -108,6 +112,114 @@ namespace PitBoss.UserControls
             get { return m_FlashOnNewCoords; }
             set { m_FlashOnNewCoords = value; OnPropertyChanged(); }
         }
+
+        private void setOperatingModes()
+        {
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            DataManager.ProgramOperatingMode newMode;
+
+            if ((bool)gunnerMode_RadioButton.IsChecked)
+            {
+                newMode = DataManager.ProgramOperatingMode.eGunner;
+            }
+            else
+            {
+                newMode = DataManager.ProgramOperatingMode.eSpotter;
+                SpotterKeystrokeHandler.Instance.Activate();
+            }
+
+            gunnerMode_RadioButton.IsEnabled = false;
+            spotterMode_RadioButton.IsEnabled = false;
+
+            dataManager.OperatingMode = newMode;
+            mainWindow.SetOperatingMode(newMode);
+
+         //   switch (newMode)
+         //   {
+         //       case DataManager.ProgramOperatingMode.eSpotter:
+         //
+         //           break;
+         //
+         //       case DataManager.ProgramOperatingMode.eGunner:
+         //
+         //           break;
+         //
+         //       case DataManager.ProgramOperatingMode.eIdle;
+         //
+         //           break;
+         //
+         //       default:
+         //
+         //           break;
+         //   }
+        }
+
+        private void ConnectToServer_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataManager.ClientHandlerActive)
+            {
+                DataManager.Instance.StopClient();
+                ConnectToServer_Button.Content = "Connect to Server";
+
+                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
+
+                SpotterKeystrokeHandler.Instance.Deactivate();
+                StartServer_Button.IsEnabled = true;
+                gunnerMode_RadioButton.IsEnabled = true;
+                spotterMode_RadioButton.IsEnabled = true;
+            }
+            else
+            {
+                bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{Constants.SERVER_PORT}", out _);
+                if (validIP)
+                {
+                    DataManager.Instance.StartClient(serverIp_TextBox.Text + $":{Constants.SERVER_PORT}");
+                    ConnectToServer_Button.Content = "Disconnect";
+
+                    StartServer_Button.IsEnabled = false;
+                    serverIp_TextBox.IsEnabled = false;
+
+                    setOperatingModes();
+                }
+                else
+                {
+                    Console.WriteLine("*** Invalid server IP address. Check your values.");
+                }
+            }
+        }
+
+        private void StartServer_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataManager.ServerHandlerActive)
+            {
+                DataManager.Instance.StopServer();
+                
+                StartServer_Button.Content = "Start as Server";
+
+                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
+
+                SpotterKeystrokeHandler.Instance.Deactivate();
+                ConnectToServer_Button.IsEnabled = true;
+                serverIp_TextBox.IsEnabled = true;
+                gunnerMode_RadioButton.IsEnabled = true;
+                spotterMode_RadioButton.IsEnabled = true;
+            }
+            else
+            {
+                DataManager.Instance.StartServer();
+                
+                StartServer_Button.Content = "Stop Server";
+
+                ConnectToServer_Button.IsEnabled = false;
+                serverIp_TextBox.IsEnabled = false;
+
+                setOperatingModes();
+            }
+
+        }
+
         private void OnNewCoordsReceived(object sender, bool args)
         {
             if (m_FlashOnNewCoords)

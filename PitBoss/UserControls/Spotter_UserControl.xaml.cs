@@ -32,29 +32,7 @@ namespace PitBoss.UserControls
         }
         DataManager dataManager;
 
-        private void OpenConnection_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (dataManager.ServerHandlerActive)
-            {
-                DataManager.Instance.StopServer();
-                SpotterKeystrokeHandler.Instance.Deactivate();
-                OpenConnection_Button.Content = "Open Connections";
-
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.SetOperatingMode(MainWindow.ProgramOperatingMode.eIdle);
-            }
-            else
-            {
-                DataManager.Instance.StartServer();
-                SpotterKeystrokeHandler.Instance.Activate();
-                OpenConnection_Button.Content = "Stop Connection";
-
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.SetOperatingMode(MainWindow.ProgramOperatingMode.eSpotter);
-
-            }
-            
-        }
+        
 
         private void SendCoords_Button_Click(object sender, RoutedEventArgs e)
         {

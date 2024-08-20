@@ -33,6 +33,23 @@ namespace PitBoss
             }
         }
 
+        private Brush m_OverlayBackgroundColor = Brushes.DarkGray;
+        public Brush OverlayBackgroundColor
+        {
+            get
+            {
+                return m_OverlayBackgroundColor;
+            }
+            set
+            {
+                if (m_OverlayBackgroundColor != value)
+                {
+                    m_OverlayBackgroundColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private Brush m_OverlayValuesFontColor = Brushes.Red;
         public Brush OverlayValuesFontColor
         {

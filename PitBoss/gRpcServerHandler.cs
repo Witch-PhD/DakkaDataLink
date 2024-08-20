@@ -99,8 +99,19 @@ namespace PitBoss
                     {
                         break;
                     }
-                    //Coords newCoords = requestStream.Current;
-                    _ = requestStream.Current;
+                    Coords newCoords = requestStream.Current;
+                    if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner)
+                    {
+                        dataManager.LatestAz = newCoords.Az;
+                        dataManager.LatestDist = newCoords.Dist;
+                        sendNewCoords(newCoords.Az, newCoords.Dist);
+                    }
+                    else
+                    {
+                        // TODO: Handle spotter server message receipt, if/when that functionality gets coded.
+                    }
+                    
+                    //_ = requestStream.Current;
                 }
 
             }

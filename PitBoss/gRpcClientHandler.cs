@@ -121,5 +121,18 @@ namespace PitBoss
             }
             Console.WriteLine("gRpcClientHandler.receivingTask() ending.");
         }
+
+        public async void sendNewCoords(double _az, double _dist)
+        {
+            //Console.WriteLine($"sendNewCoords entered");
+            //Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {outgoingStreams.Count} guns.");
+            //foreach (IServerStreamWriter<Coords> gun in outgoingStreams)
+            //{
+            //
+            //    await gun.WriteAsync(new Coords { Az = _az, Dist = _dist });
+            //}
+            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist}");
+            await outgoingStream.WriteAsync(new Coords { Az = _az, Dist = _dist });
+        }
     }
 }

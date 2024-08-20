@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PitBoss.UserControls"
              xmlns:validators="clr-namespace:PitBoss.Validators"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="250" d:DesignWidth="400" Background="White">
     <UserControl.Resources>
         <validators:DoubleMinMaxValidator x:Key="doubleMinMaxValidator"/>
     </UserControl.Resources>
@@ -38,7 +38,7 @@
                 <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5"/>
                 <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
                     <TextBox.ToolTip>
-                        Right Ctrl + Up/Down Arrow for 1 meter step. Right Shift + Up/Down Arrow for 10 meter step.
+                        Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
                     </TextBox.ToolTip>
                     <TextBox.Text>
                         <Binding Path="LatestDist" NotifyOnValidationError="True">
@@ -59,7 +59,7 @@
                 <TextBlock Text="Number of connected guns: "/> 
                 <TextBlock x:Name="ConnectedClientsCount_TextBlock" Text="{Binding Path=ConnectedClients}"/>
             </StackPanel>
-            <Button x:Name="OpenConnection_Button" Content="Open Connection" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenConnection_Button_Click" Margin="5,5,5,5"/>
+            
         </StackPanel>
     </Grid>
 </UserControl>

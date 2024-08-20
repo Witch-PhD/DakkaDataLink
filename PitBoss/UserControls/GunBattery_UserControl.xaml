@@ -5,13 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PitBoss.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400" Background="white">
+             d:DesignHeight="250" d:DesignWidth="400" Background="white">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="Firing Coordinates">
@@ -25,23 +24,6 @@
                     <TextBlock Width="35" Margin="3,3,3,3" FontSize="20" >Dist:</TextBlock>
                     <TextBox x:Name="Dist_TextBox" Text="{Binding Path=LatestDist}" IsReadOnly="True" FontSize="20"  Width="75" Margin="3,3,3,3"/>
                 </StackPanel>
-            </StackPanel>
-        </GroupBox>
-
-        
-        
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Connection Settings">
-            <StackPanel >
-                <StackPanel Orientation="Horizontal" >
-                    <TextBlock Text="Spotter IP: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>
-                    <TextBox x:Name="spotterIp_TextBox" Text="" Height="25" Width="125" Margin="5,5,5,5">
-                        <TextBox.ToolTip>
-                            ex: 192.168.0.1
-                        </TextBox.ToolTip>
-                    </TextBox>
-                    <Button x:Name="Connect_Button" Content="Connect" Click="Connect_Button_Click" VerticalAlignment="Center" Height="30" Width="65" Margin="15,5,5,5"/>
-                </StackPanel>
-                
             </StackPanel>
         </GroupBox>
     </Grid>
