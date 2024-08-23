@@ -31,23 +31,22 @@ https://www.whatismyip.com/
 
 Both the Gunners and Spotter can open an adjustable overlay window with the "Toggle Overlay" button.
 
-### Spotter shotcuts (as of v0.1.0):
-```
-Increase Az by 1 degree: Right Ctrl + Right Arrow
-Increase Az by 10 degrees: Right Shift + Right Arrow
-Decrease Az by 1 degree: Right Ctrl + Left Arrow
-Decrease Az by 10 degrees: Right Shift + Left Arrow
+Spotters can customize their keyboard shortcuts to increase and descrease azimuth and distance by using the Spotter Options panel in the Options tab.
 
-Increase Dist by 1 tick: Right Ctrl + Up Arrow
-Increase Dist by 3 tickss: Right Shift + Up Arrow
-Decrease Dist by 1 tick: Right Ctrl + Down Arrow
-Decrease Dist by 3 ticks: Right Shift + Down Arrow
+### Artillery Profiles
+When spotting, it is useful to change the distance in a set number of meters for that specific weapon system, known as "ticks."</br>
+To set the tick value, select the artillery profile in the Options tab that is appropriate for the weapon system in use.</br>
+PitBoss will take care of the rest.
 
-Send the coords to all gunners: Right Ctrl + Number Pad Zero (0)
-```
 </br>
 </br>
 
 This is a very new project and will necessarily be quite bare bones and prone to errors and crashes for the moment, but I hope with your help in testing it we can make this tool into something that will be indispensible on ops in the future.
 
 Any feedback, positive and (especially) negative is welcome and encouraged. Please let me know of any bugs you run into. Feel free to either leave your feedback in [Discussions](https://github.com/Witch-PhD/PitBoss/discussions), add an [Issue](https://github.com/Witch-PhD/PitBoss/issues) on the GitHub repository, or DM me directly on Discord.
+
+Special thanks to all the people who have helped me test this so far, in particular:</br>
+[82DK-A] Einherj</br>
+[82DK-A] Huners</br>
+Avail</br>
+Kyuss/Gustavo</br>
