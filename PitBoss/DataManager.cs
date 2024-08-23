@@ -1,6 +1,7 @@
 ﻿using Comms_Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +26,7 @@ namespace PitBoss
                     m_Instance.clientHandler = gRpcClientHandler.Instance;
                     m_Instance.m_userOptions = new UserOptions();
                     m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
+                    //m_Instance.ConnectedGunsCallsigns = new ObservableCollection<string>();
                 }
                 return m_Instance;
             }
@@ -42,8 +44,8 @@ namespace PitBoss
         private gRpcClientHandler clientHandler;
         private UserOptions m_userOptions;
         private ArtilleryProfiles m_ArtyProfiles;
-        
 
+        //public ObservableCollection<string> ConnectedGunsCallsigns { get; set; }
         public UserOptions userOptions
         {
             get
@@ -82,6 +84,25 @@ namespace PitBoss
                 }
             }
         }
+
+        private string m_MyCallsign = "";
+        public string MyCallsign
+        {
+            get
+            {
+                return m_MyCallsign;
+            }
+            set
+            {
+                if (m_MyCallsign != value)
+                {
+                    m_MyCallsign = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -214,6 +235,30 @@ namespace PitBoss
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        public ArtyMsg getAssembledMsg()
+        {
+            ArtyMsg artyMsg = new ArtyMsg();
+            artyMsg.Az = LatestAz;
+            artyMsg.Dist = LatestDist;
+            artyMsg.Callsign = MyCallsign;
+            if (ServerHandlerActive)
+            {
+                artyMsg.ConnectedGuns = ConnectedClients;
+            }
+
+            return artyMsg;
+        }
+
+        public void unpackIncomingArtyMsg(ArtyMsg msg)
+        {
+            LatestAz = msg.Az;
+            LatestDist = msg.Dist;
+            if (!(ServerHandlerActive))
+            {
+                ConnectedClients = msg.ConnectedGuns;
+            }
+        }
+
         public void StartServer()
         {
             serverHandler.StartServer();
@@ -237,14 +282,15 @@ namespace PitBoss
         public void SendCoords()
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
+            ArtyMsg artyMsg = getAssembledMsg();
 
             if (ServerHandlerActive)
             {
-                serverHandler.sendNewCoords(LatestAz, LatestDist);
+                serverHandler.sendNewCoords(artyMsg);
             }
             else if (ClientHandlerActive)
             {
-                clientHandler.sendNewCoords(LatestAz, LatestDist);
+                clientHandler.sendNewCoords(artyMsg);
             }
             else
             {
@@ -253,12 +299,12 @@ namespace PitBoss
         }
 
         public event EventHandler<bool> newCoordsReceived;
-        public void NewCoordsReceived(Coords coords)
+        public void NewArtyMsgReceived(ArtyMsg theMsg)
         {
-            LatestAz = coords.Az;
-            LatestDist = coords.Dist;
-            newCoordsReceived?.Invoke(this, true);
-            Console.WriteLine($"DataManager.NewCoordsReceived(), Az: {coords.Az}, Dist: {coords.Dist}");
+            unpackIncomingArtyMsg(theMsg);
+            
+            //newCoordsReceived?.Invoke(this, true);
+            Console.WriteLine($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
         }
 
 

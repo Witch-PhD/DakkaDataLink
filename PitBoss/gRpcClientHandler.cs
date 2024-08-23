@@ -32,9 +32,9 @@ namespace PitBoss
             dataManager = DataManager.Instance;
         }
         private DataManager dataManager;
-        AsyncDuplexStreamingCall<Coords, Coords> duplexStream;
-        public IAsyncStreamReader<Comms_Core.Coords> incomingStream;
-        public IClientStreamWriter<Comms_Core.Coords> outgoingStream;
+        AsyncDuplexStreamingCall<ArtyMsg, ArtyMsg> duplexStream;
+        public IAsyncStreamReader<Comms_Core.ArtyMsg> incomingStream;
+        public IClientStreamWriter<Comms_Core.ArtyMsg> outgoingStream;
         CancellationTokenSource clientShutdownTokenSource;
         Task receiveTask;
 
@@ -100,8 +100,8 @@ namespace PitBoss
                 {
                     if (await incomingStream.MoveNext(clientShutdownTokenSource.Token))
                     {
-                        Coords newCoords = incomingStream.Current;
-                        dataManager.NewCoordsReceived(newCoords);
+                        ArtyMsg newMsg = incomingStream.Current;
+                        dataManager.NewArtyMsgReceived(newMsg);
                     }
                 }
                 catch (RpcException ex)
@@ -122,7 +122,7 @@ namespace PitBoss
             Console.WriteLine("gRpcClientHandler.receivingTask() ending.");
         }
 
-        public async void sendNewCoords(double _az, double _dist)
+        public async void sendNewCoords(ArtyMsg artyMsg)
         {
             //Console.WriteLine($"sendNewCoords entered");
             //Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {outgoingStreams.Count} guns.");
@@ -131,8 +131,8 @@ namespace PitBoss
             //
             //    await gun.WriteAsync(new Coords { Az = _az, Dist = _dist });
             //}
-            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist}");
-            await outgoingStream.WriteAsync(new Coords { Az = _az, Dist = _dist });
+            Console.WriteLine($"gRpcClientHandler.sendNewCoords(): CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            await outgoingStream.WriteAsync(artyMsg);
         }
     }
 }

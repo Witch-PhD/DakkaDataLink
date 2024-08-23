@@ -6,29 +6,13 @@ package arty;
 
 service Arty
 {
-	rpc notifySubscribe(subscribeNotification) returns (MsgStatus);
-	rpc notifyUnsubscribe(unsubscribeNotification) returns (MsgStatus);
-	rpc receiveNewCoords(Coords) returns (MsgStatus);
-	rpc openStream(stream Coords) returns (stream Coords);
+	rpc openStream(stream ArtyMsg) returns (stream ArtyMsg);
 }
 
-message Coords
+message ArtyMsg
 {
 	double Az = 1;
 	double Dist = 2;
-}
-
-message MsgStatus
-{
-	int32 statusCode = 1;
-}
-
-message subscribeNotification
-{
-	string Callsign = 1;
-}
-
-message unsubscribeNotification
-{
-	string Callsign = 1;
+	string Callsign = 3;
+	int32 ConnectedGuns = 4;
 }

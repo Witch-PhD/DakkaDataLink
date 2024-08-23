@@ -33,7 +33,12 @@ namespace PitBoss
 //#endif
             InitializeComponent();
             this.Title = "The Pit Boss";
+            this.SizeToContent = SizeToContent.WidthAndHeight;
+            dataManager = DataManager.Instance;
+            StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
         }
+
+        DataManager dataManager;
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {

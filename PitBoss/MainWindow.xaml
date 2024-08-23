@@ -6,16 +6,35 @@
         xmlns:local="clr-namespace:PitBoss"
         xmlns:userControls="clr-namespace:PitBoss.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <TabControl x:Name="Main_TabControl">
-        <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">
-            <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
-        </TabItem>
-        <TabItem x:Name="Spotter_TabItem" Header="Spotter" Visibility="Collapsed">
-            <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
-        </TabItem>
-        <TabItem x:Name="Options_TabItem" Header="Options" IsSelected="True">
-            <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
-        </TabItem>
-    </TabControl>
+        Title="MainWindow" Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="Main_TabControl" Grid.Row="0" Grid.Column="0">
+            <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">
+                <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
+            </TabItem>
+            <TabItem x:Name="Spotter_TabItem" Header="Spotter" Visibility="Collapsed">
+                <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
+            </TabItem>
+            <TabItem x:Name="Options_TabItem" Header="Options" IsSelected="True">
+                <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
+            </TabItem>
+        </TabControl>
+        <StatusBar Grid.Row="1" Grid.Column="0">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="Guns connected: " Margin="3,0,0,0"/>
+               
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBar_GunsConnectedValue_TextBlock" Text="{Binding Path=ConnectedClients}"/>
+
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 </Window>

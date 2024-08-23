@@ -31,7 +31,7 @@ namespace PitBoss
         }
         private gRpcServerHandler()
         {
-            outgoingStreams = new List<IServerStreamWriter<Coords>>();
+            outgoingStreams = new List<IServerStreamWriter<ArtyMsg>>();
             dataManager = DataManager.Instance;
         }
         public ServerCallContext CallContext
@@ -41,7 +41,7 @@ namespace PitBoss
 
 
 
-        public static List<IServerStreamWriter<Coords>> outgoingStreams;
+        public static List<IServerStreamWriter<ArtyMsg>> outgoingStreams;
 
         public string ListeningIp = "0.0.0.0"; // TODO: Likely need to find the available IP addresses on the local machine.
         private int m_listeningPort = Constants.SERVER_PORT;
@@ -85,7 +85,7 @@ namespace PitBoss
         /// <param name="responseStream"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override async Task openStream(IAsyncStreamReader<Coords> requestStream, IServerStreamWriter<Coords> responseStream, ServerCallContext context)
+        public override async Task openStream(IAsyncStreamReader<ArtyMsg> requestStream, IServerStreamWriter<ArtyMsg> responseStream, ServerCallContext context)
         {
             string currentPeer = context.Peer;
             try
@@ -99,16 +99,19 @@ namespace PitBoss
                     {
                         break;
                     }
-                    Coords newCoords = requestStream.Current;
+                    ArtyMsg newMsg = requestStream.Current;
                     if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner)
                     {
-                        dataManager.LatestAz = newCoords.Az;
-                        dataManager.LatestDist = newCoords.Dist;
-                        sendNewCoords(newCoords.Az, newCoords.Dist);
+                        newMsg.ConnectedGuns = dataManager.ConnectedClients;
+                        dataManager.NewArtyMsgReceived(newMsg);
+                        sendNewCoords(newMsg);
                     }
                     else
                     {
-                        // TODO: Handle spotter server message receipt, if/when that functionality gets coded.
+                        //if (!dataManager.ConnectedGunsCallsigns.Contains(newMsg.Callsign))
+                        //{
+                        //    dataManager.ConnectedGunsCallsigns.Add(newMsg.Callsign);
+                        //}
                     }
                     
                     //_ = requestStream.Current;
@@ -124,14 +127,14 @@ namespace PitBoss
             }
         }
 
-        public async void sendNewCoords(double _az, double _dist)
+        public async void sendNewCoords(ArtyMsg artyMsg)
         {
             //Console.WriteLine($"sendNewCoords entered");
-            Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {outgoingStreams.Count} guns.");
-            foreach (IServerStreamWriter<Coords> gun in outgoingStreams)
+            Console.WriteLine($"gRpcServerHandler.sendNewCoords(): CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
             {
                 
-                await gun.WriteAsync(new Coords { Az = _az, Dist = _dist });
+                await gun.WriteAsync(artyMsg);
             }
         }
     }
