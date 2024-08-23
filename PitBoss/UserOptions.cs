@@ -139,7 +139,7 @@ namespace PitBoss
             BindingDictionary.Add(DIST_DOWN_ONE_TICK_DICT_KEY, new KeyCombo(Key.RightCtrl, Key.Down));
             BindingDictionary.Add(DIST_DOWN_MULTI_TICK_DICT_KEY, new KeyCombo(Key.RightShift, Key.Down));
 
-            BindingDictionary.Add(SEND_ARTY_MSG_DICT_KEY, new KeyCombo(Key.RightCtrl, Key.Up));
+            BindingDictionary.Add(SEND_ARTY_MSG_DICT_KEY, new KeyCombo(Key.RightCtrl, Key.NumPad0));
         }
 
         #endregion

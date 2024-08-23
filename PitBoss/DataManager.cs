@@ -136,18 +136,25 @@ namespace PitBoss
             }
             set
             {
-                // Order of these checks is important.
-                if (value < m_ArtyProfiles.CurrentProfile.MinDist)
+                if (OperatingMode == ProgramOperatingMode.eSpotter)
                 {
-                    m_LatestDist = m_ArtyProfiles.CurrentProfile.MinDist;
-                }
-                else if (value <= m_ArtyProfiles.CurrentProfile.MaxDist)
-                {
-                    m_LatestDist = value;
+                    // Order of these checks is important.
+                    if (value < m_ArtyProfiles.CurrentProfile.MinDist)
+                    {
+                        m_LatestDist = m_ArtyProfiles.CurrentProfile.MinDist;
+                    }
+                    else if (value <= m_ArtyProfiles.CurrentProfile.MaxDist)
+                    {
+                        m_LatestDist = value;
+                    }
+                    else
+                    {
+                        m_LatestDist = m_ArtyProfiles.CurrentProfile.MaxDist;
+                    }
                 }
                 else
                 {
-                    m_LatestDist = m_ArtyProfiles.CurrentProfile.MaxDist;
+                    m_LatestDist = value;
                 }
                 
                 OnPropertyChanged();
