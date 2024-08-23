@@ -10,7 +10,7 @@ This is accomplished by providing both the spotter and the gunners with an overl
 Az/Dist adjustments can be made by the spotter using keyboard shortcuts, rather than having to manually type them into a text box every time.</br>
 
 ### To Install:
-Get the pre-release version from my GitHub repository here: </br>
+Get the latest pre-release version from my GitHub repository here: </br>
 https://github.com/Witch-PhD/PitBoss/releases </br>
 The program is set up so that there is only one file, PitBoss.exe, that can be double clicked to run.
 
