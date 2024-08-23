@@ -20,6 +20,10 @@ https://dotnet.microsoft.com/en-us/download/dotnet/8.0 </br>
 Specifically, you will want to get the .Net Desktop Runtime. Most likely x64, but if your computer is older you may need x86 instead.
 
 ### To start using it:
+
+Your Foxhole video settings must be set to Windowed Fullscreen or Windowed.</br>
+Regular fullscreen may not work correctly.
+
 Due to the peer-to-peer nature of the program, the person that is the server will need to set up Port Forwarding in their router for port number 50082.</br>
 If you do not know how to do that, this is a good starting point:</br>
 [How To Set Up Port Forwarding](https://support.source-elements.com/source-elements/step-by-step-port-forwarding-guide)
