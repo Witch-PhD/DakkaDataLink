@@ -166,6 +166,7 @@ namespace PitBoss.UserControls
 
                 SpotterKeystrokeHandler.Instance.Deactivate();
                 StartServer_Button.IsEnabled = true;
+                serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
             }

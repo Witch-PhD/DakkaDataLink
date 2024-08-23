@@ -55,11 +55,7 @@
                     Right Ctrl + NumPad Zero to send.
                 </Button.ToolTip>
             </Button>
-            <StackPanel Orientation="Horizontal" Margin="5,35,5,5">
-                <TextBlock Text="Number of connected guns: "/> 
-                <TextBlock x:Name="ConnectedClientsCount_TextBlock" Text="{Binding Path=ConnectedClients}"/>
-            </StackPanel>
-            
+
         </StackPanel>
     </Grid>
 </UserControl>

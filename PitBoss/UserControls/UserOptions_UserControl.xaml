@@ -36,14 +36,14 @@
                     
                 </StackPanel>
                 <Button x:Name="ConnectToServer_Button" Content="Connect to Server" Click="ConnectToServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
-                <Button x:Name="StartServer_Button" Content="Start as Server" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,15,5,5"/>
+                <Button x:Name="StartServer_Button" Content="Start as Server" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,5,5,5"/>
             </StackPanel>
             
         </GroupBox>
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="130"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
@@ -58,15 +58,15 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="100" Margin="3,3,3,3">Label Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3">Label Color:</TextBlock>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="100" Margin="3,3,3,3">Value Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3">Value Color:</TextBlock>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="100" Margin="3,3,3,3">Font Size:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3">Font Size:</TextBlock>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72
