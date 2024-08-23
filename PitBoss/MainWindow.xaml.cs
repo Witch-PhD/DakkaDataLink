@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static PitBoss.Constants;
+using static PitBoss.PitBossConstants;
 
 namespace PitBoss
 {
@@ -80,6 +80,25 @@ namespace PitBoss
                     //Spotter_TabItem.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        AboutWindow? aboutWindow;
+        private void About_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (aboutWindow == null)
+            {
+                aboutWindow = new AboutWindow();
+                aboutWindow.Title = "Version Info";
+                aboutWindow.ResizeMode = ResizeMode.CanMinimize;
+                aboutWindow.SizeToContent = SizeToContent.WidthAndHeight;
+                aboutWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                aboutWindow.Closing += (o, ev) =>
+                {
+                    aboutWindow = null;
+                };
+            }
+            aboutWindow.Show();
         }
     }
 }

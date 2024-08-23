@@ -12,10 +12,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="Main_TabControl" Grid.Row="0" Grid.Column="0">
+        <Menu>
+            <MenuItem Header="File">
+                <MenuItem Header="Save Settings..." IsEnabled="false" ToolTip="Not yet implemented."/>
+                <MenuItem Header="Load Settings..." IsEnabled="false" ToolTip="Not yet implemented."/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem x:Name="About_MenuItem" Header="About..." Click="About_MenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">
             <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">
                 <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
             </TabItem>
@@ -26,7 +38,7 @@
                 <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Row="1" Grid.Column="0">
+        <StatusBar Grid.Row="2" Grid.Column="0">
             <StatusBarItem>
                 <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="Guns connected: " Margin="3,0,0,0"/>
                

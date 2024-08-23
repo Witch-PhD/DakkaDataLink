@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PitBoss
 {
-    public static class Constants
+    public static class PitBossConstants
     {
+        public static readonly string VERSION_STRING = "0.2.0";
         public static int SERVER_PORT = 50082;
         //public enum ConnectionStatus
         //{

@@ -172,10 +172,10 @@ namespace PitBoss.UserControls
             }
             else
             {
-                bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{Constants.SERVER_PORT}", out _);
+                bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}", out _);
                 if (validIP)
                 {
-                    DataManager.Instance.StartClient(serverIp_TextBox.Text + $":{Constants.SERVER_PORT}");
+                    DataManager.Instance.StartClient(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}");
                     ConnectToServer_Button.Content = "Disconnect";
 
                     StartServer_Button.IsEnabled = false;

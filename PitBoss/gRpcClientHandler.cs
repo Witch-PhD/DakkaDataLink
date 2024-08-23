@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PitBoss.Constants;
+using static PitBoss.PitBossConstants;
 
 namespace PitBoss
 {

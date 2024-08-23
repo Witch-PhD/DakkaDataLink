@@ -44,7 +44,7 @@ namespace PitBoss
         public static List<IServerStreamWriter<ArtyMsg>> outgoingStreams;
 
         public string ListeningIp = "0.0.0.0"; // TODO: Likely need to find the available IP addresses on the local machine.
-        private int m_listeningPort = Constants.SERVER_PORT;
+        private int m_listeningPort = PitBossConstants.SERVER_PORT;
         private Server? theServer;
         public void StartServer()
         {
