@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PitBoss.UserControls"
              xmlns:validators="clr-namespace:PitBoss.Validators"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="500" d:DesignWidth="800" Background="White">
     <UserControl.Resources>
         <validators:IntMinMaxValidator x:Key="intMinMaxValidator"/>
     </UserControl.Resources>
@@ -16,7 +16,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="Connection Settings">
@@ -85,11 +85,59 @@
         </GroupBox>
 
         <GroupBox Header="Spotter Settings" Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Artillery Profile: " Margin="3,3,3,3"/>
-                <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
-            </StackPanel>
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="Artillery Profile: " Margin="3,3,3,3"/>
+                    <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
+                </StackPanel>
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Az + 1 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Az - 1 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Az + 10 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Az - 10 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Dist + 1 Tick Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Dist - 1 Tick Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Dist + 3 Ticks Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Dist - 3 Ticks Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="Send Coords Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+
+                <TextBox x:Name="AzPlusOne_KeyBinding_TextBox" Grid.Row="1" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="AzMinusOne_KeyBinding_TextBox" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="AzPlusTen_KeyBinding_TextBox" Grid.Row="3" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="AzMinusTen_KeyBinding_TextBox" Grid.Row="4" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="DistPlusOne_KeyBinding_TextBox" Grid.Row="5" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="DistMinusOne_KeyBinding_TextBox" Grid.Row="6" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="DistPlusMulti_KeyBinding_TextBox" Grid.Row="7" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="DistMinusMulti_KeyBinding_TextBox" Grid.Row="8" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                <TextBox x:Name="SendCoords_KeyBinding_TextBox" Grid.Row="9" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+
+                <Button x:Name="ChangeBindingFor_AzPlus1_Button" Grid.Row="1" Grid.Column="2" Click="ChangeBindingFor_AzPlus1_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_AzMinus1_Button" Grid.Row="2" Grid.Column="2" Click="ChangeBindingFor_AzMinus1_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_AzPlus10_Button" Grid.Row="3" Grid.Column="2" Click="ChangeBindingFor_AzPlus10_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_AzMinus10_Button" Grid.Row="4" Grid.Column="2" Click="ChangeBindingFor_AzMinus10_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_DistPlusOne_Button" Grid.Row="5" Grid.Column="2" Click="ChangeBindingFor_DistPlusOne_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_DistMinusOne_Button" Grid.Row="6" Grid.Column="2" Click="ChangeBindingFor_DistMinusOne_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_DistPlusMulti_Button" Grid.Row="7" Grid.Column="2" Click="ChangeBindingFor_DistPlusMulti_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_DistMinusMulti_Button" Grid.Row="8" Grid.Column="2" Click="ChangeBindingFor_DistMinusMulti_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                <Button x:Name="ChangeBindingFor_SendCoords_Button" Grid.Row="9" Grid.Column="2" Click="ChangeBindingFor_SendCoords_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+            </Grid>
         </GroupBox>
     </Grid>
 </UserControl>

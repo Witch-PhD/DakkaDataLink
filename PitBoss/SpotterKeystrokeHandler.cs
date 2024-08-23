@@ -12,6 +12,8 @@ namespace PitBoss
         DataManager dataManager = DataManager.Instance;
         ArtilleryProfiles artyProfiles = ArtilleryProfiles.Instance;
         private bool m_IsActive = false;
+        private bool m_SetBindingInProgress = false;
+
         bool rightCtrlHeldDown = false;
         bool rightShiftHeldDown = false;
 
@@ -42,6 +44,7 @@ namespace PitBoss
         {
             azIncrement = smallAzIncrement;
             distIncrement = smallDistIncrement;
+            currentKeys = new KeyCombo();
         }
 
         public void Activate()
@@ -54,87 +57,179 @@ namespace PitBoss
             m_IsActive = false;
         }
 
+        KeyCombo? currentKeys;
+        private string keyBindingBeingSet = "";
+        public void BeginSetKeyBinding(string bindingDictKeyName)
+        {
+            if (dataManager.userOptions.BindingDictionary.ContainsKey(bindingDictKeyName))
+            {
+                keyBindingBeingSet = bindingDictKeyName;
+                currentKeys = new KeyCombo();
+                m_SetBindingInProgress = true;
+                m_IsActive = true;
+            }
+            else
+            {
+                throw new ArgumentException("BeginSetKeyBinding invalid args");
+            }
+        }
+
+        public void EndSetKeyBinding()
+        {
+            m_SetBindingInProgress = false;
+            m_IsActive = false;
+            dataManager.userOptions.BindingDictionary[keyBindingBeingSet] = currentKeys;
+            currentKeys = new KeyCombo();
+        }
+
+        
         internal void handleKeyDown(RawKeyEventArgs args)
         {
             if (!m_IsActive)
             {
                 return;
             }
-           // Console.WriteLine("Key Down: " + args.Key.ToString());
+            // Console.WriteLine("Key Down: " + args.Key.ToString());
             //////// Modifiers ////////
-            if (args.Key == Key.RightShift)
-            {
-                rightShiftHeldDown = true;
-            }
 
-            else if (args.Key == Key.RightCtrl)
+            if (m_SetBindingInProgress)
             {
-                rightCtrlHeldDown = true;
-            }
-
-            if (rightShiftHeldDown)
-            {
-                azIncrement = largeAzIncrement;
-                distIncrement = artyProfiles.CurrentProfile.DistTickSize * 3.0;
-            }
-            else if (rightCtrlHeldDown)
-            {
-                azIncrement = smallAzIncrement;
-                distIncrement = artyProfiles.CurrentProfile.DistTickSize;
-            }
-            else
-            {
+                if (!(currentKeys.theComboList.Contains(args.Key)))
+                {
+                    currentKeys.theComboList.Add(args.Key);
+                }
                 return;
             }
 
-            // TODO: Make this a switch statement.
-
-            //////// Distance ////////
-            if (args.Key == Key.Up)
+            if (!(currentKeys.theComboList.Contains(args.Key)))
             {
-                dataManager.LatestDist += distIncrement;
-            }
-            else if (args.Key == Key.Down)
-            {
-                dataManager.LatestDist -= distIncrement;
+                currentKeys.theComboList.Add(args.Key);
             }
 
-            //////// Azimuth ////////
-            else if (args.Key == Key.Right)
+            foreach (KeyValuePair<string, KeyCombo> validEntry in dataManager.userOptions.BindingDictionary)
             {
-                dataManager.LatestAz += azIncrement;
-            }
-            else if (args.Key == Key.Left)
-            {
-                dataManager.LatestAz -= azIncrement;
-            }
-
-            //////// Send New Coords ////////
-            else if (args.Key == Key.NumPad0)
-            {
-                if (rightCtrlHeldDown)
+                if (validEntry.Value == currentKeys)
                 {
-                    dataManager.SendCoords();
+                    switch (validEntry.Key)
+                    {
+                        case UserOptions.AZ_UP_ONE_DEG_DICT_KEY:
+                            dataManager.LatestAz += 1.0;
+                            break;
+
+                        case UserOptions.AZ_UP_MULTI_DEG_DICT_KEY:
+                            dataManager.LatestAz += 10.0;
+                            break;
+
+                        case UserOptions.AZ_DOWN_ONE_DEG_DICT_KEY:
+                            dataManager.LatestAz -= 1.0;
+                            break;
+
+                        case UserOptions.AZ_DOWN_MULTI_DEG_DICT_KEY:
+                            dataManager.LatestAz -= 10.0;
+                            break;
+
+                        case UserOptions.DIST_UP_ONE_TICK_DICT_KEY:
+                            dataManager.LatestDist += artyProfiles.CurrentProfile.DistTickSize;
+                            break;
+
+                        case UserOptions.DIST_UP_MULTI_TICK_DICT_KEY:
+                            dataManager.LatestDist += artyProfiles.CurrentProfile.DistTickSize * 3.0;
+                            break;
+
+                        case UserOptions.DIST_DOWN_ONE_TICK_DICT_KEY:
+                            dataManager.LatestDist -= artyProfiles.CurrentProfile.DistTickSize;
+                            break;
+
+                        case UserOptions.DIST_DOWN_MULTI_TICK_DICT_KEY:
+                            dataManager.LatestDist -= artyProfiles.CurrentProfile.DistTickSize * 3.0;
+                            break;
+
+                        case UserOptions.SEND_ARTY_MSG_DICT_KEY:
+                            dataManager.SendCoords();
+                            break;
+
+                        default:
+
+                            break;
+
+                    }
                 }
             }
+
+        //    if (args.Key == Key.RightShift)
+        //    {
+        //        rightShiftHeldDown = true;
+        //    }
+        //
+        //    else if (args.Key == Key.RightCtrl)
+        //    {
+        //        rightCtrlHeldDown = true;
+        //    }
+        //
+        //    if (rightShiftHeldDown)
+        //    {
+        //        azIncrement = largeAzIncrement;
+        //        distIncrement = artyProfiles.CurrentProfile.DistTickSize * 3.0;
+        //    }
+        //    else if (rightCtrlHeldDown)
+        //    {
+        //        azIncrement = smallAzIncrement;
+        //        distIncrement = artyProfiles.CurrentProfile.DistTickSize;
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //
+        //    // TODO: Make this a switch statement.
+        //
+        //    //////// Distance ////////
+        //    if (args.Key == Key.Up)
+        //    {
+        //        dataManager.LatestDist += distIncrement;
+        //    }
+        //    else if (args.Key == Key.Down)
+        //    {
+        //        dataManager.LatestDist -= distIncrement;
+        //    }
+        //
+        //    //////// Azimuth ////////
+        //    else if (args.Key == Key.Right)
+        //    {
+        //        dataManager.LatestAz += azIncrement;
+        //    }
+        //    else if (args.Key == Key.Left)
+        //    {
+        //        dataManager.LatestAz -= azIncrement;
+        //    }
+        //
+        //    //////// Send New Coords ////////
+        //    else if (args.Key == Key.NumPad0)
+        //    {
+        //        if (rightCtrlHeldDown)
+        //        {
+        //            dataManager.SendCoords();
+        //        }
+        //    }
 
         }
 
         internal void handleKeyUp(RawKeyEventArgs args)
         {
-            if (!m_IsActive)
+            if ((!m_IsActive) || (m_SetBindingInProgress))
             {
                 return;
             }
-            //Console.WriteLine("Key Up: " + args.Key.ToString());
-            if (args.Key == Key.RightShift)
-            {
-                rightShiftHeldDown = false;
-            }
-            else if (args.Key == Key.RightCtrl)
-            {
-                rightCtrlHeldDown = false;
-            }
+           // Console.WriteLine("Key Up: " + args.Key.ToString());
+            //    if (args.Key == Key.RightShift)
+            //    {
+            //        rightShiftHeldDown = false;
+            //    }
+            //    else if (args.Key == Key.RightCtrl)
+            //    {
+            //        rightCtrlHeldDown = false;
+            //    }
+            currentKeys.theComboList.Remove(args.Key);
         }
     }
 }

@@ -29,7 +29,8 @@ namespace PitBoss
             {
                 { Lariat120mm.ProfileName, Lariat120mm },
                 { Exalt150mm.ProfileName, Exalt150mm },
-                { Skycaller.ProfileName, Skycaller }
+                { Skycaller.ProfileName, Skycaller },
+                { Cremari_Mortar.ProfileName, Cremari_Mortar },
             };
             CurrentProfile = ArtyProfilesDict["Lariat 120mm"];
         }
@@ -63,10 +64,12 @@ namespace PitBoss
         public readonly ArtilleryProfile Lariat120mm = new ArtilleryProfile(LARIAT_120_NAME, 8.0, 100.0, 300.0);
         public readonly ArtilleryProfile Exalt150mm = new ArtilleryProfile(EXALT_150_NAME, 8.0, 100.0, 300.0);
         public readonly ArtilleryProfile Skycaller = new ArtilleryProfile(SKYCALLER_NAME, 15.0, 200.0, 275.0);
+        public readonly ArtilleryProfile Cremari_Mortar = new ArtilleryProfile(CREMARI_MORTAR_NAME, 0.5, 45.0, 80.0);
 
         public const string LARIAT_120_NAME = "Lariat 120mm";
         public const string EXALT_150_NAME = "Exalt 150mm";
         public const string SKYCALLER_NAME = "Skycaller";
+        public const string CREMARI_MORTAR_NAME = "Cremari Mortar";
 
         public class ArtilleryProfile
         {

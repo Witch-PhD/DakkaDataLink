@@ -29,7 +29,7 @@ namespace PitBoss.UserControls
             InitializeComponent();
             DataContext = dataManager;
             initComboBoxes();
-            
+            updateKeyBindingStrings();
             //dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
@@ -252,6 +252,239 @@ namespace PitBoss.UserControls
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        
+
+
+        private void disableSetBindingButtons()
+        {
+            ChangeBindingFor_AzPlus1_Button.IsEnabled = false;
+            ChangeBindingFor_AzMinus1_Button.IsEnabled = false;
+            ChangeBindingFor_AzPlus10_Button.IsEnabled = false;
+            ChangeBindingFor_AzMinus10_Button.IsEnabled = false;
+            ChangeBindingFor_DistPlusOne_Button.IsEnabled = false;
+            ChangeBindingFor_DistMinusOne_Button.IsEnabled = false;
+            ChangeBindingFor_DistPlusMulti_Button.IsEnabled = false;
+            ChangeBindingFor_DistMinusMulti_Button.IsEnabled = false;
+            ChangeBindingFor_SendCoords_Button.IsEnabled = false;
+        }
+
+        private void enableSetBindingButtons()
+        {
+            ChangeBindingFor_AzPlus1_Button.IsEnabled = true;
+            ChangeBindingFor_AzMinus1_Button.IsEnabled = true;
+            ChangeBindingFor_AzPlus10_Button.IsEnabled = true;
+            ChangeBindingFor_AzMinus10_Button.IsEnabled = true;
+            ChangeBindingFor_DistPlusOne_Button.IsEnabled = true;
+            ChangeBindingFor_DistMinusOne_Button.IsEnabled = true;
+            ChangeBindingFor_DistPlusMulti_Button.IsEnabled = true;
+            ChangeBindingFor_DistMinusMulti_Button.IsEnabled = true;
+            ChangeBindingFor_SendCoords_Button.IsEnabled = true;
+        }
+
+        private void updateKeyBindingStrings()
+        {
+            Dictionary<string, KeyCombo> combosList = dataManager.userOptions.BindingDictionary;
+            AzPlusOne_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.AZ_UP_ONE_DEG_DICT_KEY].ToString();
+            AzMinusOne_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.AZ_DOWN_ONE_DEG_DICT_KEY].ToString();
+            AzPlusTen_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.AZ_UP_MULTI_DEG_DICT_KEY].ToString();
+            AzMinusTen_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.AZ_DOWN_MULTI_DEG_DICT_KEY].ToString();
+            DistPlusOne_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.DIST_UP_ONE_TICK_DICT_KEY].ToString();
+            DistMinusOne_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.DIST_DOWN_ONE_TICK_DICT_KEY].ToString();
+            DistPlusMulti_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.DIST_UP_MULTI_TICK_DICT_KEY].ToString();
+            DistMinusMulti_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.DIST_DOWN_MULTI_TICK_DICT_KEY].ToString();
+            SendCoords_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.SEND_ARTY_MSG_DICT_KEY].ToString();
+        }
+
+        private bool setBindingsActivated = false;
+        private void ChangeBindingFor_AzPlus1_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_AzPlus1_Button.IsEnabled = true;
+                ChangeBindingFor_AzPlus1_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.AZ_UP_ONE_DEG_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_AzPlus1_Button.IsEnabled = true;
+                ChangeBindingFor_AzPlus1_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_AzMinus1_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_AzMinus1_Button.IsEnabled = true;
+                ChangeBindingFor_AzMinus1_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.AZ_DOWN_ONE_DEG_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_AzMinus1_Button.IsEnabled = true;
+                ChangeBindingFor_AzMinus1_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_AzPlus10_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_AzPlus10_Button.IsEnabled = true;
+                ChangeBindingFor_AzPlus10_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.AZ_UP_MULTI_DEG_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_AzPlus10_Button.IsEnabled = true;
+                ChangeBindingFor_AzPlus10_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_AzMinus10_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_AzMinus10_Button.IsEnabled = true;
+                ChangeBindingFor_AzMinus10_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.AZ_DOWN_MULTI_DEG_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_AzMinus10_Button.IsEnabled = true;
+                ChangeBindingFor_AzMinus10_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_DistPlusOne_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_DistPlusOne_Button.IsEnabled = true;
+                ChangeBindingFor_DistPlusOne_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.DIST_UP_ONE_TICK_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_DistPlusOne_Button.IsEnabled = true;
+                ChangeBindingFor_DistPlusOne_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_DistMinusOne_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_DistMinusOne_Button.IsEnabled = true;
+                ChangeBindingFor_DistMinusOne_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.DIST_DOWN_ONE_TICK_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_DistMinusOne_Button.IsEnabled = true;
+                ChangeBindingFor_DistMinusOne_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_DistPlusMulti_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_DistPlusMulti_Button.IsEnabled = true;
+                ChangeBindingFor_DistPlusMulti_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.DIST_UP_MULTI_TICK_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_DistPlusMulti_Button.IsEnabled = true;
+                ChangeBindingFor_DistPlusMulti_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_DistMinusMulti_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_DistMinusMulti_Button.IsEnabled = true;
+                ChangeBindingFor_DistMinusMulti_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.DIST_DOWN_MULTI_TICK_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_DistMinusMulti_Button.IsEnabled = true;
+                ChangeBindingFor_DistMinusMulti_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
+        }
+
+        private void ChangeBindingFor_SendCoords_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!setBindingsActivated) // Changing Binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                disableSetBindingButtons();
+                ChangeBindingFor_SendCoords_Button.IsEnabled = true;
+                ChangeBindingFor_SendCoords_Button.Content = "Finish";
+                SpotterKeystrokeHandler.Instance.BeginSetKeyBinding(UserOptions.SEND_ARTY_MSG_DICT_KEY);
+            }
+            else // Done changing binding.
+            {
+                setBindingsActivated = !setBindingsActivated;
+                enableSetBindingButtons();
+                ChangeBindingFor_SendCoords_Button.IsEnabled = true;
+                ChangeBindingFor_SendCoords_Button.Content = "Change Key(s)";
+                SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
+                updateKeyBindingStrings();
+            }
         }
     }
 }
