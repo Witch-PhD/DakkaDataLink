@@ -134,7 +134,7 @@ namespace PitBoss
             foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
             {
                 
-                await gun.WriteAsync(artyMsg);
+                gun.WriteAsync(artyMsg);
             }
         }
     }
