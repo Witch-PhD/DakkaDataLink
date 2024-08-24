@@ -34,6 +34,9 @@
             <TabItem x:Name="Spotter_TabItem" Header="Spotter" Visibility="Collapsed">
                 <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
             </TabItem>
+            <TabItem x:Name="Connections_TabItem" Header="Connections">
+                <userControls:ConnectionsUserControl x:Name="Connections_UserControl"/>
+            </TabItem>
             <TabItem x:Name="Options_TabItem" Header="Options" IsSelected="True">
                 <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
             </TabItem>

@@ -19,18 +19,18 @@ namespace PitBoss
     /// </summary>
     public partial class MainWindow : Window
     {
-//#if DEBUG
+#if DEBUG
         [DllImport("Kernel32")]
         public static extern void AllocConsole();
 
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
-//#endif
+#endif
         public MainWindow()
         {
-//#if INCLUDE_DEBUG_CONSOLE
+#if DEBUG
             AllocConsole();
-//#endif
+#endif
             InitializeComponent();
             this.Title = "The Pit Boss";
             this.SizeToContent = SizeToContent.WidthAndHeight;

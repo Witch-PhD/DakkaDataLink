@@ -17,30 +17,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
+           
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="Connection Settings">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="I am a: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <RadioButton x:Name="gunnerMode_RadioButton" GroupName="operatingModesRadioGroup" IsChecked="True" Content="Gunner" Margin="5,5,5,5"/>
-                    <RadioButton x:Name="spotterMode_RadioButton" GroupName="operatingModesRadioGroup" Content="Spotter" Margin="5,5,5,5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" >
-                    <TextBlock Text="Server's IP: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>
-                    <TextBox x:Name="serverIp_TextBox" Text="" Height="25" Width="125" Margin="5,5,5,5">
-                        <TextBox.ToolTip>
-                            ex: 192.168.0.1
-                        </TextBox.ToolTip>
-                    </TextBox>
-                    
-                </StackPanel>
-                <Button x:Name="ConnectToServer_Button" Content="Connect to Server" Click="ConnectToServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
-                <Button x:Name="StartServer_Button" Content="Start as Server" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,5,5,5"/>
-            </StackPanel>
-            
-        </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Overlay Settings">
+        
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Overlay Settings">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="130"/>
