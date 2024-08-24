@@ -43,7 +43,7 @@
         </TabControl>
         <StatusBar Grid.Row="2" Grid.Column="0">
             <StatusBarItem>
-                <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="Guns connected: " Margin="3,0,0,0"/>
+                <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="Users connected: " Margin="3,0,0,0"/>
                
             </StatusBarItem>
             <StatusBarItem>

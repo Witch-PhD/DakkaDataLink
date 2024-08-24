@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -46,6 +47,7 @@ namespace PitBoss.UserControls
             }
             else
             {
+                serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
                 bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}", out _);
                 if (validIP)
                 {
