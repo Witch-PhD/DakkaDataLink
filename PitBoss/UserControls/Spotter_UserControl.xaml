@@ -18,6 +18,22 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
+               <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5"/>
+                <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
+                    <TextBox.ToolTip>
+                        Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
+                    </TextBox.ToolTip>
+                    <TextBox.Text>
+                        <Binding Path="LatestDist" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5"/>
                 <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
@@ -28,22 +44,6 @@
                         <Binding Path="LatestAz" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5"/>
-                <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
-                    <TextBox.ToolTip>
-                        Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
-                    </TextBox.ToolTip>
-                    <TextBox.Text>
-                        <Binding Path="LatestDist" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
