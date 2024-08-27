@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
-            GetIp();
+            GetExternalIp();
         }
         private DataManager dataManager;
 
@@ -109,18 +110,9 @@ namespace PitBoss.UserControls
 
         }
 
-        public void GetIp()
+        private void GetExternalIp()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    userIp_textBox.Text = ip.ToString();
-                    return;
-                }
-            }
-            throw new Exception("No IPv4 address on local network");
+            userIp_textBox.Text = new HttpClient().GetStringAsync("https://checkip.amazonaws.com/").GetAwaiter().GetResult();
         }
 
         private void CopyIp_Button_Click(object sender, RoutedEventArgs e)
