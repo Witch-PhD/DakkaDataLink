@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PitBoss.UserControls
 {
@@ -26,6 +14,7 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
+            GetIp();
         }
         private DataManager dataManager;
 
@@ -118,6 +107,25 @@ namespace PitBoss.UserControls
             dataManager.OperatingMode = newMode;
             mainWindow.SetOperatingMode(newMode);
 
+        }
+
+        public void GetIp()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    userIp_textBox.Text = ip.ToString();
+                    return;
+                }
+            }
+            throw new Exception("No IPv4 address on local network");
+        }
+
+        private void CopyIp_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(userIp_textBox.Text);
         }
     }
 }
