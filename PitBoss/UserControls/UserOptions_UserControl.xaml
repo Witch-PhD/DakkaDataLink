@@ -38,15 +38,15 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Label Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Label Color:</TextBlock>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Value Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Value Color:</TextBlock>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3">Font Size:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Font Size:</TextBlock>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72
@@ -72,12 +72,12 @@
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <TextBlock Text="Artillery Profile: " Margin="3,3,3,3"/>
+                    <TextBlock Text="Artillery Profile: " Margin="3,3,3,3" VerticalAlignment="Center"/>
                     <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Text="Custom Shortcuts Menu: " Margin="3,3,3,3"/>
+                    <TextBlock Text="Custom Shortcuts Menu: " Margin="3,3,3,3" VerticalAlignment="Center"/>
                     <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Content="Show" Click="Shortcuts_Button_Click"/>
                 </StackPanel>
                 <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Hidden">
