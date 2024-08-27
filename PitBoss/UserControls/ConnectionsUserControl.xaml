@@ -26,10 +26,10 @@
                 <Button x:Name="ConnectToServer_Button" Content="Connect to Server" Click="ConnectToServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
                 <Button x:Name="StartServer_Button" Content="Start as Server" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,5,5,5"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Margin="3,3,3,3">Your Ip Adress:</TextBlock>
+                    <TextBlock VerticalAlignment="Center" Margin="3,3,3,3">Your IP Address:</TextBlock>
                     <TextBox x:Name="userIp_textBox" Height="25" FontSize="14" VerticalContentAlignment="Center" Text="000.000.000.000" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" Margin="5,5,5,5"/>
                 </StackPanel>
-                <Button x:Name="CopyIp_Button" Content="Copy Ip Adress" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CopyIp_Button_Click" Margin="5,5,5,5"/>
+                <Button x:Name="CopyIp_Button" Content="Copy IP Address" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CopyIp_Button_Click" Margin="5,5,5,5"/>
             </StackPanel>
 
         </GroupBox>
