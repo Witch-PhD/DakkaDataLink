@@ -310,7 +310,7 @@ namespace PitBoss
         {
             unpackIncomingArtyMsg(theMsg);
             
-            //newCoordsReceived?.Invoke(this, true);
+            newCoordsReceived?.Invoke(this, true);
             Console.WriteLine($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
         }
 
