@@ -382,5 +382,19 @@ namespace PitBoss.UserControls
                 updateKeyBindingStrings();
             }
         }
+
+        private void Shortcuts_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShorcutsMenu.Visibility == Visibility.Visible)
+            {
+                ShorcutsMenu.Visibility = Visibility.Hidden;
+                Shortcuts_Button.Content = "Show";
+            }
+            else
+            {
+                ShorcutsMenu.Visibility = Visibility.Visible;
+                Shortcuts_Button.Content = "Hide";
+            }
+        }
     }
 }
