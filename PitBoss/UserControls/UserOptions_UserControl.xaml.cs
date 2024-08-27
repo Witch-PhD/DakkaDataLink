@@ -23,6 +23,8 @@ namespace PitBoss.UserControls
     /// </summary>
     public partial class UserOptions_UserControl : UserControl, INotifyPropertyChanged
     {
+        private double opacity = 0.1;
+
         public UserOptions_UserControl()
         {
             dataManager = DataManager.Instance;
@@ -97,10 +99,11 @@ namespace PitBoss.UserControls
                 };
 
                 overlayWindow.Show();
-                overlayWindow.BackGroundBrush.Opacity = 0.1;
+                overlayWindow.BackGroundBrush.Opacity = opacity;
             }
             else
             {
+                opacity = OverlayOpacity_Slider.Value;
                 OverlayOpacity_Slider.DataContext = null;
                 OverlayOpacity_TextBox.DataContext = null;
                 OverlayOpacity_TextBox.Text = "N/A";
