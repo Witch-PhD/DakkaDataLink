@@ -33,21 +33,21 @@
                         <TextBlock Text="Opacity: " Margin="3,3,3,3"/>
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
-                    <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
+                    <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="70" Margin="3,3,3,3">Label Color:</TextBlock>
-                        <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3"/>
+                        <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="70" Margin="3,3,3,3">Value Color:</TextBlock>
-                        <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3"/>
+                        <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="70" Margin="3,3,3,3">Font Size:</TextBlock>
-                        <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3">
+                        <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72
                             </TextBox.ToolTip>

@@ -86,6 +86,9 @@ namespace PitBoss.UserControls
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
                 OverlayOpacity_Slider.IsEnabled = true;
+                LabelColor_ComboBox.IsEnabled = true;
+                ValueColor_ComboBox.IsEnabled = true;
+                FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
                 overlayWindow.Closing += (o, ev) =>
@@ -102,6 +105,9 @@ namespace PitBoss.UserControls
                 OverlayOpacity_TextBox.DataContext = null;
                 OverlayOpacity_TextBox.Text = "N/A";
                 OverlayOpacity_Slider.IsEnabled = false;
+                LabelColor_ComboBox.IsEnabled = false;
+                ValueColor_ComboBox.IsEnabled = false;
+                FontSize_TextBox.IsEnabled = false;
                 overlayWindow.Close();
             }
         }
