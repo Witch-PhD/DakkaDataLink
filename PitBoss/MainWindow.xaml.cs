@@ -43,7 +43,9 @@ namespace PitBoss
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             theUserOptionsUserControl.CloseAllWindows();
+#if DEBUG
             FreeConsole();
+#endif
             //theSpotterUserControl.CloseAllWindows();
             //theGunnerUserControl.CloseAllWindows();
         }
