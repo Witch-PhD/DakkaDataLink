@@ -32,7 +32,7 @@ namespace PitBoss.UserControls
             DataContext = dataManager;
             initComboBoxes();
             updateKeyBindingStrings();
-            //dataManager.newCoordsReceived += OnNewCoordsReceived;
+            dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
@@ -130,7 +130,7 @@ namespace PitBoss.UserControls
         {
             if (m_FlashOnNewCoords)
             {
-                overlayWindow.FlashOverlay();
+                overlayWindow?.FlashOverlay();
             }
         }
 

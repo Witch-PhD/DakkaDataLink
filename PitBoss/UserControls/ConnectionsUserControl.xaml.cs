@@ -15,7 +15,13 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
+
             GetExternalIp();
+
+#if DEBUG
+            serverIp_TextBox.Text = "127.0.0.1";
+#endif
+
         }
         private DataManager dataManager;
 

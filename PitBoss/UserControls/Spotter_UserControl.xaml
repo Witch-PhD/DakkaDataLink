@@ -25,7 +25,7 @@
                         Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
                     </TextBox.ToolTip>
                     <TextBox.Text>
-                        <Binding Path="LatestDist" NotifyOnValidationError="True">
+                        <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
                             </Binding.ValidationRules>
@@ -41,7 +41,7 @@
                         Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
                     </TextBox.ToolTip>
                     <TextBox.Text>
-                        <Binding Path="LatestAz" NotifyOnValidationError="True">
+                        <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
                             </Binding.ValidationRules>
