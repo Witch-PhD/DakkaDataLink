@@ -23,6 +23,8 @@ namespace PitBoss.UserControls
     /// </summary>
     public partial class UserOptions_UserControl : UserControl, INotifyPropertyChanged
     {
+        private double opacity = 0.1;
+
         public UserOptions_UserControl()
         {
             dataManager = DataManager.Instance;
@@ -86,6 +88,9 @@ namespace PitBoss.UserControls
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
                 OverlayOpacity_Slider.IsEnabled = true;
+                LabelColor_ComboBox.IsEnabled = true;
+                ValueColor_ComboBox.IsEnabled = true;
+                FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
                 overlayWindow.Closing += (o, ev) =>
@@ -94,14 +99,18 @@ namespace PitBoss.UserControls
                 };
 
                 overlayWindow.Show();
-                overlayWindow.BackGroundBrush.Opacity = 0.1;
+                overlayWindow.BackGroundBrush.Opacity = opacity;
             }
             else
             {
+                opacity = OverlayOpacity_Slider.Value;
                 OverlayOpacity_Slider.DataContext = null;
                 OverlayOpacity_TextBox.DataContext = null;
                 OverlayOpacity_TextBox.Text = "N/A";
                 OverlayOpacity_Slider.IsEnabled = false;
+                LabelColor_ComboBox.IsEnabled = false;
+                ValueColor_ComboBox.IsEnabled = false;
+                FontSize_TextBox.IsEnabled = false;
                 overlayWindow.Close();
             }
         }
@@ -380,6 +389,20 @@ namespace PitBoss.UserControls
                 ChangeBindingFor_SendCoords_Button.Content = "Change Key(s)";
                 SpotterKeystrokeHandler.Instance.EndSetKeyBinding();
                 updateKeyBindingStrings();
+            }
+        }
+
+        private void Shortcuts_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShorcutsMenu.Visibility == Visibility.Visible)
+            {
+                ShorcutsMenu.Visibility = Visibility.Hidden;
+                Shortcuts_Button.Content = "Show";
+            }
+            else
+            {
+                ShorcutsMenu.Visibility = Visibility.Visible;
+                Shortcuts_Button.Content = "Hide";
             }
         }
     }

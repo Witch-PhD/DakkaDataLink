@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PitBoss.UserControls
 {
@@ -26,9 +15,13 @@ namespace PitBoss.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
+
+            GetExternalIp();
+
 #if DEBUG
             serverIp_TextBox.Text = "127.0.0.1";
 #endif
+
         }
         private DataManager dataManager;
 
@@ -85,6 +78,8 @@ namespace PitBoss.UserControls
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
+
+                userIp_stackPanel.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -94,6 +89,8 @@ namespace PitBoss.UserControls
 
                 ConnectToServer_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
+
+                userIp_stackPanel.Visibility = Visibility.Visible;
 
                 setOperatingModes();
             }
@@ -121,6 +118,16 @@ namespace PitBoss.UserControls
             dataManager.OperatingMode = newMode;
             mainWindow.SetOperatingMode(newMode);
 
+        }
+
+        private void GetExternalIp()
+        {
+            userIp_textBox.Text = new HttpClient().GetStringAsync("https://checkip.amazonaws.com/").GetAwaiter().GetResult();
+        }
+
+        private void CopyIp_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(userIp_textBox.Text);
         }
     }
 }
