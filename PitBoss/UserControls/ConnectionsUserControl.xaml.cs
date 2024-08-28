@@ -72,6 +72,8 @@ namespace PitBoss.UserControls
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
+
+                userIp_stackPanel.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -81,6 +83,8 @@ namespace PitBoss.UserControls
 
                 ConnectToServer_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
+
+                userIp_stackPanel.Visibility = Visibility.Visible;
 
                 setOperatingModes();
             }
