@@ -39,7 +39,7 @@ namespace PitBoss.UserControls
 
             flashTimer = new System.Windows.Threading.DispatcherTimer();
             flashTimer.Tick += flashTask;
-            flashTimer.Interval = new TimeSpan(0, 0, 0, 0, 250);
+            flashTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -88,8 +88,8 @@ namespace PitBoss.UserControls
         }
 
         private System.Windows.Threading.DispatcherTimer flashTimer;
-        private byte flashIteration = 0;
-        private byte flashIterationToComplete = 2; // One iteration does one color change. Full cycle must be a multiple of 2.
+        private byte flashIteration = 1;
+        private byte flashIterationToComplete = 4; // One iteration does one color change. Full cycle must be a multiple of 2.
         internal void FlashOverlay()
         {
             //Thickness originalThickness = borderThickness;
@@ -105,7 +105,7 @@ namespace PitBoss.UserControls
 
         private void flashTask(object sender, EventArgs e)
         {
-            flashIteration++;
+            
             if (flashIteration % 2 == 0)
             {
                 CurrentBorderColor = Brushes.Transparent;
@@ -117,8 +117,10 @@ namespace PitBoss.UserControls
             if (flashIteration == flashIterationToComplete)
             {
                 flashTimer.IsEnabled = false;
-                flashIteration = 0;
+                flashIteration = 1;
+                return;
             }
+            flashIteration++;
         }
 
         private void MainBorder_MouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
