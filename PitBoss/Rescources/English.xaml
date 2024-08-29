@@ -35,7 +35,7 @@
     
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Connection Settings</system:String>
-    <system:String x:Key="user_role_header">Connection Settings</system:String>
+    <system:String x:Key="user_role_header">I am a:</system:String>
         <!--header_gunner-->
         <!--header_spotter-->
     <system:String x:Key="textblock_server_ip">Server's IP:</system:String>

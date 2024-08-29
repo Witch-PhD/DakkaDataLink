@@ -11,7 +11,7 @@
     <system:String x:Key="menu_help_item_exit">O programie...</system:String>
     <system:String x:Key="menu_language_header">Język</system:String>
     <system:String x:Key="header_gunner">Artylerzysta</system:String>
-    <system:String x:Key="header_spotter">Obserwator</system:String>
+    <system:String x:Key="header_spotter">Zwiadowca</system:String>
     <system:String x:Key="header_connections">Połączenia</system:String>
     <system:String x:Key="header_options">Opcje</system:String>
     <system:String x:Key="statusbar_statusbaritem_header">Użytkownicy połączeni:</system:String>
@@ -23,19 +23,19 @@
     <system:String x:Key="textblock_version">Wersja:</system:String>
 
     <!--Gunner and Spotter-->
-    <system:String x:Key="groupbox_coordinates_header">Koordynaty strzału</system:String>
+    <system:String x:Key="groupbox_coordinates_header">Współrzędne ostrzału</system:String>
     <system:String x:Key="textbolck_distance">Dystans:</system:String>
     <system:String x:Key="textbolck_tooltip_distance">Odległość</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl prawy + Strzałka w górę/dół, aby zmienić o 1 krok. Shift prawy + Strzałka w górę/dół, aby zmienić o 3 kroki.</system:String>
     <system:String x:Key="textbolck_azimut">Az:</system:String>
     <system:String x:Key="textbolck_tooltip_azimut">Azymut</system:String>
     <system:String x:Key="textbox_tooltip_azimut">Ctrl prawy + Strzałka w prawo/lewo, aby zmienić o 1 stopień. Shift prawy + Strzałka w prawo/lewo, aby zmienić o 10 stopni.</system:String>
-    <system:String x:Key="button_text">Wyślij koordynaty</system:String>
+    <system:String x:Key="button_text">Wyślij współrzędne</system:String>
     <system:String x:Key="button_tooltip">Ctrl prawy + NumPad Zero, aby wysłać.</system:String>
 
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Ustawienia połączenia</system:String>
-    <system:String x:Key="user_role_header">Ustawienia połączenia</system:String>
+    <system:String x:Key="user_role_header">Jestem:</system:String>
     <!--header_gunner-->
     <!--header_spotter-->
     <system:String x:Key="textblock_server_ip">Adres IP serwera:</system:String>
@@ -66,7 +66,7 @@
     <system:String x:Key="comboboxitem_color_darkgray">Ciemnoszary</system:String>
     <system:String x:Key="textblock_font_size">Rozmiar czcionki:</system:String>
     <!--Spotter settings-->
-    <system:String x:Key="groupbox_settings_header">Ustawienia obserwatora</system:String>
+    <system:String x:Key="groupbox_settings_header">Ustawienia zwiadowcy</system:String>
     <system:String x:Key="textblock_artillery_progile">Profil artylerii:</system:String>
     <system:String x:Key="textblock_custom_shortcuts">Menu niestandardowych skrótów:</system:String>
     <system:String x:Key="button_show">Pokaż</system:String>
