@@ -26,6 +26,11 @@
             <MenuItem Header="Help">
                 <MenuItem x:Name="About_MenuItem" Header="About..." Click="About_MenuItem_Click"/>
             </MenuItem>
+            <MenuItem Header="Language">
+                <MenuItem x:Name="English_MenuItem" Header="English" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="Polish_MenuItem" Header="Polski" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="German_MenuItem" Header="Deutsch" Click="Language_MenuItem_Click"/>
+            </MenuItem>
         </Menu>
         <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">
             <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">

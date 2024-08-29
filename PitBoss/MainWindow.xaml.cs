@@ -102,5 +102,19 @@ namespace PitBoss
             }
             aboutWindow.Show();
         }
+
+        private void Language_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is MenuItem item)
+            {
+                string languageName = item.Name[..^9];
+                Application.Current.Resources.MergedDictionaries.Clear();
+                ResourceDictionary dictionary = new()
+                {
+                    Source = new Uri((@"\Rescources\"+languageName+".xaml"), UriKind.Relative)
+                };
+                Application.Current.Resources.MergedDictionaries.Add(dictionary);
+            }
+        }
     }
 }
