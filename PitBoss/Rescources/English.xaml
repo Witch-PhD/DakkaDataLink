@@ -14,7 +14,7 @@
     <system:String x:Key="header_spotter">Spotter</system:String>
     <system:String x:Key="header_connections">Connections</system:String>
     <system:String x:Key="header_options">Options</system:String>
-    <system:String x:Key="statusbar_statusbaritem_header">Users connected:</system:String>
+    <system:String x:Key="statusbar_statusbaritem_header">Users connected: </system:String>
     
     <!--About Window-->
     <system:String x:Key="textblock_description">A Foxhole artillery coordination tool, 2024.</system:String>
