@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="Dist: " ToolTip="Distance" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
                         <TextBox.ToolTip>
                             Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
@@ -36,7 +36,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="Az: " ToolTip="Azimut" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
                         <TextBox.ToolTip>
                             Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
