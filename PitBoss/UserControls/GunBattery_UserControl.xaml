@@ -13,14 +13,14 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="Firing Coordinates">
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="{DynamicResource groupbox_coordinates_header}">
             <StackPanel Margin="3,3,3,3">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center" ToolTip="Distance">Dist:</TextBlock>
+                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center" ToolTip="{DynamicResource textbolck_tooltip_distance}" Text="{DynamicResource textbolck_distance}"/>
                     <TextBox x:Name="Dist_TextBox" Text="{Binding Path=LatestDist, StringFormat=F1}" IsReadOnly="True" FontSize="20"  Width="75" Margin="5,5,5,5"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center" ToolTip="Azimut">Az:</TextBlock>
+                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center" ToolTip="{DynamicResource textbolck_tooltip_azimut}" Text="{DynamicResource textbolck_azimut}"/>
                     <TextBox x:Name="Az_TextBox" Text="{Binding Path=LatestAz, StringFormat=F1}" IsReadOnly="True" FontSize="20" Width="75" Margin="5,5,5,5"/>
                 </StackPanel>
             </StackPanel>

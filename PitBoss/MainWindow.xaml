@@ -17,38 +17,38 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="File">
-                <MenuItem Header="Save Settings..." IsEnabled="false" ToolTip="Not yet implemented."/>
-                <MenuItem Header="Load Settings..." IsEnabled="false" ToolTip="Not yet implemented."/>
+            <MenuItem Header="{DynamicResource menu_file_header}">
+                <MenuItem Header="{DynamicResource menu_file_item_save}" IsEnabled="false" ToolTip="Not yet implemented."/>
+                <MenuItem Header="{DynamicResource menu_file_item_load}" IsEnabled="false" ToolTip="Not yet implemented."/>
                 <Separator/>
-                <MenuItem Header="Exit"/>
+                <MenuItem Header="{DynamicResource menu_file_item_exit}"/>
             </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem x:Name="About_MenuItem" Header="About..." Click="About_MenuItem_Click"/>
+            <MenuItem Header="{DynamicResource menu_help_header}">
+                <MenuItem x:Name="About_MenuItem" Header="{DynamicResource menu_help_item_exit}" Click="About_MenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Language">
+            <MenuItem Header="{DynamicResource menu_language_header}">
                 <MenuItem x:Name="English_MenuItem" Header="English" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Polish_MenuItem" Header="Polski" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="German_MenuItem" Header="Deutsch" Click="Language_MenuItem_Click"/>
             </MenuItem>
         </Menu>
         <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">
-            <TabItem x:Name="Gunner_TabItem" Header="Gunner" Visibility="Collapsed">
+            <TabItem x:Name="Gunner_TabItem" Header="{DynamicResource header_gunner}" Visibility="Collapsed">
                 <userControls:GunBattery_UserControl x:Name="theGunnerUserControl"/>
             </TabItem>
-            <TabItem x:Name="Spotter_TabItem" Header="Spotter" Visibility="Collapsed">
+            <TabItem x:Name="Spotter_TabItem" Header="{DynamicResource header_spotter}" Visibility="Collapsed">
                 <userControls:Spotter_UserControl x:Name="theSpotterUserControl"/>
             </TabItem>
-            <TabItem x:Name="Connections_TabItem" Header="Connections">
+            <TabItem x:Name="Connections_TabItem" Header="{DynamicResource header_connections}">
                 <userControls:ConnectionsUserControl x:Name="Connections_UserControl"/>
             </TabItem>
-            <TabItem x:Name="Options_TabItem" Header="Options" IsSelected="True">
+            <TabItem x:Name="Options_TabItem" Header="{DynamicResource header_options}" IsSelected="True">
                 <userControls:UserOptions_UserControl x:Name="theUserOptionsUserControl"/>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2" Grid.Column="0">
             <StatusBarItem>
-                <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="Users connected: " Margin="3,0,0,0"/>
+                <TextBlock x:Name="StatusBar_GunsConnectedLabel_TextBlock" Text="{DynamicResource statusbar_statusbaritem_header}" Margin="3,0,0,0"/>
                
             </StatusBarItem>
             <StatusBarItem>

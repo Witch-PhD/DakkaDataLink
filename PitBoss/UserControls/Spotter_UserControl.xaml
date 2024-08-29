@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <validators:DoubleMinMaxValidator x:Key="doubleMinMaxValidator"/>
     </UserControl.Resources>
-    <GroupBox Header="Firing Coordinates">
+    <GroupBox Header="{DynamicResource groupbox_coordinates_header}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -20,11 +20,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Dist: " ToolTip="Distance" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
-                        <TextBox.ToolTip>
-                            Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
-                        </TextBox.ToolTip>
+                    <TextBlock Text="{DynamicResource textbolck_distance}" ToolTip="{DynamicResource textbolck_tooltip_distance}" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_distance}">
                         <TextBox.Text>
                             <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
@@ -36,11 +33,8 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Az: " ToolTip="Azimut" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
-                        <TextBox.ToolTip>
-                            Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
-                        </TextBox.ToolTip>
+                    <TextBlock Text="{DynamicResource textbolck_azimut}" ToolTip="{DynamicResource textbolck_tooltip_azimut}" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_azimut}">
                         <TextBox.Text>
                             <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
@@ -51,12 +45,7 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5">
-                    <Button.ToolTip>
-                        Right Ctrl + NumPad Zero to send.
-                    </Button.ToolTip>
-                </Button>
-
+                <Button x:Name="SendCoords_Button" Content="{DynamicResource button_text}" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5" ToolTip="{DynamicResource button_tooltip}"/>
             </StackPanel>
         </Grid>
     </GroupBox>
