@@ -10,52 +10,54 @@
     <UserControl.Resources>
         <validators:DoubleMinMaxValidator x:Key="doubleMinMaxValidator"/>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-               <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
-                    <TextBox.ToolTip>
-                        Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
-                    </TextBox.ToolTip>
-                    <TextBox.Text>
-                        <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+    <GroupBox Header="Firing Coordinates">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Dist: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
+                        <TextBox.ToolTip>
+                            Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.
+                        </TextBox.ToolTip>
+                        <TextBox.Text>
+                            <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <validators:DoubleMinMaxValidator Min="0.0" Max="1000.0"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
+                        <TextBox.ToolTip>
+                            Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
+                        </TextBox.ToolTip>
+                        <TextBox.Text>
+                            <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+
+                <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5">
+                    <Button.ToolTip>
+                        Right Ctrl + NumPad Zero to send.
+                    </Button.ToolTip>
+                </Button>
+
             </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Az: " FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5">
-                    <TextBox.ToolTip>
-                        Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.
-                    </TextBox.ToolTip>
-                    <TextBox.Text>
-                        <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <validators:DoubleMinMaxValidator Min="0.0" Max="359.9"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </StackPanel>
-
-            <Button x:Name="SendCoords_Button" Content="Send Coords" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5">
-                <Button.ToolTip>
-                    Right Ctrl + NumPad Zero to send.
-                </Button.ToolTip>
-            </Button>
-
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </GroupBox>
 </UserControl>

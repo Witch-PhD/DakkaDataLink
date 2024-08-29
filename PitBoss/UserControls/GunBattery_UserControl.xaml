@@ -16,12 +16,12 @@
         <GroupBox Grid.Row="0" Grid.Column="0" Header="Firing Coordinates">
             <StackPanel Margin="3,3,3,3">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="35" Margin="3,3,3,3" FontSize="20" VerticalAlignment="Center">Dist:</TextBlock>
-                    <TextBox x:Name="Dist_TextBox" Text="{Binding Path=LatestDist, StringFormat=F1}" IsReadOnly="True" FontSize="20"  Width="75" Margin="3,3,3,3"/>
+                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center">Dist:</TextBlock>
+                    <TextBox x:Name="Dist_TextBox" Text="{Binding Path=LatestDist, StringFormat=F1}" IsReadOnly="True" FontSize="20"  Width="75" Margin="5,5,5,5"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="35" Margin="3,3,3,3" FontSize="20" VerticalAlignment="Center">Az:</TextBlock>
-                    <TextBox x:Name="Az_TextBox" Text="{Binding Path=LatestAz, StringFormat=F1}" IsReadOnly="True" FontSize="20" Width="75" Margin="3,3,3,3"/>
+                    <TextBlock Width="40" Margin="5,5,5,5" FontSize="20" VerticalAlignment="Center">Az:</TextBlock>
+                    <TextBox x:Name="Az_TextBox" Text="{Binding Path=LatestAz, StringFormat=F1}" IsReadOnly="True" FontSize="20" Width="75" Margin="5,5,5,5"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
