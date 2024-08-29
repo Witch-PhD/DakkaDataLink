@@ -30,8 +30,6 @@ If you do not know how to do that, this is a good starting point:</br>
 
 The server (could be anyone, spotter or gunner) will open The Pit Boss, and click on the "Start as Server" button on the Options tab.
 Any clients wishing to join will open their own copies of The Pit Boss and enter the IP address of the person who is the server then click "Connect To Server"</br>
-Find your IP with this website:</br>
-https://www.whatismyip.com/
 
 Both the Gunners and Spotter can open an adjustable overlay window with the "Toggle Overlay" button.
 
@@ -49,8 +47,11 @@ This is a very new project and will necessarily be quite bare bones and prone to
 
 Any feedback, positive and (especially) negative is welcome and encouraged. Please let me know of any bugs you run into. Feel free to either leave your feedback in [Discussions](https://github.com/Witch-PhD/PitBoss/discussions), add an [Issue](https://github.com/Witch-PhD/PitBoss/issues) on the GitHub repository, or DM me directly on Discord.
 
-Special thanks to all the people who have helped me test this so far, in particular:</br>
-[82DK-A] Einherj</br>
+Thank you to my contributors:</br>
 [82DK-A] Huners</br>
+
+And thank you to all the people who have helped me test this so far, in particular:</br>
+[82DK-A] Einherj</br>
 Avail</br>
 Kyuss/Gustavo</br>
+All of 82DK's artillery section
