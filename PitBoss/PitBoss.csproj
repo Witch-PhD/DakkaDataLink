@@ -15,6 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Rescources\English.xaml" />
+    <Page Remove="Rescources\German.xaml" />
+    <Page Remove="Rescources\Polish.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
 
@@ -30,6 +36,9 @@
 
   <ItemGroup>
     <Resource Include="icon.ico" />
+    <Resource Include="Rescources\English.xaml" />
+    <Resource Include="Rescources\German.xaml" />
+    <Resource Include="Rescources\Polish.xaml" />
   </ItemGroup>
 
 </Project>
