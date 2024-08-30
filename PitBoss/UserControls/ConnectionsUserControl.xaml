@@ -11,8 +11,8 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{DynamicResource user_role_header}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <RadioButton x:Name="gunnerMode_RadioButton" GroupName="operatingModesRadioGroup" IsChecked="True" Content="{DynamicResource header_gunner}" Margin="5,5,5,5"/>
-                    <RadioButton x:Name="spotterMode_RadioButton" GroupName="operatingModesRadioGroup" Content="{DynamicResource header_spotter}" Margin="5,5,5,5"/>
+                    <RadioButton x:Name="gunnerMode_RadioButton" GroupName="operatingModesRadioGroup" IsChecked="True" Content="{DynamicResource user_role_gunner}" Margin="5,5,5,5"/>
+                    <RadioButton x:Name="spotterMode_RadioButton" GroupName="operatingModesRadioGroup" Content="{DynamicResource user_role_spotter}" Margin="5,5,5,5"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{DynamicResource textblock_server_ip}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>

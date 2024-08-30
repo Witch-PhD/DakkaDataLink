@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PitBoss.UserControls
 {
@@ -48,34 +38,29 @@ namespace PitBoss.UserControls
 
         private void initColors()
         {
+            string[] colors ={
+                nameof(Brushes.Red), nameof(Brushes.Orange), nameof(Brushes.Yellow), nameof(Brushes.Green),
+                nameof(Brushes.Blue), nameof(Brushes.Purple), nameof(Brushes.Magenta), nameof(Brushes.Pink),
+                nameof(Brushes.Black), nameof(Brushes.White), nameof(Brushes.Gray), nameof(Brushes.DarkGray)
+                };
+
             LabelColor_ComboBox.Items.Clear();
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_red"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_orange"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_yellow"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_green"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_blue"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_purple"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_magenta"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_pink"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_black"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_white"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_gray"] as string);
-            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_darkgray"] as string);
-
             ValueColor_ComboBox.Items.Clear();
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_red"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_orange"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_yellow"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_green"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_blue"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_purple"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_magenta"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_pink"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_black"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_white"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_gray"] as string);
-            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_darkgray"] as string);
-
+            foreach (string color in colors)
+            {
+                var lableColor = new ComboBoxItem
+                {   
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                LabelColor_ComboBox.Items.Add(lableColor);
+                var valueColor = new ComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                ValueColor_ComboBox.Items.Add(valueColor);
+            }
         }
 
         public void CloseAllWindows()
@@ -86,7 +71,6 @@ namespace PitBoss.UserControls
         Overlay_Window? overlayWindow;
         private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)
         {
-
             if (overlayWindow == null)
             {
 
@@ -129,9 +113,9 @@ namespace PitBoss.UserControls
             set { m_FlashOnNewCoords = value; OnPropertyChanged(); }
         }
 
-        
 
-        
+
+
 
         private void OnNewCoordsReceived(object sender, bool args)
         {
@@ -166,7 +150,7 @@ namespace PitBoss.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        
+
 
 
         private void disableSetBindingButtons()

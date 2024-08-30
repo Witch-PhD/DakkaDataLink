@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource textbolck_distance}" ToolTip="{DynamicResource textbolck_tooltip_distance}" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource textbolck_distance}" ToolTip="{DynamicResource textbolck_tooltip_distance}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_distance}">
                         <TextBox.Text>
                             <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
@@ -33,7 +33,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource textbolck_azimut}" ToolTip="{DynamicResource textbolck_tooltip_azimut}" FontSize="20" Width="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource textbolck_azimut}" ToolTip="{DynamicResource textbolck_tooltip_azimut}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_azimut}">
                         <TextBox.Text>
                             <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">

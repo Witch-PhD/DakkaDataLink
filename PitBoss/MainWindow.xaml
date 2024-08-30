@@ -30,6 +30,9 @@
                 <MenuItem x:Name="English_MenuItem" Header="English" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Polish_MenuItem" Header="Polski" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="German_MenuItem" Header="Deutsch" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="Italian_MenuItem" Header="Italiano" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="Russian_MenuItem" Header="Русский" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="Spanish_MenuItem" Header="Español" Click="Language_MenuItem_Click"/>
             </MenuItem>
         </Menu>
         <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">
