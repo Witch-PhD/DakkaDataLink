@@ -14,7 +14,7 @@
     <system:String x:Key="header_spotter">Zwiadowca</system:String>
     <system:String x:Key="header_connections">Połączenia</system:String>
     <system:String x:Key="header_options">Opcje</system:String>
-    <system:String x:Key="statusbar_statusbaritem_header">Użytkownicy połączeni:</system:String>
+    <system:String x:Key="statusbar_statusbaritem_header">Połączeni użytkownicy:</system:String>
 
     <!--About Window-->
     <system:String x:Key="textblock_description">Narzędzie do koordynacji artylerii dla gry Foxhole, 2024.</system:String>
@@ -36,8 +36,11 @@
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Ustawienia połączenia</system:String>
     <system:String x:Key="user_role_header">Jestem:</system:String>
-    <!--header_gunner-->
-    <!--header_spotter-->
+
+    <!-- Resources for handling noun declensions in languages that require case changes. -->
+    <system:String x:Key="user_role_gunner">Artylerzystą</system:String>
+    <system:String x:Key="user_role_spotter">Zwiadowcą</system:String>
+    
     <system:String x:Key="textblock_server_ip">Adres IP serwera:</system:String>
     <system:String x:Key="textbox_server_ip_tooltip">np: 192.168.0.1</system:String>
     <system:String x:Key="button_connect">Połącz z serwerem</system:String>
