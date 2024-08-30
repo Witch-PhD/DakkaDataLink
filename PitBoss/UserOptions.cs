@@ -143,5 +143,21 @@ namespace PitBoss
         }
 
         #endregion
+
+        #region Logger
+        private string m_LoggerFilePath = "Log.txt";
+        public string LoggerFilePath
+        {
+            get
+            {
+                return m_LoggerFilePath;
+            }
+            set
+            {
+                m_LoggerFilePath = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
     }
 }

@@ -12,6 +12,7 @@ namespace PitBoss
     {
         MainWindow mainWindow;
 
+        private static GlobalLogger logger = GlobalLogger.Instance;
         public static KeyboardListener KListener = new KeyboardListener();
         private static SpotterKeystrokeHandler keystrokeHandler = SpotterKeystrokeHandler.Instance;
         DataManager dataManager = DataManager.Instance;
@@ -19,6 +20,7 @@ namespace PitBoss
         private static RawKeyEventHandler keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            GlobalLogger.Log("Application_Startup entered");
             keyDownHandler = new RawKeyEventHandler(KListener_KeyDown);
             keyUpHandler = new RawKeyEventHandler(KListener_KeyUp);
 
