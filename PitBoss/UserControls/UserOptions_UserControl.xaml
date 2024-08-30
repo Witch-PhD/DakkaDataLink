@@ -23,14 +23,14 @@
         <GroupBox Grid.Row="0" Grid.Column="0" Header="{DynamicResource groupbox_overlay_header}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition MinWidth="130"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0">
                     <Button x:Name="ToggleOverlay_Button" Content="{DynamicResource button_toggle}" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="{DynamicResource textblock_opacity}" Margin="3,3,3,3"/>
+                        <TextBlock MinWidth="50" Text="{DynamicResource textblock_opacity}" Margin="3,3,3,3"/>
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
                     <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
@@ -38,15 +38,15 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}"/>
+                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}"/>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}"/>
+                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}"/>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
+                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72
@@ -78,7 +78,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <TextBlock Text="{DynamicResource textblock_custom_shortcuts}" Margin="3,3,3,3" VerticalAlignment="Center"/>
-                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Content="{DynamicResource button_show}" Click="Shortcuts_Button_Click"/>
+                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Padding="5" Content="{DynamicResource button_show}" Click="Shortcuts_Button_Click"/>
                 </StackPanel>
                 <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
