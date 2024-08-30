@@ -51,6 +51,7 @@ namespace PitBoss
                     }
                 }
             }
+            Thread.Sleep(250);
         }
 
         public static void Log(string message, bool appendTimestamp = true)
