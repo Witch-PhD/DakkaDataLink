@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--MainWindow-->
+    <system:String x:Key="menu_file_header">Archivo</system:String>
+    <system:String x:Key="menu_file_item_save">Guardar configuración...</system:String>
+    <system:String x:Key="menu_file_item_load">Cargar configuración...</system:String>
+    <system:String x:Key="menu_file_item_exit">Salir</system:String>
+    <system:String x:Key="menu_help_header">Ayuda</system:String>
+    <system:String x:Key="menu_help_item_exit">Acerca de...</system:String>
+    <system:String x:Key="menu_language_header">Idioma</system:String>
+    <system:String x:Key="header_gunner">Artillero</system:String>
+    <system:String x:Key="header_spotter">Observador</system:String>
+    <system:String x:Key="header_connections">Conexiones</system:String>
+    <system:String x:Key="header_options">Opciones</system:String>
+    <system:String x:Key="statusbar_statusbaritem_header">Usuarios conectados:</system:String>
+
+    <!--About Window-->
+    <system:String x:Key="textblock_description">Una herramienta de coordinación de artillería para Foxhole, 2024.</system:String>
+    <system:String x:Key="textblock_author">Escrito por [82DK-A] Witch, PhD</system:String>
+    <system:String x:Key="textblock_contributors">Colaboradores:</system:String>
+    <system:String x:Key="textblock_version">Versión:</system:String>
+
+    <!--Gunner and Spotter-->
+    <system:String x:Key="groupbox_coordinates_header">Coordenadas de disparo</system:String>
+    <system:String x:Key="textbolck_distance">Dist.:</system:String>
+    <system:String x:Key="textbolck_tooltip_distance">Distancia</system:String>
+    <system:String x:Key="textbox_tooltip_distance">Ctrl derecho + Flecha arriba/abajo para un paso de 1 tick. Shift derecho + Flecha arriba/abajo para un paso de 3 ticks.</system:String>
+    <system:String x:Key="textbolck_azimut">Az:</system:String>
+    <system:String x:Key="textbolck_tooltip_azimut">Azimut</system:String>
+    <system:String x:Key="textbox_tooltip_azimut">Ctrl derecho + Flecha derecha/izquierda para un paso de 1 grado. Shift derecho + Flecha derecha/izquierda para un paso de 10 grados.</system:String>
+    <system:String x:Key="button_text">Enviar coordenadas</system:String>
+    <system:String x:Key="button_tooltip">Ctrl derecho + Numpad Cero para enviar.</system:String>
+
+    <!--Connections-->
+    <system:String x:Key="groupbox_connection_header">Configuración de conexión</system:String>
+    <system:String x:Key="user_role_header">Soy un:</system:String>
+
+    <!-- Resources for handling noun declensions in languages that require case changes. -->
+    <system:String x:Key="user_role_gunner">Artillero</system:String>
+    <system:String x:Key="user_role_spotter">Observador</system:String>
+
+    <system:String x:Key="textblock_server_ip">IP del servidor:</system:String>
+    <system:String x:Key="textbox_server_ip_tooltip">ej: 192.168.0.1</system:String>
+    <system:String x:Key="button_connect">Conectar al servidor</system:String>
+    <system:String x:Key="button_start">Iniciar como servidor</system:String>
+    <system:String x:Key="textblock_user_ip">Su dirección IP:</system:String>
+    <system:String x:Key="button_copy">Copiar dirección IP</system:String>
+
+    <!--Options-->
+    <!--Overlay-->
+    <system:String x:Key="groupbox_overlay_header">Configuración de la superposición</system:String>
+    <system:String x:Key="button_toggle">Alternar superposición</system:String>
+    <system:String x:Key="textblock_opacity">Opacidad:</system:String>
+    <system:String x:Key="textblock_label_color">Color de etiqueta:</system:String>
+    <system:String x:Key="textblock_value_color">Color del valor:</system:String>
+    <system:String x:Key="comboboxitem_color_red">Rojo</system:String>
+    <system:String x:Key="comboboxitem_color_orange">Naranja</system:String>
+    <system:String x:Key="comboboxitem_color_yellow">Amarillo</system:String>
+    <system:String x:Key="comboboxitem_color_green">Verde</system:String>
+    <system:String x:Key="comboboxitem_color_blue">Azul</system:String>
+    <system:String x:Key="comboboxitem_color_purple">Púrpura</system:String>
+    <system:String x:Key="comboboxitem_color_magenta">Magenta</system:String>
+    <system:String x:Key="comboboxitem_color_pink">Rosa</system:String>
+    <system:String x:Key="comboboxitem_color_black">Negro</system:String>
+    <system:String x:Key="comboboxitem_color_white">Blanco</system:String>
+    <system:String x:Key="comboboxitem_color_gray">Gris</system:String>
+    <system:String x:Key="comboboxitem_color_darkgray">Gris oscuro</system:String>
+    <system:String x:Key="textblock_font_size">Tamaño de la fuente:</system:String>
+
+    <!--Spotter settings-->
+    <system:String x:Key="groupbox_settings_header">Configuración del observador</system:String>
+    <system:String x:Key="textblock_artillery_progile">Perfil de artillería:</system:String>
+    <system:String x:Key="textblock_custom_shortcuts">Menú de accesos directos personalizados:</system:String>
+    <system:String x:Key="button_show">Mostrar</system:String>
+    <system:String x:Key="button_hide">Ocultar</system:String>
+    <system:String x:Key="textblock_custom_shortcut_1">Atajo Az + 1</system:String>
+    <system:String x:Key="textblock_custom_shortcut_2">Atajo Az - 1</system:String>
+    <system:String x:Key="textblock_custom_shortcut_3">Atajo Az + 10</system:String>
+    <system:String x:Key="textblock_custom_shortcut_4">Atajo Az - 10</system:String>
+    <system:String x:Key="textblock_custom_shortcut_5">Atajo Dist + 1 tick</system:String>
+    <system:String x:Key="textblock_custom_shortcut_6">Atajo Dist - 1 tick</system:String>
+    <system:String x:Key="textblock_custom_shortcut_7">Atajo Dist + 3 ticks</system:String>
+    <system:String x:Key="textblock_custom_shortcut_8">Atajo Dist - 3 ticks</system:String>
+    <system:String x:Key="textblock_custom_shortcut_9">Atajo para enviar coordenadas</system:String>
+    <system:String x:Key="button_change">Cambiar tecla(s)</system:String>
+
+</ResourceDictionary>

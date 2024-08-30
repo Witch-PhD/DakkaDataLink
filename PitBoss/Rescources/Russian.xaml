@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--MainWindow-->
+    <system:String x:Key="menu_file_header">Файл</system:String>
+    <system:String x:Key="menu_file_item_save">Сохранить настройки...</system:String>
+    <system:String x:Key="menu_file_item_load">Загрузить настройки...</system:String>
+    <system:String x:Key="menu_file_item_exit">Выход</system:String>
+    <system:String x:Key="menu_help_header">Справка</system:String>
+    <system:String x:Key="menu_help_item_exit">О программе...</system:String>
+    <system:String x:Key="menu_language_header">Язык</system:String>
+    <system:String x:Key="header_gunner">Наводчик</system:String>
+    <system:String x:Key="header_spotter">Наблюдатель</system:String>
+    <system:String x:Key="header_connections">Подключения</system:String>
+    <system:String x:Key="header_options">Настройки</system:String>
+    <system:String x:Key="statusbar_statusbaritem_header">Подключенные пользователи:</system:String>
+
+    <!--About Window-->
+    <system:String x:Key="textblock_description">Инструмент координации артиллерии Foxhole, 2024.</system:String>
+    <system:String x:Key="textblock_author">Автор: [82DK-A] Witch,PhD</system:String>
+    <system:String x:Key="textblock_contributors">Участники:</system:String>
+    <system:String x:Key="textblock_version">Версия:</system:String>
+
+    <!--Gunner and Spotter-->
+    <system:String x:Key="groupbox_coordinates_header">Координаты стрельбы</system:String>
+    <system:String x:Key="textbolck_distance">Дист.:</system:String>
+    <system:String x:Key="textbolck_tooltip_distance">Дистанция</system:String>
+    <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>
+    <system:String x:Key="textbolck_azimut">Азим.:</system:String>
+    <system:String x:Key="textbolck_tooltip_azimut">Азимут</system:String>
+    <system:String x:Key="textbox_tooltip_azimut">Правый Ctrl + Вправо/Влево для 1 градуса. Правый Shift + Вправо/Влево для 10 градусов.</system:String>
+    <system:String x:Key="button_text">Отправить координаты</system:String>
+    <system:String x:Key="button_tooltip">Правый Ctrl + NumPad Zero для отправки.</system:String>
+
+    <!--Connections-->
+    <system:String x:Key="groupbox_connection_header">Настройки подключения</system:String>
+    <system:String x:Key="user_role_header">Я являюсь:</system:String>
+
+    <!-- Resources for handling noun declensions in languages that require case changes. -->
+    <system:String x:Key="user_role_gunner">Наводчик</system:String>
+    <system:String x:Key="user_role_spotter">Наблюдатель</system:String>
+
+    <system:String x:Key="textblock_server_ip">IP-адрес сервера:</system:String>
+    <system:String x:Key="textbox_server_ip_tooltip">например: 192.168.0.1</system:String>
+    <system:String x:Key="button_connect">Подключиться к серверу</system:String>
+    <system:String x:Key="button_start">Запустить как сервер</system:String>
+    <system:String x:Key="textblock_user_ip">Ваш IP-адрес:</system:String>
+    <system:String x:Key="button_copy">Скопировать IP-адрес</system:String>
+
+    <!--Options-->
+    <!--Overlay-->
+    <system:String x:Key="groupbox_overlay_header">Настройки оверлея</system:String>
+    <system:String x:Key="button_toggle">Переключить оверлей</system:String>
+    <system:String x:Key="textblock_opacity">Прозрачность:</system:String>
+    <system:String x:Key="textblock_label_color">Цвет метки:</system:String>
+    <system:String x:Key="textblock_value_color">Цвет значения:</system:String>
+    <system:String x:Key="comboboxitem_color_red">Красный</system:String>
+    <system:String x:Key="comboboxitem_color_orange">Оранжевый</system:String>
+    <system:String x:Key="comboboxitem_color_yellow">Желтый</system:String>
+    <system:String x:Key="comboboxitem_color_green">Зеленый</system:String>
+    <system:String x:Key="comboboxitem_color_blue">Синий</system:String>
+    <system:String x:Key="comboboxitem_color_purple">Фиолетовый</system:String>
+    <system:String x:Key="comboboxitem_color_magenta">Пурпурный</system:String>
+    <system:String x:Key="comboboxitem_color_pink">Розовый</system:String>
+    <system:String x:Key="comboboxitem_color_black">Черный</system:String>
+    <system:String x:Key="comboboxitem_color_white">Белый</system:String>
+    <system:String x:Key="comboboxitem_color_gray">Серый</system:String>
+    <system:String x:Key="comboboxitem_color_darkgray">Темно-серый</system:String>
+    <system:String x:Key="textblock_font_size">Размер шрифта:</system:String>
+
+    <!--Spotter settings-->
+    <system:String x:Key="groupbox_settings_header">Настройки наблюдателя</system:String>
+    <system:String x:Key="textblock_artillery_progile">Профиль артиллерии:</system:String>
+    <system:String x:Key="textblock_custom_shortcuts">Меню пользовательских ярлыков:</system:String>
+    <system:String x:Key="button_show">Показать</system:String>
+    <system:String x:Key="button_hide">Скрыть</system:String>
+    <system:String x:Key="textblock_custom_shortcut_1">Аз + 1 Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_2">Аз - 1 Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_3">Аз + 10 Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_4">Аз - 10 Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_5">Дист + 1 Тик Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_6">Дист - 1 Тик Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_7">Дист + 3 Тика Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_8">Дист - 3 Тика Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_9">Отправить координаты Ярлык</system:String>
+    <system:String x:Key="button_change">Изменить клавишу(и)</system:String>
+
+</ResourceDictionary>

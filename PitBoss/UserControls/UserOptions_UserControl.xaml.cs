@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PitBoss.UserControls
 {
@@ -24,53 +14,53 @@ namespace PitBoss.UserControls
     public partial class UserOptions_UserControl : UserControl, INotifyPropertyChanged
     {
         private double opacity = 0.1;
+        private Uri checkedDictionaryUri;
 
         public UserOptions_UserControl()
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
             DataContext = dataManager;
-            initComboBoxes();
+            initArtilleryProfiles();
             updateKeyBindingStrings();
             dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
-        private void initComboBoxes()
+        private void initArtilleryProfiles()
         {
-            BrushConverter converter = new BrushConverter();
-
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Red));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Orange));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Yellow));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Green));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Blue));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Purple));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Magenta));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Pink));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Black));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.White));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Gray));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.DarkGray));
-
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Red));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Orange));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Yellow));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Green));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Blue));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Purple));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Magenta));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Pink));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Black));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.White));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Gray));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.DarkGray));
-
             foreach (string artyName in ArtilleryProfiles.Instance.ArtyProfilesDict.Keys)
             {
                 ArtyProfile_ComboBox.Items.Add(artyName);
             }
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
+        }
+
+        private void initColors()
+        {
+            string[] colors ={
+                nameof(Brushes.Red), nameof(Brushes.Orange), nameof(Brushes.Yellow), nameof(Brushes.Green),
+                nameof(Brushes.Blue), nameof(Brushes.Purple), nameof(Brushes.Magenta), nameof(Brushes.Pink),
+                nameof(Brushes.Black), nameof(Brushes.White), nameof(Brushes.Gray), nameof(Brushes.DarkGray)
+                };
+
+            LabelColor_ComboBox.Items.Clear();
+            ValueColor_ComboBox.Items.Clear();
+            foreach (string color in colors)
+            {
+                var lableColor = new ComboBoxItem
+                {   
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                LabelColor_ComboBox.Items.Add(lableColor);
+                var valueColor = new ComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                ValueColor_ComboBox.Items.Add(valueColor);
+            }
         }
 
         public void CloseAllWindows()
@@ -84,6 +74,7 @@ namespace PitBoss.UserControls
             if (overlayWindow == null)
             {
 
+                initColors();
                 overlayWindow = new Overlay_Window();
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
@@ -122,9 +113,9 @@ namespace PitBoss.UserControls
             set { m_FlashOnNewCoords = value; OnPropertyChanged(); }
         }
 
-        
 
-        
+
+
 
         private void OnNewCoordsReceived(object sender, bool args)
         {
@@ -159,7 +150,7 @@ namespace PitBoss.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        
+
 
 
         private void disableSetBindingButtons()
@@ -397,13 +388,33 @@ namespace PitBoss.UserControls
             if (ShorcutsMenu.Visibility == Visibility.Visible)
             {
                 ShorcutsMenu.Visibility = Visibility.Hidden;
-                Shortcuts_Button.Content = "Show";
+                Shortcuts_Button.Content = Application.Current.Resources["button_show"] as string;
             }
             else
             {
                 ShorcutsMenu.Visibility = Visibility.Visible;
-                Shortcuts_Button.Content = "Hide";
+                Shortcuts_Button.Content = Application.Current.Resources["button_hide"] as string;
             }
+        }
+
+        private bool DidLanugageChanged()
+        {
+            var dictionary = Application.Current.Resources.MergedDictionaries.FirstOrDefault();
+
+            if (dictionary != null && dictionary.Source != null)
+            {
+                if (checkedDictionaryUri != null && checkedDictionaryUri.Equals(dictionary.Source))
+                {
+                    Console.WriteLine("Check");
+                    return false;
+                }
+
+                checkedDictionaryUri = dictionary.Source;
+                return true;
+            }
+
+            checkedDictionaryUri = null;
+            return true;
         }
     }
 }
