@@ -7,7 +7,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Rescources\English.xaml" />
+    <Page Remove="Rescources\German.xaml" />
+    <Page Remove="Rescources\Polish.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.27.3" />
@@ -17,6 +32,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Comms_Core\Comms_Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+    <Resource Include="Rescources\English.xaml" />
+    <Resource Include="Rescources\German.xaml" />
+    <Resource Include="Rescources\Polish.xaml" />
   </ItemGroup>
 
 </Project>

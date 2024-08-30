@@ -19,8 +19,8 @@
             <RowDefinition Height="auto"/>
            
         </Grid.RowDefinitions>
-        
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="Overlay Settings">
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="{DynamicResource groupbox_overlay_header}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="130"/>
@@ -28,9 +28,9 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0">
-                    <Button x:Name="ToggleOverlay_Button" Content="Toggle Overlay" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
+                    <Button x:Name="ToggleOverlay_Button" Content="{DynamicResource button_toggle}" Click="ToggleOverlay_Button_Click" HorizontalAlignment="Left" Height="30" Width="120" Margin="3,3,3,3"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Opacity: " Margin="3,3,3,3"/>
+                        <TextBlock Text="{DynamicResource textblock_opacity}" Margin="3,3,3,3"/>
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
                     <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
@@ -38,15 +38,15 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Label Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}"/>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Value Color:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}"/>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center">Font Size:</TextBlock>
+                        <TextBlock Width="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>
                                 Min: 8, Max: 72
@@ -64,7 +64,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Spotter Settings" Grid.Row="0" Grid.Column="1">
+        <GroupBox Header="{DynamicResource groupbox_settings_header}" Grid.Row="0" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -72,13 +72,13 @@
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <TextBlock Text="Artillery Profile: " Margin="3,3,3,3" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource textblock_artillery_progile}" Margin="3,3,3,3" VerticalAlignment="Center"/>
                     <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Text="Custom Shortcuts Menu: " Margin="3,3,3,3" VerticalAlignment="Center"/>
-                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Content="Show" Click="Shortcuts_Button_Click"/>
+                    <TextBlock Text="{DynamicResource textblock_custom_shortcuts}" Margin="3,3,3,3" VerticalAlignment="Center"/>
+                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Content="{DynamicResource button_show}" Click="Shortcuts_Button_Click"/>
                 </StackPanel>
                 <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
@@ -99,15 +99,15 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Az + 1 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Az - 1 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Az + 10 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Az - 10 Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Dist + 1 Tick Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Dist - 1 Tick Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Dist + 3 Ticks Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="8" Grid.Column="0" Text="Dist - 3 Ticks Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="9" Grid.Column="0" Text="Send Coords Shortcut" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_1}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_2}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_3}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_4}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_5}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_6}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_7}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_8}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_9}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
 
                     <TextBox x:Name="AzPlusOne_KeyBinding_TextBox" Grid.Row="1" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
                     <TextBox x:Name="AzMinusOne_KeyBinding_TextBox" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
@@ -119,15 +119,15 @@
                     <TextBox x:Name="DistMinusMulti_KeyBinding_TextBox" Grid.Row="8" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
                     <TextBox x:Name="SendCoords_KeyBinding_TextBox" Grid.Row="9" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
 
-                    <Button x:Name="ChangeBindingFor_AzPlus1_Button" Grid.Row="1" Grid.Column="2" Click="ChangeBindingFor_AzPlus1_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_AzMinus1_Button" Grid.Row="2" Grid.Column="2" Click="ChangeBindingFor_AzMinus1_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_AzPlus10_Button" Grid.Row="3" Grid.Column="2" Click="ChangeBindingFor_AzPlus10_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_AzMinus10_Button" Grid.Row="4" Grid.Column="2" Click="ChangeBindingFor_AzMinus10_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_DistPlusOne_Button" Grid.Row="5" Grid.Column="2" Click="ChangeBindingFor_DistPlusOne_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_DistMinusOne_Button" Grid.Row="6" Grid.Column="2" Click="ChangeBindingFor_DistMinusOne_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_DistPlusMulti_Button" Grid.Row="7" Grid.Column="2" Click="ChangeBindingFor_DistPlusMulti_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_DistMinusMulti_Button" Grid.Row="8" Grid.Column="2" Click="ChangeBindingFor_DistMinusMulti_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
-                    <Button x:Name="ChangeBindingFor_SendCoords_Button" Grid.Row="9" Grid.Column="2" Click="ChangeBindingFor_SendCoords_Button_Click" Content="Change Key(s)" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_AzPlus1_Button" Grid.Row="1" Grid.Column="2" Click="ChangeBindingFor_AzPlus1_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_AzMinus1_Button" Grid.Row="2" Grid.Column="2" Click="ChangeBindingFor_AzMinus1_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_AzPlus10_Button" Grid.Row="3" Grid.Column="2" Click="ChangeBindingFor_AzPlus10_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_AzMinus10_Button" Grid.Row="4" Grid.Column="2" Click="ChangeBindingFor_AzMinus10_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_DistPlusOne_Button" Grid.Row="5" Grid.Column="2" Click="ChangeBindingFor_DistPlusOne_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_DistMinusOne_Button" Grid.Row="6" Grid.Column="2" Click="ChangeBindingFor_DistMinusOne_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_DistPlusMulti_Button" Grid.Row="7" Grid.Column="2" Click="ChangeBindingFor_DistPlusMulti_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_DistMinusMulti_Button" Grid.Row="8" Grid.Column="2" Click="ChangeBindingFor_DistMinusMulti_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
+                    <Button x:Name="ChangeBindingFor_SendCoords_Button" Grid.Row="9" Grid.Column="2" Click="ChangeBindingFor_SendCoords_Button_Click" Content="{DynamicResource button_change}" Margin="3,3,3,3"/>
                 </Grid>
             </Grid>
         </GroupBox>

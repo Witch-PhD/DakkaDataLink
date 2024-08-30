@@ -24,53 +24,58 @@ namespace PitBoss.UserControls
     public partial class UserOptions_UserControl : UserControl, INotifyPropertyChanged
     {
         private double opacity = 0.1;
+        private Uri checkedDictionaryUri;
 
         public UserOptions_UserControl()
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
             DataContext = dataManager;
-            initComboBoxes();
+            initArtilleryProfiles();
             updateKeyBindingStrings();
             dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
-        private void initComboBoxes()
+        private void initArtilleryProfiles()
         {
-            BrushConverter converter = new BrushConverter();
-
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Red));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Orange));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Yellow));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Green));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Blue));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Purple));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Magenta));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Pink));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Black));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.White));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.Gray));
-            LabelColor_ComboBox.Items.Add(nameof(Brushes.DarkGray));
-
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Red));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Orange));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Yellow));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Green));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Blue));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Purple));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Magenta));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Pink));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Black));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.White));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.Gray));
-            ValueColor_ComboBox.Items.Add(nameof(Brushes.DarkGray));
-
             foreach (string artyName in ArtilleryProfiles.Instance.ArtyProfilesDict.Keys)
             {
                 ArtyProfile_ComboBox.Items.Add(artyName);
             }
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
+        }
+
+        private void initColors()
+        {
+            LabelColor_ComboBox.Items.Clear();
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_red"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_orange"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_yellow"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_green"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_blue"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_purple"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_magenta"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_pink"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_black"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_white"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_gray"] as string);
+            LabelColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_darkgray"] as string);
+
+            ValueColor_ComboBox.Items.Clear();
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_red"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_orange"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_yellow"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_green"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_blue"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_purple"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_magenta"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_pink"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_black"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_white"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_gray"] as string);
+            ValueColor_ComboBox.Items.Add(Application.Current.Resources["comboboxitem_color_darkgray"] as string);
+
         }
 
         public void CloseAllWindows()
@@ -81,9 +86,11 @@ namespace PitBoss.UserControls
         Overlay_Window? overlayWindow;
         private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)
         {
+
             if (overlayWindow == null)
             {
 
+                initColors();
                 overlayWindow = new Overlay_Window();
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
@@ -397,13 +404,33 @@ namespace PitBoss.UserControls
             if (ShorcutsMenu.Visibility == Visibility.Visible)
             {
                 ShorcutsMenu.Visibility = Visibility.Hidden;
-                Shortcuts_Button.Content = "Show";
+                Shortcuts_Button.Content = Application.Current.Resources["button_show"] as string;
             }
             else
             {
                 ShorcutsMenu.Visibility = Visibility.Visible;
-                Shortcuts_Button.Content = "Hide";
+                Shortcuts_Button.Content = Application.Current.Resources["button_hide"] as string;
             }
+        }
+
+        private bool DidLanugageChanged()
+        {
+            var dictionary = Application.Current.Resources.MergedDictionaries.FirstOrDefault();
+
+            if (dictionary != null && dictionary.Source != null)
+            {
+                if (checkedDictionaryUri != null && checkedDictionaryUri.Equals(dictionary.Source))
+                {
+                    Console.WriteLine("Check");
+                    return false;
+                }
+
+                checkedDictionaryUri = dictionary.Source;
+                return true;
+            }
+
+            checkedDictionaryUri = null;
+            return true;
         }
     }
 }
