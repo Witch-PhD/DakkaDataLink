@@ -37,21 +37,31 @@ namespace PitBoss
 
         private static readonly object queueLock = new object();
         private Queue<string> logQueue;
+        private bool m_RunLogger = true;
 
         private void loggerThreadTask()
         {
-            lock (queueLock)
+            while (m_RunLogger)
             {
-                using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath))
+                lock (queueLock)
                 {
-                    while (logQueue.Count > 0)
+                    using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath, true))
                     {
-                        string nextLogLine = logQueue.Dequeue();
-                        outputFile.WriteLine(nextLogLine);
+                        while (logQueue.Count > 0)
+                        {
+                            string nextLogLine = logQueue.Dequeue();
+                            outputFile.WriteLine(nextLogLine);
+                        }
                     }
                 }
+                Thread.Sleep(250);
             }
-            Thread.Sleep(250);
+        }
+
+        public static void Shutdown()
+        {
+            m_instance.m_RunLogger = false;
+            Thread.Sleep(500);
         }
 
         public static void Log(string message, bool appendTimestamp = true)

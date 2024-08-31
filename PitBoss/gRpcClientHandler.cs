@@ -49,13 +49,15 @@ namespace PitBoss
             if (dataManager.ClientHandlerActive)
             {
                 Console.WriteLine("gRpcClientHandler already connected. Aborting new connection attempt.");
+                GlobalLogger.Log("gRPC Client already connected to server. Aborting new connection attempt.");
                 return;
             }
             
             try
             {
                 m_channelTarget = channelTarget;
-                Console.WriteLine($"gRpcClientHandler connecting to {m_channelTarget}");
+                Console.WriteLine($"gRPC Client connecting to {m_channelTarget}");
+                GlobalLogger.Log($"gRPC Client connecting to {m_channelTarget}");
                 openGrpcChannel();
                 clientShutdownTokenSource = new CancellationTokenSource();
                 clientShutdownTokenSource.Token.ThrowIfCancellationRequested();
@@ -66,7 +68,8 @@ namespace PitBoss
             }
             catch (RpcException ex)
             {
-                Console.WriteLine($"RpcException: {ex.Message}");
+                Console.WriteLine($"gRPC Client RpcException: {ex.Message}");
+                GlobalLogger.Log($"gRPC Client RpcException: {ex.Message}");
                 dataManager.ClientHandlerActive = false;
             }
         }
@@ -93,7 +96,8 @@ namespace PitBoss
 
         public async void receivingTask()
         {
-            Console.WriteLine("gRpcClientHandler.receivingTask() started.");
+            Console.WriteLine("gRpc Client receivingTask started.");
+            GlobalLogger.Log("gRpc Client receivingTask started.");
             while (dataManager.ClientHandlerActive)
             {
                 try
@@ -112,27 +116,46 @@ namespace PitBoss
                     }
                     else
                     {
-                        Console.WriteLine($"gRpcClientHandler.receivingTask() RpcException: {ex.Message}");
+                        Console.WriteLine($"gRpcClientHandler.receivingTask RpcException: {ex.Message}");
+                        GlobalLogger.Log($"gRpc Client receivingTask RpcException: {ex.Message}");
                         duplexStream.Dispose();
                         openGrpcChannel();
                         Thread.Sleep(1000);
                     }
                 }
             }
-            Console.WriteLine("gRpcClientHandler.receivingTask() ending.");
+            Console.WriteLine("gRpcClientHandler receivingTask ending.");
+            GlobalLogger.Log("gRpcClientHandler receivingTask ending.");
         }
 
-        public async void sendNewCoords(ArtyMsg artyMsg)
+        private static readonly Mutex asyncWriteLock = new Mutex();
+        public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            //Console.WriteLine($"sendNewCoords entered");
-            //Console.WriteLine($"sendNewCoords az: {_az}, dist: {_dist} to {outgoingStreams.Count} guns.");
-            //foreach (IServerStreamWriter<Coords> gun in outgoingStreams)
-            //{
-            //
-            //    await gun.WriteAsync(new Coords { Az = _az, Dist = _dist });
-            //}
-            Console.WriteLine($"gRpcClientHandler.sendNewCoords(): CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-            await outgoingStream.WriteAsync(artyMsg);
+            bool lockAcquired = asyncWriteLock.WaitOne(3000);
+            if (lockAcquired)
+            {
+                Console.WriteLine($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+                GlobalLogger.Log($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+                try
+                {
+                    await outgoingStream.WriteAsync(artyMsg);
+                }
+                catch (RpcException ex)
+                {
+                    Console.WriteLine($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
+                    GlobalLogger.Log($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
+                    GlobalLogger.Log($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"gRpc Client.sendArtyMsg timed out (>3000ms) to {m_channelTarget}");
+                GlobalLogger.Log($"gRpc Client.sendArtyMsg timed out (>3000ms) to {m_channelTarget}");
+            }
         }
     }
 }

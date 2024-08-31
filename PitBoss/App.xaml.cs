@@ -52,7 +52,9 @@ namespace PitBoss
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            GlobalLogger.Log("Application exiting.");
             KListener.Dispose();
+            GlobalLogger.Shutdown();
         }
 
     }
