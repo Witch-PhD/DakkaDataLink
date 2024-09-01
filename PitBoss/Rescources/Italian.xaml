@@ -21,6 +21,7 @@
     <system:String x:Key="textblock_author">Fatto da [82DK-A] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Collaboratori:</system:String>
     <system:String x:Key="textblock_version">Versione:</system:String>
+    <system:String x:Key="textblock_translators">Traduttori:</system:String>
     
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Coordiante di Fuoco</system:String>

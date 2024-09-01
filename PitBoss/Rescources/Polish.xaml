@@ -21,6 +21,7 @@
     <system:String x:Key="textblock_author">Napisane przez [82DK-A] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Współtwórcy:</system:String>
     <system:String x:Key="textblock_version">Wersja:</system:String>
+    <system:String x:Key="textblock_translators">Tłumacze:</system:String>
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Współrzędne ostrzału</system:String>
