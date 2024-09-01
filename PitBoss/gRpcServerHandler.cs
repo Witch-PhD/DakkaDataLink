@@ -4,6 +4,7 @@ using Grpc.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,8 @@ namespace PitBoss
                 dataManager.ServerActiveListeningPort = port.BoundPort;
             }
             //dataManager.ServerActiveListeningPort = theServer.Ports[portsEnumerator];
-            Console.WriteLine($"Server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
+            Console.WriteLine($"gRPC server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
+            GlobalLogger.Log($"gRPC server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
         }
 
         public async void StopServer()
@@ -74,7 +76,8 @@ namespace PitBoss
             await serverShutdown;
             dataManager.ServerHandlerActive = false;
             theServer = null;
-            Console.WriteLine($"Server stopped.");
+            Console.WriteLine("gRPC Server stopped.");
+            GlobalLogger.Log($"gRPC Server stopped.");
         }
 
 
@@ -92,7 +95,8 @@ namespace PitBoss
             {
                 outgoingStreams.Add(responseStream);
                 dataManager.ConnectedClients = outgoingStreams.Count;
-                Console.WriteLine($"openStream(): {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
+                Console.WriteLine($"gRPC Server: {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
+                GlobalLogger.Log($"gRPC Server:  {context.Peer} Connected. {outgoingStreams.Count} connections now active.");
                 while (await requestStream.MoveNext(context.CancellationToken))
                 {
                     if (context.CancellationToken.IsCancellationRequested)
@@ -100,11 +104,11 @@ namespace PitBoss
                         break;
                     }
                     ArtyMsg newMsg = requestStream.Current;
-                    if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner)
+                    if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner) // If gunner is server, relay this received msg to other clients. This will echo back to the spotter.
                     {
                         newMsg.ConnectedGuns = dataManager.ConnectedClients;
                         dataManager.NewArtyMsgReceived(newMsg);
-                        sendNewCoords(newMsg);
+                        sendArtyMsg(newMsg);
                     }
                     else
                     {
@@ -123,19 +127,50 @@ namespace PitBoss
                 outgoingStreams.Remove(responseStream);
                 dataManager.ConnectedClients = outgoingStreams.Count;
                 //dataManager.ConnectedClients--;
-                Console.WriteLine($"openStream(): {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
+                Console.WriteLine($"gRPC Server: {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
+                GlobalLogger.Log($"gRPC Server: {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
             }
         }
 
-        public async void sendNewCoords(ArtyMsg artyMsg)
+        private static readonly Mutex asyncWriteLock = new Mutex();
+        public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            //Console.WriteLine($"sendNewCoords entered");
-            Console.WriteLine($"gRpcServerHandler.sendNewCoords(): CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-            foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
+            //Console.WriteLine($"sendArtyMsg entered");
+            Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            GlobalLogger.Log($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            bool lockAcquired = asyncWriteLock.WaitOne(3000);
+            if (lockAcquired)
             {
-                
-                gun.WriteAsync(artyMsg);
+                foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
+                {
+                    try
+                    {
+                        await gun.WriteAsync(artyMsg);
+                    }
+                    catch (RpcException ex)
+                    {
+                        Console.WriteLine($"*** gRpc Server.sendArtyMsg RpcException {ex.Message}"); // TODO: Add peer IP here somehow.
+                        GlobalLogger.Log($"*** gRpc Server.sendArtyMsg RpcException: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
+                        GlobalLogger.Log($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
+                    }
+                }
+                stopwatch.Stop();
+                Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+                GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
             }
+            else
+            {
+                stopwatch.Stop();
+                Console.WriteLine($"gRpc Server.sendArty message timed out (>3000ms). POTENTIAL DEADLOCK.");
+                GlobalLogger.Log($"gRpc Server.sendArty message timed out (>3000ms). POTENTIAL DEADLOCK.");
+            }
+            
         }
     }
 }

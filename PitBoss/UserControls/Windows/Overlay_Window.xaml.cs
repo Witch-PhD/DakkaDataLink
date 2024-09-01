@@ -33,7 +33,7 @@ namespace PitBoss.UserControls
 
             AzValue_TextBlock.DataContext = dataManager;
             DistValue_TextBlock.DataContext = dataManager;
-
+            
             m_CurrentBorderColor = Brushes.Transparent;
             Topmost = true;
 

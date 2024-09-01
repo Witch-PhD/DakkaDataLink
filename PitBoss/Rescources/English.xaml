@@ -21,6 +21,7 @@
     <system:String x:Key="textblock_author">Written by [82DK-A] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Contributors:</system:String>
     <system:String x:Key="textblock_version">Version:</system:String>
+    <system:String x:Key="textblock_translators">Translators:</system:String>
     
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Firing Coordinates</system:String>

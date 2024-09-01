@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace PitBoss
 {
@@ -26,8 +27,8 @@ namespace PitBoss
 
         #region OverlaySettings
 
-        private double m_OverlayTransparency = 0.5;
-        public double OverlayTransparency
+        protected double m_OverlayTransparency = 0.5;
+        public double OverlayOpacity
         {
             get
             {
@@ -43,7 +44,8 @@ namespace PitBoss
             }
         }
 
-        private Brush m_OverlayBackgroundColor = Brushes.DarkGray;
+        protected Brush m_OverlayBackgroundColor = Brushes.DarkGray;
+        [XmlIgnore]
         public Brush OverlayBackgroundColor
         {
             get
@@ -60,7 +62,8 @@ namespace PitBoss
             }
         }
 
-        private Brush m_OverlayValuesFontColor = Brushes.Red;
+        protected Brush m_OverlayValuesFontColor = Brushes.Red;
+        [XmlIgnore]
         public Brush OverlayValuesFontColor
         {
             get
@@ -77,7 +80,8 @@ namespace PitBoss
             }
         }
 
-        private Brush m_OverlayLabelsFontColor = Brushes.Bisque;
+        protected Brush m_OverlayLabelsFontColor = Brushes.Bisque;
+        [XmlIgnore]
         public Brush OverlayLabelsFontColor
         {
             get
@@ -94,7 +98,8 @@ namespace PitBoss
             }
         }
 
-        private int m_OverlayFontSize = 12;
+        protected int m_OverlayFontSize = 12;
+
         public int OverlayFontSize
         {
             get
@@ -113,6 +118,7 @@ namespace PitBoss
         #endregion
 
         #region KeyBindings
+        [XmlIgnore]
         public Dictionary<string, KeyCombo> BindingDictionary;
 
         public const string AZ_UP_ONE_DEG_DICT_KEY = "Az_Up_One_Deg_Binding";
@@ -142,6 +148,22 @@ namespace PitBoss
             BindingDictionary.Add(SEND_ARTY_MSG_DICT_KEY, new KeyCombo(Key.RightCtrl, Key.NumPad0));
         }
 
+        #endregion
+
+        #region Logger
+        protected string m_LoggerFilePath = "Log.txt";
+        public string LoggerFilePath
+        {
+            get
+            {
+                return m_LoggerFilePath;
+            }
+            set
+            {
+                m_LoggerFilePath = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
     }
 }

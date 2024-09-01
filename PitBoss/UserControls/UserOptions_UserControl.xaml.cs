@@ -71,7 +71,7 @@ namespace PitBoss.UserControls
         Overlay_Window? overlayWindow;
         private void ToggleOverlay_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (overlayWindow == null)
+            if (overlayWindow == null) // Opening Window
             {
 
                 initColors();
@@ -90,11 +90,12 @@ namespace PitBoss.UserControls
                 };
 
                 overlayWindow.Show();
-                overlayWindow.BackGroundBrush.Opacity = opacity;
+                overlayWindow.BackGroundBrush.Opacity = dataManager.userOptions.OverlayOpacity;
             }
-            else
+            else // Closing Window
             {
-                opacity = OverlayOpacity_Slider.Value;
+                dataManager.userOptions.OverlayOpacity = OverlayOpacity_Slider.Value;
+                //opacity = OverlayOpacity_Slider.Value;
                 OverlayOpacity_Slider.DataContext = null;
                 OverlayOpacity_TextBox.DataContext = null;
                 OverlayOpacity_TextBox.Text = "N/A";
@@ -179,7 +180,7 @@ namespace PitBoss.UserControls
             ChangeBindingFor_SendCoords_Button.IsEnabled = true;
         }
 
-        private void updateKeyBindingStrings()
+        public void updateKeyBindingStrings()
         {
             Dictionary<string, KeyCombo> combosList = dataManager.userOptions.BindingDictionary;
             AzPlusOne_KeyBinding_TextBox.Text = dataManager.userOptions.BindingDictionary[UserOptions.AZ_UP_ONE_DEG_DICT_KEY].ToString();

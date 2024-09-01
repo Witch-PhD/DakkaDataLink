@@ -18,8 +18,8 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="{DynamicResource menu_file_header}">
-                <MenuItem Header="{DynamicResource menu_file_item_save}" IsEnabled="false" ToolTip="Not yet implemented."/>
-                <MenuItem Header="{DynamicResource menu_file_item_load}" IsEnabled="false" ToolTip="Not yet implemented."/>
+                <MenuItem x:Name="SaveSettings_MenuItem" Header="{DynamicResource menu_file_item_save}" Click="SaveSettings_MenuItem_Click"/>
+                <MenuItem x:Name="LoadSettings_MenuItem" Header="{DynamicResource menu_file_item_load}" Click="LoadSettings_MenuItem_Click"/>
                 <Separator/>
                 <MenuItem Header="{DynamicResource menu_file_item_exit}"/>
             </MenuItem>
