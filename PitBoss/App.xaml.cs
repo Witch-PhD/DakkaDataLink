@@ -21,6 +21,9 @@ namespace PitBoss
         private static RawKeyEventHandler keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            //this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnDispatcherUnhandledException;
+
             DateTime startTime = DateTime.Now;
             GlobalLogger.Log($"{startTime.Year}-{startTime.Month}-{startTime.Day} ({startTime.Hour}:{startTime.Minute}:{startTime.Second}.{startTime.Millisecond}) Application_Startup entered", false);
             keyDownHandler = new RawKeyEventHandler(KListener_KeyDown);
@@ -31,6 +34,14 @@ namespace PitBoss
             mainWindow.Show();
         }
 
+        void OnDispatcherUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = (Exception)e.ExceptionObject;
+            GlobalLogger.Log($"{ex.Message}");
+            GlobalLogger.Shutdown();
+            MessageBox.Show("Unhandled exception occurred: \n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+        }
 
         static void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {

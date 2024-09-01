@@ -28,7 +28,7 @@ namespace PitBoss
         {
             logQueue = new Queue<string>();
             loggerThread = new Thread(loggerThreadTask);
-            loggerThread.IsBackground = true;
+            loggerThread.IsBackground = false;
             loggerThread.Start();
         }
 
@@ -66,6 +66,22 @@ namespace PitBoss
         {
             m_instance.m_RunLogger = false;
             Thread.Sleep(500);
+            m_instance.FlushLog();
+        }
+
+        private void FlushLog()
+        {
+            lock (queueLock)
+            {
+                using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath, true))
+                {
+                    while (logQueue.Count > 0)
+                    {
+                        string nextLogLine = logQueue.Dequeue();
+                        outputFile.WriteLine(nextLogLine);
+                    }
+                }
+            }
         }
 
         public static void Log(string message, bool appendTimestamp = true)
