@@ -123,36 +123,49 @@ namespace PitBoss
 
         private void SaveSettings_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "XML File|*.xml";
-            saveFileDialog1.Title = "Save to File";
-            saveFileDialog1.ShowDialog();
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "PitBoss");
 
-            // If the file name is not an empty string open it for saving.
-            if (saveFileDialog1.FileName != "")
+            if (!Directory.Exists(folderPath))
             {
-                SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
-                options.SerializeToFile(saveFileDialog1.FileName);
+                Directory.CreateDirectory(folderPath);
+            }
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "XML File|*.xml",
+                Title = "Save to File",
+                InitialDirectory = folderPath
+            };
+
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                if (!string.IsNullOrEmpty(saveFileDialog1.FileName))
+                {
+                    SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
+                    options.SerializeToFile(saveFileDialog1.FileName);
+                }
             }
         }
 
         private void LoadSettings_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.FileName = "Settings"; // Default file name
-            dialog.DefaultExt = ".xml"; // Default file extension
-            dialog.Filter = "XML File (.xml)|*.xml"; // Filter files by extension
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "PitBoss");
 
-            // Show open file dialog box
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                FileName = "Settings", // Default file name
+                DefaultExt = ".xml", // Default file extension
+                Filter = "XML File (.xml)|*.xml", // Filter files by extension
+                InitialDirectory = folderPath
+            };
+
             bool? result = dialog.ShowDialog();
 
-            // Process open file dialog box results
             if (result == true)
             {
-                // Open document
                 string filename = dialog.FileName;
 
-                SerializableUserOptions theOptions = new(dataManager.userOptions);
+                SerializableUserOptions theOptions = new SerializableUserOptions(dataManager.userOptions);
                 theOptions.DeserializeFrom(filename);
                 dataManager.userOptions = theOptions;
                 theUserOptionsUserControl.updateKeyBindingStrings();
