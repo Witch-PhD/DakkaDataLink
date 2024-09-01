@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using PitBoss.UserControls;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static PitBoss.PitBossConstants;
+using Path = System.IO.Path;
 
 namespace PitBoss
 {
@@ -37,6 +39,7 @@ namespace PitBoss
             this.SizeToContent = SizeToContent.WidthAndHeight;
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
+            LoadSettings();
         }
 
         DataManager dataManager;
@@ -153,6 +156,46 @@ namespace PitBoss
                 theOptions.DeserializeFrom(filename);
                 dataManager.userOptions = theOptions;
                 theUserOptionsUserControl.updateKeyBindingStrings();
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            SaveUserSettings();
+        }
+
+        private void SaveUserSettings()
+        {
+            string programDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string pitBossFolderPath = Path.Combine(programDataPath, "PitBoss");
+
+            if (!Directory.Exists(pitBossFolderPath))
+            {
+                Directory.CreateDirectory(pitBossFolderPath);
+            }
+
+            string settingsFilePath = Path.Combine(pitBossFolderPath, "Settings.xml");
+
+            SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
+            options.SerializeToFile(settingsFilePath);
+        }
+
+        private void LoadSettings()
+        {
+            string programDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string pitBossFolder = Path.Combine(programDataPath, "PitBoss");
+            string settingsFilePath = Path.Combine(pitBossFolder, "Settings.xml");
+
+            if (File.Exists(settingsFilePath))
+            {
+                SerializableUserOptions theOptions = new SerializableUserOptions(dataManager.userOptions);
+                theOptions.DeserializeFrom(settingsFilePath);
+                dataManager.userOptions = theOptions;
+                theUserOptionsUserControl.updateKeyBindingStrings();
+            }
+            else
+            {
+                SaveUserSettings();
             }
         }
     }

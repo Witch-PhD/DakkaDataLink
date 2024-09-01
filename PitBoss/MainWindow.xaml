@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PitBoss"
         xmlns:userControls="clr-namespace:PitBoss.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" Width="auto">
+        Title="MainWindow" Height="auto" Width="auto" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
