@@ -41,6 +41,10 @@ namespace PitBoss
 
         private void loggerThreadTask()
         {
+            using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath))
+            {
+                outputFile.Write(""); // Clear the log file.
+            }
             while (m_RunLogger)
             {
                 lock (queueLock)

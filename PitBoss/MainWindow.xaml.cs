@@ -1,4 +1,5 @@
-﻿using PitBoss.UserControls;
+﻿using Microsoft.Win32;
+using PitBoss.UserControls;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -114,6 +115,44 @@ namespace PitBoss
                     Source = new Uri((@"\Rescources\"+languageName+".xaml"), UriKind.Relative)
                 };
                 Application.Current.Resources.MergedDictionaries.Add(dictionary);
+            }
+        }
+
+        private void SaveSettings_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "XML File|*.xml";
+            saveFileDialog1.Title = "Save to File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
+                options.SerializeToFile(saveFileDialog1.FileName);
+            }
+        }
+
+        private void LoadSettings_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.FileName = "Settings"; // Default file name
+            dialog.DefaultExt = ".xml"; // Default file extension
+            dialog.Filter = "XML File (.xml)|*.xml"; // Filter files by extension
+
+            // Show open file dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                string filename = dialog.FileName;
+
+                SerializableUserOptions theOptions = new(dataManager.userOptions);
+                theOptions.DeserializeFrom(filename);
+                dataManager.userOptions = theOptions;
+                theUserOptionsUserControl.updateKeyBindingStrings();
             }
         }
     }

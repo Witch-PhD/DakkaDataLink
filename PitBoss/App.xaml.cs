@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -20,13 +21,12 @@ namespace PitBoss
         private static RawKeyEventHandler keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            GlobalLogger.Log("Application_Startup entered");
+            DateTime startTime = DateTime.Now;
+            GlobalLogger.Log($"{startTime.Year}-{startTime.Month}-{startTime.Day} ({startTime.Hour}:{startTime.Minute}:{startTime.Second}.{startTime.Millisecond}) Application_Startup entered", false);
             keyDownHandler = new RawKeyEventHandler(KListener_KeyDown);
             keyUpHandler = new RawKeyEventHandler(KListener_KeyUp);
-
             KListener.KeyDown += keyDownHandler;
             KListener.KeyUp += keyUpHandler;
-            
             mainWindow = new MainWindow();
             mainWindow.Show();
         }
