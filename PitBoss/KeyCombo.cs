@@ -17,6 +17,11 @@ namespace PitBoss
             if (key3 != null) theComboList.Add(key3);
         }
 
+        public KeyCombo(List<Key?> theComboList)
+        {
+            this.theComboList = theComboList;
+        }
+
         public List<Key?> theComboList;
 
         public override string ToString()

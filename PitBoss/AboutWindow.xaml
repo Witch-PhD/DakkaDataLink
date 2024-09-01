@@ -11,7 +11,11 @@
         <TextBlock Text="{DynamicResource textblock_description}" Margin="0,0,0,5"/>
         <TextBlock Text="{DynamicResource textblock_author}" Margin="0,0,0,5"/>
         <TextBlock Text="{DynamicResource textblock_contributors}"/>
+        <TextBlock Text="[82DK-A] Huners" Margin="0,0,0,5"/>
+        <TextBlock Text="{DynamicResource textblock_translators}"/>
         <TextBlock Text="[82DK-A] Huners"/>
+        <TextBlock Text="[82DK-☆] Ugo"/>
+        <TextBlock Text="[82DK-☆] Valkyrjar ♡"/>
         <TextBox Width="220" HorizontalAlignment="Left" IsReadOnly="True" Margin="0,10,0,5">
             https://github.com/Witch-PhD/PitBoss
         </TextBox>

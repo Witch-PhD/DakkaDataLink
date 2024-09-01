@@ -291,13 +291,13 @@ namespace PitBoss
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledMsg();
 
-            if (ServerHandlerActive)
+            if (ServerHandlerActive) // If spotter is server.
             {
-                serverHandler.sendNewCoords(artyMsg);
+                serverHandler.sendArtyMsg(artyMsg);
             }
             else if (ClientHandlerActive)
             {
-                clientHandler.sendNewCoords(artyMsg);
+                clientHandler.sendArtyMsg(artyMsg); // If spotter is client.
             }
             else
             {
@@ -312,6 +312,7 @@ namespace PitBoss
             
             newCoordsReceived?.Invoke(this, true);
             Console.WriteLine($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
+            GlobalLogger.Log($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
         }
 
 
