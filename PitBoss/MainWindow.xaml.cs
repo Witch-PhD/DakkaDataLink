@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 using static PitBoss.PitBossConstants;
 using Path = System.IO.Path;
 
@@ -40,6 +41,8 @@ namespace PitBoss
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
             LoadSettings();
+            LoadLanguage(dataManager.userOptions.Language);
+            Console.WriteLine(CultureInfo.CurrentCulture.EnglishName.Split(' ')[0].Trim());
         }
 
         DataManager dataManager;
@@ -75,7 +78,7 @@ namespace PitBoss
                 case DataManager.ProgramOperatingMode.eGunner:
                     //Gunner_TabItem.IsSelected = true;
                     //Spotter_TabItem.IsEnabled = false;
-                    Gunner_TabItem.Visibility= Visibility.Visible;
+                    Gunner_TabItem.Visibility = Visibility.Visible;
                     Spotter_TabItem.Visibility = Visibility.Collapsed;
                     break;
 
@@ -109,16 +112,22 @@ namespace PitBoss
 
         private void Language_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if(sender is MenuItem item)
+            if (sender is MenuItem item)
             {
                 string languageName = item.Name[..^9];
-                Application.Current.Resources.MergedDictionaries.Clear();
-                ResourceDictionary dictionary = new()
-                {
-                    Source = new Uri((@"\Rescources\"+languageName+".xaml"), UriKind.Relative)
-                };
-                Application.Current.Resources.MergedDictionaries.Add(dictionary);
+                LoadLanguage(languageName);
+                dataManager.userOptions.Language = languageName;
             }
+        }
+
+        private void LoadLanguage(string languageName)
+        {
+            Application.Current.Resources.MergedDictionaries.Clear();
+            ResourceDictionary dictionary = new()
+            {
+                Source = new Uri((@"\Rescources\" + languageName + ".xaml"), UriKind.Relative)
+            };
+            Application.Current.Resources.MergedDictionaries.Add(dictionary);
         }
 
         private void SaveSettings_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -188,6 +197,8 @@ namespace PitBoss
             }
 
             string settingsFilePath = Path.Combine(pitBossFolderPath, "Settings.xml");
+
+            MessageBox.Show(dataManager.userOptions.Language);
 
             SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
             options.SerializeToFile(settingsFilePath);

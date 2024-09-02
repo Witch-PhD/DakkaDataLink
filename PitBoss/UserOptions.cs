@@ -165,5 +165,21 @@ namespace PitBoss
             }
         }
         #endregion
+
+        #region Language
+        protected string m_Language = "English";
+        public string Language
+        {
+            get
+            {
+                return m_Language;
+            }
+            set
+            {
+                m_Language = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
     }
 }
