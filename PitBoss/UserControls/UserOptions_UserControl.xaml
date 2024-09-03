@@ -46,10 +46,6 @@
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlay_color}"/>
-                        <ComboBox x:Name="OverlayBackgroundColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayBackgroundColor}" Margin="3,3,3,3" IsEnabled="False"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
                         <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>
