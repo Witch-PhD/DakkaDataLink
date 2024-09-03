@@ -67,6 +67,8 @@ namespace PitBoss
                 OverlayOpacity = tempObject.OverlayOpacity;
                 OverlayFontSize = tempObject.OverlayFontSize;
 
+                Language = tempObject.Language;
+
                 for (int i=0; i < tempObject.BindingDictionary_List.Count - 1; i += 2)
                 {
                     string dictKeyString = tempObject.BindingDictionary_List[i];
