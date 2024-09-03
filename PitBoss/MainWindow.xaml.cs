@@ -41,8 +41,17 @@ namespace PitBoss
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
             LoadSettings();
-            LoadLanguage(dataManager.userOptions.Language);
-            Console.WriteLine(CultureInfo.CurrentCulture.EnglishName.Split(' ')[0].Trim());
+            if (dataManager.userOptions.UseWindowsLanguage == true)
+            {
+                string languageName = CultureInfo.CurrentCulture.EnglishName;
+                LoadLanguage(languageName.Split(' ')[0].Trim());
+                UseWindowsLanguage_MenuItem.Header = Application.Current.Resources["menu_language_turn_off"];
+            }
+            else
+            {
+                LoadLanguage(dataManager.userOptions.Language);
+                UseWindowsLanguage_MenuItem.Header = Application.Current.Resources["menu_language_turn_on"];
+            }
         }
 
         DataManager dataManager;
@@ -198,8 +207,6 @@ namespace PitBoss
 
             string settingsFilePath = Path.Combine(pitBossFolderPath, "Settings.xml");
 
-            MessageBox.Show(dataManager.userOptions.Language);
-
             SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
             options.SerializeToFile(settingsFilePath);
         }
@@ -221,6 +228,16 @@ namespace PitBoss
             {
                 SaveUserSettings();
             }
+        }
+
+        private void UseWindowsLanguage_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            object turnOffText = Application.Current.Resources["menu_language_turn_off"];
+            object turnOnText = Application.Current.Resources["menu_language_turn_on"];
+
+            bool useWindowsLanguage = UseWindowsLanguage_MenuItem.Header == turnOffText;
+            UseWindowsLanguage_MenuItem.Header = useWindowsLanguage ? turnOnText : turnOffText;
+            dataManager.userOptions.UseWindowsLanguage = !useWindowsLanguage;
         }
     }
 }

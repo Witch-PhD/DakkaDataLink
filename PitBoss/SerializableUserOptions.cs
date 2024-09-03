@@ -23,6 +23,7 @@ namespace PitBoss
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
             Language = options.Language;
+            UseWindowsLanguage = options.UseWindowsLanguage;
 
             BindingDictionary_List = new List<string>();
             foreach (KeyValuePair<string, KeyCombo> entry in options.BindingDictionary)
@@ -68,6 +69,7 @@ namespace PitBoss
                 OverlayFontSize = tempObject.OverlayFontSize;
 
                 Language = tempObject.Language;
+                UseWindowsLanguage = tempObject.UseWindowsLanguage;
 
                 for (int i=0; i < tempObject.BindingDictionary_List.Count - 1; i += 2)
                 {

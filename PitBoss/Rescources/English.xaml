@@ -10,6 +10,8 @@
     <system:String x:Key="menu_help_header">Help</system:String>
     <system:String x:Key="menu_help_item_exit">About...</system:String>
     <system:String x:Key="menu_language_header">Language</system:String>
+    <system:String x:Key="menu_language_turn_off">Turn off using Windows Language</system:String>
+    <system:String x:Key="menu_language_turn_on">Turn on using Windows Language</system:String>
     <system:String x:Key="header_gunner">Gunner</system:String>
     <system:String x:Key="header_spotter">Spotter</system:String>
     <system:String x:Key="header_connections">Connections</system:String>

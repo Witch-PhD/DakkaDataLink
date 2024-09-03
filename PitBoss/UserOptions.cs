@@ -180,6 +180,20 @@ namespace PitBoss
                 OnPropertyChanged();
             }
         }
+
+        protected bool m_UseWindowsLanguage = true;
+        public bool UseWindowsLanguage
+        {
+            get
+            {
+                return m_UseWindowsLanguage;
+            }
+            set
+            {
+                m_UseWindowsLanguage = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
     }
 }

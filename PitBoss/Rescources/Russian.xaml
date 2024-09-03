@@ -10,6 +10,8 @@
     <system:String x:Key="menu_help_header">Справка</system:String>
     <system:String x:Key="menu_help_item_exit">О программе...</system:String>
     <system:String x:Key="menu_language_header">Язык</system:String>
+    <system:String x:Key="menu_language_turn_off">Отключить использование языка Windows</system:String>
+    <system:String x:Key="menu_language_turn_on">Включить использование языка Windows</system:String>
     <system:String x:Key="header_gunner">Наводчик</system:String>
     <system:String x:Key="header_spotter">Наблюдатель</system:String>
     <system:String x:Key="header_connections">Подключения</system:String>
