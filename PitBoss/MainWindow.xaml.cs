@@ -43,8 +43,20 @@ namespace PitBoss
             LoadSettings();
             if (dataManager.userOptions.UseWindowsLanguage == true)
             {
-                string languageName = CultureInfo.CurrentCulture.EnglishName;
-                LoadLanguage(languageName.Split(' ')[0].Trim());
+                string cultureName = CultureInfo.CurrentCulture.EnglishName;
+                string languageName = cultureName.Split(' ')[0].Trim();
+
+                string[] supportedLanguages = { "English", "German", "Italian", "Polish", "Russian", "Spanish" };
+
+                if (supportedLanguages.Contains(languageName))
+                {
+                    LoadLanguage(languageName);
+                }
+                else
+                {
+                    LoadLanguage(dataManager.userOptions.Language);
+                }
+
                 UseWindowsLanguage_MenuItem.Header = Application.Current.Resources["menu_language_turn_off"];
             }
             else
