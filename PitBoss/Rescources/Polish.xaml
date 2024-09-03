@@ -56,6 +56,9 @@
     <system:String x:Key="textblock_opacity">Przezroczystość:</system:String>
     <system:String x:Key="textblock_label_color">Kolor etykiety:</system:String>
     <system:String x:Key="textblock_value_color">Kolor wartości:</system:String>
+
+    <system:String x:Key="textblock_overlay_color">Kolor nakładki:</system:String>
+
     <system:String x:Key="comboboxitem_color_red">Czerwony</system:String>
     <system:String x:Key="comboboxitem_color_orange">Pomarańczowy</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Żółty</system:String>

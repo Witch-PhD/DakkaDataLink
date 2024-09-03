@@ -60,6 +60,12 @@ namespace PitBoss.UserControls
                     Tag = color
                 };
                 ValueColor_ComboBox.Items.Add(valueColor);
+                var valueColor = new ComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                OverlayBackgroundColor_ComboBox.Items.Add(valueColor);
             }
         }
 

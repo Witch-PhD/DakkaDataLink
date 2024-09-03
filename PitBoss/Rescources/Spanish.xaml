@@ -56,6 +56,7 @@
     <system:String x:Key="textblock_opacity">Opacidad:</system:String>
     <system:String x:Key="textblock_label_color">Color de etiqueta:</system:String>
     <system:String x:Key="textblock_value_color">Color del valor:</system:String>
+    <system:String x:Key="textblock_overlay_color">Color de superposición:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rojo</system:String>
     <system:String x:Key="comboboxitem_color_orange">Naranja</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Amarillo</system:String>

@@ -56,6 +56,7 @@
     <system:String x:Key="textblock_opacity">Opacity:</system:String>
     <system:String x:Key="textblock_label_color">Lable Color:</system:String>
     <system:String x:Key="textblock_value_color">Value Color:</system:String>
+    <system:String x:Key="textblock_overlay_color">Overlay Color:</system:String>
     <system:String x:Key="comboboxitem_color_red">Red</system:String>
     <system:String x:Key="comboboxitem_color_orange">Orange</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Yellow</system:String>

@@ -56,6 +56,7 @@
     <system:String x:Key="textblock_opacity">Deckkraft:</system:String>
     <system:String x:Key="textblock_label_color">Textfarbe:</system:String>
     <system:String x:Key="textblock_value_color">Zahlenfarbe:</system:String>
+    <system:String x:Key="textblock_overlay_color">Überlagerungsfarbe:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rot</system:String>
     <system:String x:Key="comboboxitem_color_orange">Orange</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Gelb</system:String>

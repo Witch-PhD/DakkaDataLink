@@ -22,6 +22,7 @@ namespace PitBoss
             OverlayLabelsFontColor_BrushName = options.OverlayLabelsFontColor.ToString();
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
+            OverlayBackgroundColor = options.OverlayBackgroundColor;
             Language = options.Language;
 
             BindingDictionary_List = new List<string>();
@@ -66,6 +67,7 @@ namespace PitBoss
 
                 OverlayOpacity = tempObject.OverlayOpacity;
                 OverlayFontSize = tempObject.OverlayFontSize;
+                OverlayBackgroundColor = tempObject.OverlayBackgroundColor;
 
                 Language = tempObject.Language;
 
