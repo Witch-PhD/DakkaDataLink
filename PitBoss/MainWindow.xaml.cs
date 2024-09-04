@@ -41,12 +41,12 @@ namespace PitBoss
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
             LoadSettings();
-            if (dataManager.userOptions.UseWindowsLanguage == true)
+            if (dataManager.userOptions.SaveSelectedLanguage == false)
             {
                 string cultureName = CultureInfo.CurrentCulture.EnglishName;
                 string languageName = cultureName.Split(' ')[0].Trim();
 
-                string[] supportedLanguages = { "English", "German", "Italian", "Polish", "Russian", "Spanish" };
+                string[] supportedLanguages = ["English", "German", "Italian", "Polish", "Russian", "Spanish"];
 
                 if (supportedLanguages.Contains(languageName))
                 {
@@ -56,13 +56,11 @@ namespace PitBoss
                 {
                     LoadLanguage(dataManager.userOptions.Language);
                 }
-
-                UseWindowsLanguage_MenuItem.Header = Application.Current.Resources["menu_language_turn_off"];
             }
             else
             {
+                CheckSaveSelectedLanguageWithoudEvent(true);
                 LoadLanguage(dataManager.userOptions.Language);
-                UseWindowsLanguage_MenuItem.Header = Application.Current.Resources["menu_language_turn_on"];
             }
         }
 
@@ -117,11 +115,13 @@ namespace PitBoss
         {
             if (aboutWindow == null)
             {
-                aboutWindow = new AboutWindow();
-                aboutWindow.Title = "Version Info";
-                aboutWindow.ResizeMode = ResizeMode.CanMinimize;
-                aboutWindow.SizeToContent = SizeToContent.WidthAndHeight;
-                aboutWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                aboutWindow = new AboutWindow
+                {
+                    Title = "Version Info",
+                    ResizeMode = ResizeMode.CanMinimize,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
 
                 aboutWindow.Closing += (o, ev) =>
                 {
@@ -171,7 +171,7 @@ namespace PitBoss
             {
                 if (!string.IsNullOrEmpty(saveFileDialog1.FileName))
                 {
-                    SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
+                    SerializableUserOptions options = new(dataManager.userOptions);
                     options.SerializeToFile(saveFileDialog1.FileName);
                 }
             }
@@ -195,7 +195,7 @@ namespace PitBoss
             {
                 string filename = dialog.FileName;
 
-                SerializableUserOptions theOptions = new SerializableUserOptions(dataManager.userOptions);
+                SerializableUserOptions theOptions = new(dataManager.userOptions);
                 theOptions.DeserializeFrom(filename);
                 dataManager.userOptions = theOptions;
                 theUserOptionsUserControl.updateKeyBindingStrings();
@@ -219,7 +219,7 @@ namespace PitBoss
 
             string settingsFilePath = Path.Combine(pitBossFolderPath, "Settings.xml");
 
-            SerializableUserOptions options = new SerializableUserOptions(dataManager.userOptions);
+            SerializableUserOptions options = new(dataManager.userOptions);
             options.SerializeToFile(settingsFilePath);
         }
 
@@ -231,7 +231,7 @@ namespace PitBoss
 
             if (File.Exists(settingsFilePath))
             {
-                SerializableUserOptions theOptions = new SerializableUserOptions(dataManager.userOptions);
+                SerializableUserOptions theOptions = new(dataManager.userOptions);
                 theOptions.DeserializeFrom(settingsFilePath);
                 dataManager.userOptions = theOptions;
                 theUserOptionsUserControl.updateKeyBindingStrings();
@@ -242,14 +242,20 @@ namespace PitBoss
             }
         }
 
-        private void UseWindowsLanguage_MenuItem_Click(object sender, RoutedEventArgs e)
+        private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
         {
-            object turnOffText = Application.Current.Resources["menu_language_turn_off"];
-            object turnOnText = Application.Current.Resources["menu_language_turn_on"];
+            dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
+        }
 
-            bool useWindowsLanguage = UseWindowsLanguage_MenuItem.Header == turnOffText;
-            UseWindowsLanguage_MenuItem.Header = useWindowsLanguage ? turnOnText : turnOffText;
-            dataManager.userOptions.UseWindowsLanguage = !useWindowsLanguage;
+        private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
+        {
+            SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
+            SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
+
+            SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
+
+            SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
+            SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
         }
     }
 }

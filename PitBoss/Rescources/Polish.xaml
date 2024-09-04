@@ -10,8 +10,7 @@
     <system:String x:Key="menu_help_header">Pomoc</system:String>
     <system:String x:Key="menu_help_item_exit">O programie...</system:String>
     <system:String x:Key="menu_language_header">Język</system:String>
-    <system:String x:Key="menu_language_turn_off">Wyłącz korzystanie z języka systemu Windows</system:String>
-    <system:String x:Key="menu_language_turn_on">Włącz korzystanie z języka systemu Windows</system:String>
+    <system:String x:Key="menu_language_turn">Zapisz wybrany język</system:String>
     <system:String x:Key="header_gunner">Artylerzysta</system:String>
     <system:String x:Key="header_spotter">Zwiadowca</system:String>
     <system:String x:Key="header_connections">Połączenia</system:String>

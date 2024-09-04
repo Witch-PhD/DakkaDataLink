@@ -34,7 +34,14 @@
                 <MenuItem x:Name="Russian_MenuItem" Header="Русский" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Spanish_MenuItem" Header="Español" Click="Language_MenuItem_Click"/>
                 <Separator/>
-                <MenuItem x:Name="UseWindowsLanguage_MenuItem" Header="{DynamicResource menu_language_turn_off}" Click="UseWindowsLanguage_MenuItem_Click"/>
+                <MenuItem x:Name="SaveSelectedLanguage_MenuItem">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource menu_language_turn}" VerticalAlignment="Center" Margin="3"/>
+                            <CheckBox x:Name="SaveSelectedLanguage_CheckBox" VerticalAlignment="Center" Checked="SaveSelectedLanguage_CheckBox_Changed" Unchecked="SaveSelectedLanguage_CheckBox_Changed"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">

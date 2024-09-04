@@ -10,8 +10,7 @@
     <system:String x:Key="menu_help_header">Aiuto</system:String>
     <system:String x:Key="menu_help_item_exit">Informazioni...</system:String>
     <system:String x:Key="menu_language_header">Lingua</system:String>
-    <system:String x:Key="menu_language_turn_off">Disattiva utilizzando la lingua di Windows</system:String>
-    <system:String x:Key="menu_language_turn_on">Attiva utilizzando la lingua di Windows</system:String>
+    <system:String x:Key="menu_language_turn">Salva la lingua selezionata</system:String>
     <system:String x:Key="header_gunner">Artigliere</system:String>
     <system:String x:Key="header_spotter">Osservatore</system:String>
     <system:String x:Key="header_connections">Connessioni</system:String>

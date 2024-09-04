@@ -181,16 +181,16 @@ namespace PitBoss
             }
         }
 
-        protected bool m_UseWindowsLanguage = true;
-        public bool UseWindowsLanguage
+        protected bool m_SaveSelectedLanguage = false;
+        public bool SaveSelectedLanguage
         {
             get
             {
-                return m_UseWindowsLanguage;
+                return m_SaveSelectedLanguage;
             }
             set
             {
-                m_UseWindowsLanguage = value;
+                m_SaveSelectedLanguage = value;
                 OnPropertyChanged();
             }
         }
