@@ -28,6 +28,7 @@ namespace PitBoss.UserControls
             DataContext = DataManager.Instance;
             //Az_TextBox.DataContext = DataManager.Instance;
             //Dist_TextBox.DataContext = DataManager.Instance;
+            PreviousCoords_DataGrid.ItemsSource = dataManager.PreviousCoords;
 
         }
         DataManager dataManager;
