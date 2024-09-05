@@ -10,6 +10,7 @@
     <system:String x:Key="menu_help_header">Pomoc</system:String>
     <system:String x:Key="menu_help_item_exit">O programie...</system:String>
     <system:String x:Key="menu_language_header">Język</system:String>
+    <system:String x:Key="menu_language_turn">Zapisz wybrany język</system:String>
     <system:String x:Key="header_gunner">Artylerzysta</system:String>
     <system:String x:Key="header_spotter">Zwiadowca</system:String>
     <system:String x:Key="header_connections">Połączenia</system:String>
@@ -21,6 +22,7 @@
     <system:String x:Key="textblock_author">Napisane przez [82DK-A] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Współtwórcy:</system:String>
     <system:String x:Key="textblock_version">Wersja:</system:String>
+    <system:String x:Key="textblock_translators">Tłumacze:</system:String>
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Współrzędne ostrzału</system:String>
@@ -55,6 +57,7 @@
     <system:String x:Key="textblock_opacity">Przezroczystość:</system:String>
     <system:String x:Key="textblock_label_color">Kolor etykiety:</system:String>
     <system:String x:Key="textblock_value_color">Kolor wartości:</system:String>
+    <system:String x:Key="textblock_overlay_color">Kolor nakładki:</system:String>
     <system:String x:Key="comboboxitem_color_red">Czerwony</system:String>
     <system:String x:Key="comboboxitem_color_orange">Pomarańczowy</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Żółty</system:String>

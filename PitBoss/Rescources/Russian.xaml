@@ -10,6 +10,7 @@
     <system:String x:Key="menu_help_header">Справка</system:String>
     <system:String x:Key="menu_help_item_exit">О программе...</system:String>
     <system:String x:Key="menu_language_header">Язык</system:String>
+    <system:String x:Key="menu_language_turn">Сохранить выбранный язык</system:String>
     <system:String x:Key="header_gunner">Наводчик</system:String>
     <system:String x:Key="header_spotter">Наблюдатель</system:String>
     <system:String x:Key="header_connections">Подключения</system:String>
@@ -21,6 +22,7 @@
     <system:String x:Key="textblock_author">Автор: [82DK-A] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Участники:</system:String>
     <system:String x:Key="textblock_version">Версия:</system:String>
+    <system:String x:Key="textblock_translators">Переводчики:</system:String>
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Координаты стрельбы</system:String>
@@ -55,6 +57,7 @@
     <system:String x:Key="textblock_opacity">Прозрачность:</system:String>
     <system:String x:Key="textblock_label_color">Цвет метки:</system:String>
     <system:String x:Key="textblock_value_color">Цвет значения:</system:String>
+    <system:String x:Key="textblock_overlay_color">Цвет наложения:</system:String>
     <system:String x:Key="comboboxitem_color_red">Красный</system:String>
     <system:String x:Key="comboboxitem_color_orange">Оранжевый</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Желтый</system:String>
