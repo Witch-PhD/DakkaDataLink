@@ -48,13 +48,54 @@
 
                 <Button x:Name="SendCoords_Button" Content="{DynamicResource button_text}" Click="SendCoords_Button_Click" HorizontalAlignment="Left" Margin="5,5,5,5" ToolTip="{DynamicResource button_tooltip}"/>
             </StackPanel>
-            <DataGrid x:Name="PreviousCoords_DataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource textbolck_distance}" Binding="{Binding Path=Dist}"/>
-                    <DataGridTextColumn Header="{DynamicResource textbolck_azimut}" Binding="{Binding Path=Az}"/>
-                </DataGrid.Columns>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 
-            </DataGrid>
+                <GroupBox Header="Previous Coordinates" Grid.Row="0" Grid.Column="0">
+                    <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
+                            <DataGridTextColumn Header="{DynamicResource textbolck_distance}" Binding="{Binding Path=Dist}" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textbolck_azimut}" Binding="{Binding Path=Az}" MinWidth="50"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="SaveCoords_ContextMenuItem" Header="Save Coordinates" Click="SaveCoords_ContextMenuItem_Click"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                    </DataGrid>
+                </GroupBox>
+
+                <GridSplitter Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" ShowsPreview="True" Width="3"/>
+
+
+
+                <GroupBox Header="Saved Coordinates" Grid.Row="0" Grid.Column="2">
+                    <DataGrid x:Name="SavedCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=EntryName}" MinWidth="80"/>
+                            <DataGridTextColumn Header="{DynamicResource textbolck_distance}" Binding="{Binding Path=Dist}" IsReadOnly="True" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textbolck_azimut}" Binding="{Binding Path=Az}" IsReadOnly="True" MinWidth="50"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="SetCoords_ContextMenuItem" Header="Set Coordinates" Click="SetCoords_ContextMenuItem_Click"/>
+                                <Separator Margin="0,5,0,5"/>
+                                <MenuItem x:Name="DeleteSavedCoords_ContextMenuItem" Header="Delete" Click="DeleteSavedCoords_ContextMenuItem_Click"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </GroupBox>
+
+            </Grid>
         </Grid>
     </GroupBox>
 </UserControl>

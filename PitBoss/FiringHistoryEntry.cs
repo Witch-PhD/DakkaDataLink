@@ -13,7 +13,11 @@ namespace PitBoss
     {
         public FiringHistoryEntry()
         {
-        
+            DateTime now = DateTime.Now;
+            string nowHour = string.Format("{0:D2}", now.Hour);
+            string nowMinute = string.Format("{0:D2}", now.Minute);
+            string nowSecond = string.Format("{0:D2}", now.Second);
+            TimeStampHourMinSec = $"{nowHour}:{nowMinute}:{nowSecond}"; 
         }
 
         public FiringHistoryEntry(ArtyMsg artyMsg)
@@ -46,6 +50,34 @@ namespace PitBoss
             set
             {
                 m_Dist = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string m_TimeStampHourMinSec;
+        public string TimeStampHourMinSec
+        {
+            get
+            {
+                return m_TimeStampHourMinSec;
+            }
+            set
+            {
+                m_TimeStampHourMinSec = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string m_EntryName = "";
+        public string EntryName
+        {
+            get
+            {
+                return this.m_EntryName;
+            }
+            set
+            {
+                m_EntryName = value;
                 OnPropertyChanged();
             }
         }

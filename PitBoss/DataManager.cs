@@ -46,6 +46,7 @@ namespace PitBoss
         private ArtilleryProfiles m_ArtyProfiles;
 
         public ObservableCollection<FiringHistoryEntry> PreviousCoords = new ObservableCollection<FiringHistoryEntry>();
+        public ObservableCollection<FiringHistoryEntry> SavedCoords = new ObservableCollection<FiringHistoryEntry>();
         //public ObservableCollection<string> ConnectedGunsCallsigns { get; set; }
         public UserOptions userOptions
         {
@@ -291,12 +292,12 @@ namespace PitBoss
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledMsg();
-            if (PreviousCoords.Count > 50)
+            if (PreviousCoords.Count >= 20)
             {
-                PreviousCoords.RemoveAt(0);
+                PreviousCoords.RemoveAt(PreviousCoords.Count-1);
             }
             FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
-            PreviousCoords.Add(thisFiringEntry);
+            PreviousCoords.Insert(0, thisFiringEntry);
             thisFiringEntry.Dist = artyMsg.Dist;
             thisFiringEntry.Az = artyMsg.Az;
             if (ServerHandlerActive) // If spotter is server.
