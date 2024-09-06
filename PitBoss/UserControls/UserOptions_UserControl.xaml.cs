@@ -84,6 +84,8 @@ namespace PitBoss.UserControls
                 FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
+                UseFlashAlert_CheckBox.IsEnabled = true;
+                UseFlashAlert_CheckBox.DataContext = overlayWindow;
                 overlayWindow.Closing += (o, ev) =>
                 {
                     overlayWindow = null;
@@ -103,6 +105,8 @@ namespace PitBoss.UserControls
                 LabelColor_ComboBox.IsEnabled = false;
                 ValueColor_ComboBox.IsEnabled = false;
                 FontSize_TextBox.IsEnabled = false;
+                UseFlashAlert_CheckBox.IsEnabled = false;
+                UseFlashAlert_CheckBox.DataContext = null;
                 overlayWindow.Close();
             }
         }

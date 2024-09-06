@@ -28,7 +28,8 @@ namespace PitBoss.UserControls
             DataContext = DataManager.Instance;
             //Az_TextBox.DataContext = DataManager.Instance;
             //Dist_TextBox.DataContext = DataManager.Instance;
-
+            PreviousCoords_DataGrid.ItemsSource = dataManager.PreviousCoords;
+            SavedCoords_DataGrid.ItemsSource = dataManager.SavedCoords;
         }
         DataManager dataManager;
 
@@ -48,6 +49,34 @@ namespace PitBoss.UserControls
                 {
                     textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
                 }
+            }
+        }
+
+        private void SaveCoords_ContextMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            FiringHistoryEntry? theEntry = PreviousCoords_DataGrid.SelectedItem as FiringHistoryEntry;
+            if (theEntry != null)
+            {
+                dataManager.SavedCoords.Add(theEntry);
+            }
+        }
+
+        private void SetCoords_ContextMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            FiringHistoryEntry? theEntry = SavedCoords_DataGrid.SelectedItem as FiringHistoryEntry;
+            if (theEntry != null)
+            {
+                dataManager.LatestAz = theEntry.Az;
+                dataManager.LatestDist = theEntry.Dist;
+            }
+        }
+
+        private void DeleteSavedCoords_ContextMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            FiringHistoryEntry? theEntry = SavedCoords_DataGrid.SelectedItem as FiringHistoryEntry;
+            if (theEntry != null)
+            {
+                dataManager.SavedCoords.Remove(theEntry);
             }
         }
     }

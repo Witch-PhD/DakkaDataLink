@@ -34,6 +34,7 @@
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
                     <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
+                    <CheckBox x:Name="UseFlashAlert_CheckBox" Content="Flash On New Coords" IsChecked="{Binding UseFlashAlert}" IsEnabled="False" Margin="3,3,3,3"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">

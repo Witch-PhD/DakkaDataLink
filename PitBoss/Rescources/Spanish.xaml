@@ -26,12 +26,12 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Coordenadas de disparo</system:String>
-    <system:String x:Key="textbolck_distance">Dist.:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Distancia</system:String>
+    <system:String x:Key="textblock_distance">Dist.:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Distancia</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl derecho + Flecha arriba/abajo para un paso de 1 tick. Shift derecho + Flecha arriba/abajo para un paso de 3 ticks.</system:String>
-    <system:String x:Key="textbolck_azimut">Az:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Azimut</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Ctrl derecho + Flecha derecha/izquierda para un paso de 1 grado. Shift derecho + Flecha derecha/izquierda para un paso de 10 grados.</system:String>
+    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Azimut</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Ctrl derecho + Flecha derecha/izquierda para un paso de 1 grado. Shift derecho + Flecha derecha/izquierda para un paso de 10 grados.</system:String>
     <system:String x:Key="button_text">Enviar coordenadas</system:String>
     <system:String x:Key="button_tooltip">Ctrl derecho + Numpad Cero para enviar.</system:String>
 

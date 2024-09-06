@@ -26,12 +26,12 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Координаты стрельбы</system:String>
-    <system:String x:Key="textbolck_distance">Дист.:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Дистанция</system:String>
+    <system:String x:Key="textblock_distance">Дист.:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Дистанция</system:String>
     <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>
-    <system:String x:Key="textbolck_azimut">Азим.:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Азимут</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Правый Ctrl + Вправо/Влево для 1 градуса. Правый Shift + Вправо/Влево для 10 градусов.</system:String>
+    <system:String x:Key="textblock_azimuth">Азим.:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Азимут</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Правый Ctrl + Вправо/Влево для 1 градуса. Правый Shift + Вправо/Влево для 10 градусов.</system:String>
     <system:String x:Key="button_text">Отправить координаты</system:String>
     <system:String x:Key="button_tooltip">Правый Ctrl + NumPad Zero для отправки.</system:String>
 
