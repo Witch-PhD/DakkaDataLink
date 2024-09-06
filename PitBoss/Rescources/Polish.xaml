@@ -24,12 +24,12 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Współrzędne ostrzału</system:String>
-    <system:String x:Key="textbolck_distance">Dystans:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Odległość</system:String>
+    <system:String x:Key="textblock_distance">Dystans:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Odległość</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl prawy + Strzałka w górę/dół, aby zmienić o 1 krok. Shift prawy + Strzałka w górę/dół, aby zmienić o 3 kroki.</system:String>
-    <system:String x:Key="textbolck_azimut">Az:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Azymut</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Ctrl prawy + Strzałka w prawo/lewo, aby zmienić o 1 stopień. Shift prawy + Strzałka w prawo/lewo, aby zmienić o 10 stopni.</system:String>
+    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Azymut</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Ctrl prawy + Strzałka w prawo/lewo, aby zmienić o 1 stopień. Shift prawy + Strzałka w prawo/lewo, aby zmienić o 10 stopni.</system:String>
     <system:String x:Key="button_text">Wyślij współrzędne</system:String>
     <system:String x:Key="button_tooltip">Ctrl prawy + NumPad Zero, aby wysłać.</system:String>
 

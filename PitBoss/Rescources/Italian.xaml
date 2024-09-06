@@ -24,12 +24,12 @@
     
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Coordiante di Fuoco</system:String>
-    <system:String x:Key="textbolck_distance">Dist:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Distanza</system:String>
+    <system:String x:Key="textblock_distance">Dist:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Distanza</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl Destro + Freccia Su/Giù per 1 incremento. Shift Destro + Freccia Su/Giù per 3 incrementi.</system:String>
-    <system:String x:Key="textbolck_azimut">Az:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Azimut</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Ctrl Destro + Freccia Destra/Sinistra per cambiare di 1 grado. Shift Destro + Freccia Destra/Sinistra per cambiare di 10 gradi</system:String>
+    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Azimut</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Ctrl Destro + Freccia Destra/Sinistra per cambiare di 1 grado. Shift Destro + Freccia Destra/Sinistra per cambiare di 10 gradi</system:String>
     <system:String x:Key="button_text">Invia Coordinate</system:String>
     <system:String x:Key="button_tooltip">Ctrl Destro + Zero del Tastierino Numerico per inviare.</system:String>
     

@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource textbolck_distance}" ToolTip="{DynamicResource textbolck_tooltip_distance}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource textblock_distance}" ToolTip="{DynamicResource textblock_tooltip_distance}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <TextBox x:Name="Dist_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_distance}">
                         <TextBox.Text>
                             <Binding Path="LatestDist" StringFormat="F1" NotifyOnValidationError="True">
@@ -34,8 +34,8 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource textbolck_azimut}" ToolTip="{DynamicResource textbolck_tooltip_azimut}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_azimut}">
+                    <TextBlock Text="{DynamicResource textblock_azimuth}" ToolTip="{DynamicResource textblock_tooltip_azimuth}" FontSize="20" MinWidth="45" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Az_TextBox" KeyDown="TextBox_UpdateOnEnter" FontSize="20" Width="60" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_tooltip_azimuth}">
                         <TextBox.Text>
                             <Binding Path="LatestAz" StringFormat="F1" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
@@ -62,8 +62,8 @@
                     <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
-                            <DataGridTextColumn Header="{DynamicResource textbolck_distance}" Binding="{Binding Path=Dist}" MinWidth="50"/>
-                            <DataGridTextColumn Header="{DynamicResource textbolck_azimut}" Binding="{Binding Path=Az}" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_distance}" Binding="{Binding Path=Dist}" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_azimuth}" Binding="{Binding Path=Az}" MinWidth="50"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
@@ -82,8 +82,8 @@
                     <DataGrid x:Name="SavedCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=EntryName}" MinWidth="80"/>
-                            <DataGridTextColumn Header="{DynamicResource textbolck_distance}" Binding="{Binding Path=Dist}" IsReadOnly="True" MinWidth="50"/>
-                            <DataGridTextColumn Header="{DynamicResource textbolck_azimut}" Binding="{Binding Path=Az}" IsReadOnly="True" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_distance}" Binding="{Binding Path=Dist}" IsReadOnly="True" MinWidth="50"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_azimuth}" Binding="{Binding Path=Az}" IsReadOnly="True" MinWidth="50"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>

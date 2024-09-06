@@ -25,12 +25,12 @@
     
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Firing Coordinates</system:String>
-    <system:String x:Key="textbolck_distance">Dist:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Distance</system:String>
+    <system:String x:Key="textblock_distance">Dist:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Distance</system:String>
     <system:String x:Key="textbox_tooltip_distance">Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.</system:String>
-    <system:String x:Key="textbolck_azimut">Az:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Azimut</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.</system:String>
+    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Azimuth</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Right Ctrl + Right/Left Arrow for 1 degree step. Right Shift + Right/Left Arrow for 10 degree step.</system:String>
     <system:String x:Key="button_text">Send Coords</system:String>
     <system:String x:Key="button_tooltip">Right Ctrl + NumPad Zero to send.</system:String>
     

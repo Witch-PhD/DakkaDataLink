@@ -24,12 +24,12 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Firing Coordinates</system:String>
-    <system:String x:Key="textbolck_distance">Dist:</system:String>
-    <system:String x:Key="textbolck_tooltip_distance">Entfernung</system:String>
+    <system:String x:Key="textblock_distance">Dist:</system:String>
+    <system:String x:Key="textblock_tooltip_distance">Entfernung</system:String>
     <system:String x:Key="textbox_tooltip_distance">Rechte STRG + Pfeiltaste Oben/Unten für 1 tick Schritt. Recht Shift + Pfeiltaste Oben/Unten für 3 tick Schritt.</system:String>
-    <system:String x:Key="textbolck_azimut">Az:</system:String>
-    <system:String x:Key="textbolck_tooltip_azimut">Gradzahl</system:String>
-    <system:String x:Key="textbox_tooltip_azimut">Rechte STRG + Pfeiltaste Rechts/Links für 1 Grad Schritt. Rechte Shift + Pfeiltsate Rechts/Links für 10 Grad Schritt.</system:String>
+    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_tooltip_azimuth">Gradzahl</system:String>
+    <system:String x:Key="textbox_tooltip_azimuth">Rechte STRG + Pfeiltaste Rechts/Links für 1 Grad Schritt. Rechte Shift + Pfeiltsate Rechts/Links für 10 Grad Schritt.</system:String>
     <system:String x:Key="button_text">Koordinaten senden</system:String>
     <system:String x:Key="button_tooltip">Rechte STRG + NumPad Null um zusenden.</system:String>
 
