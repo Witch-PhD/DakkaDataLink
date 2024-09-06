@@ -87,6 +87,25 @@ namespace PitBoss.UserControls
             }
         }
 
+
+
+        private bool m_UseFlashAlert = true;
+        public bool UseFlashAlert
+        {
+            get
+            {
+                return m_UseFlashAlert;
+            }
+            set
+            {
+                if (m_UseFlashAlert != value)
+                {
+                    m_UseFlashAlert = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private System.Windows.Threading.DispatcherTimer flashTimer;
         private byte flashIteration = 1;
         private byte flashIterationToComplete = 4; // One iteration does one color change. Full cycle must be a multiple of 2.

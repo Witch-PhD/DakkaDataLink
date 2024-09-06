@@ -76,6 +76,8 @@
     <system:String x:Key="comboboxitem_color_gray">Gray</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">DarkGray</system:String>
     <system:String x:Key="textblock_font_size">Font Size:</system:String>
+    <!-- <system:String x:Key="flashOnNewCoordsString">Flash On New Coords</system:String> -->
+    
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Spotter Settings</system:String>
     <system:String x:Key="textblock_artillery_progile">Artillery Profile:</system:String>
