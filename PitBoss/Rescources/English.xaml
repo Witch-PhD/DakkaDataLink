@@ -10,6 +10,7 @@
     <system:String x:Key="menu_help_header">Help</system:String>
     <system:String x:Key="menu_help_item_exit">About...</system:String>
     <system:String x:Key="menu_language_header">Language</system:String>
+    <system:String x:Key="menu_language_turn">Save selected language</system:String>
     <system:String x:Key="header_gunner">Gunner</system:String>
     <system:String x:Key="header_spotter">Spotter</system:String>
     <system:String x:Key="header_connections">Connections</system:String>
@@ -63,6 +64,7 @@
     <system:String x:Key="textblock_opacity">Opacity:</system:String>
     <system:String x:Key="textblock_label_color">Lable Color:</system:String>
     <system:String x:Key="textblock_value_color">Value Color:</system:String>
+    <system:String x:Key="textblock_overlay_color">Overlay Color:</system:String>
     <system:String x:Key="comboboxitem_color_red">Red</system:String>
     <system:String x:Key="comboboxitem_color_orange">Orange</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Yellow</system:String>

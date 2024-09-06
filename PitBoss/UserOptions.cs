@@ -165,5 +165,35 @@ namespace PitBoss
             }
         }
         #endregion
+
+        #region Language
+        protected string m_Language = "English";
+        public string Language
+        {
+            get
+            {
+                return m_Language;
+            }
+            set
+            {
+                m_Language = value;
+                OnPropertyChanged();
+            }
+        }
+
+        protected bool m_SaveSelectedLanguage = false;
+        public bool SaveSelectedLanguage
+        {
+            get
+            {
+                return m_SaveSelectedLanguage;
+            }
+            set
+            {
+                m_SaveSelectedLanguage = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
     }
 }
