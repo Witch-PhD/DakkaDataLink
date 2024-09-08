@@ -37,9 +37,9 @@ namespace PitBoss
         void OnDispatcherUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
-            GlobalLogger.Log($"{ex.Message}");
+            GlobalLogger.Log($"*** Global unhandled exception: {ex.Message}\nStack Trace: {ex.StackTrace}");
             GlobalLogger.Shutdown();
-            MessageBox.Show("Unhandled exception occurred: \n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Unhandled exception occurred: \n" + ex.Message + "\nStack Trace: \n" + ex.StackTrace, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
         }
 
