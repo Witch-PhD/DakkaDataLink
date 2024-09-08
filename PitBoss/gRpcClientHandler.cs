@@ -128,33 +128,23 @@ namespace PitBoss
             GlobalLogger.Log("gRpcClientHandler receivingTask ending.");
         }
 
-        private static readonly Mutex asyncWriteLock = new Mutex();
         public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            bool lockAcquired = asyncWriteLock.WaitOne(3000);
-            if (lockAcquired)
+            Console.WriteLine($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            GlobalLogger.Log($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            try
             {
-                Console.WriteLine($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-                GlobalLogger.Log($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-                try
-                {
-                    await outgoingStream.WriteAsync(artyMsg);
-                }
-                catch (RpcException ex)
-                {
-                    Console.WriteLine($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
-                    GlobalLogger.Log($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
-                    GlobalLogger.Log($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
-                }
+                await outgoingStream.WriteAsync(artyMsg);
             }
-            else
+            catch (RpcException ex)
             {
-                Console.WriteLine($"gRpc Client.sendArtyMsg timed out (>3000ms) to {m_channelTarget}");
-                GlobalLogger.Log($"gRpc Client.sendArtyMsg timed out (>3000ms) to {m_channelTarget}");
+                Console.WriteLine($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
+                GlobalLogger.Log($"*** gRpc Client.sendArtyMsg RpcException: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
+                GlobalLogger.Log($"*** gRpc Client.sendArtyMsg Other Exception: {ex.Message}");
             }
         }
     }

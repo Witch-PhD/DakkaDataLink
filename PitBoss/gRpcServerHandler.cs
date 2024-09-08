@@ -132,45 +132,32 @@ namespace PitBoss
             }
         }
 
-        private static readonly Mutex asyncWriteLock = new Mutex();
         public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            //Console.WriteLine($"sendArtyMsg entered");
             Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             GlobalLogger.Log($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            bool lockAcquired = asyncWriteLock.WaitOne(3000);
-            if (lockAcquired)
+            foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
             {
-                foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
+                try
                 {
-                    try
-                    {
-                        await gun.WriteAsync(artyMsg);
-                    }
-                    catch (RpcException ex)
-                    {
-                        Console.WriteLine($"*** gRpc Server.sendArtyMsg RpcException {ex.Message}"); // TODO: Add peer IP here somehow.
-                        GlobalLogger.Log($"*** gRpc Server.sendArtyMsg RpcException: {ex.Message}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
-                        GlobalLogger.Log($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
-                    }
+                    await gun.WriteAsync(artyMsg);
                 }
-                stopwatch.Stop();
-                Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
-                GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+                catch (RpcException ex)
+                {
+                    Console.WriteLine($"*** gRpc Server.sendArtyMsg RpcException {ex.Message}"); // TODO: Add peer IP here somehow.
+                    GlobalLogger.Log($"*** gRpc Server.sendArtyMsg RpcException: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
+                    GlobalLogger.Log($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
+                }
             }
-            else
-            {
-                stopwatch.Stop();
-                Console.WriteLine($"gRpc Server.sendArty message timed out (>3000ms). POTENTIAL DEADLOCK.");
-                GlobalLogger.Log($"gRpc Server.sendArty message timed out (>3000ms). POTENTIAL DEADLOCK.");
-            }
-            
+            stopwatch.Stop();
+            Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+            GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
         }
     }
 }
