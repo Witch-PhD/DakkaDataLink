@@ -46,7 +46,7 @@ namespace PitBoss
         //public bool Connected = false;
         public void connectToServer(string channelTarget)
         {
-            if (dataManager.ClientHandlerActive)
+            if (dataManager.GrpcClientHandlerActive)
             {
                 Console.WriteLine("gRpcClientHandler already connected. Aborting new connection attempt.");
                 GlobalLogger.Log("gRPC Client already connected to server. Aborting new connection attempt.");
@@ -62,7 +62,7 @@ namespace PitBoss
                 clientShutdownTokenSource = new CancellationTokenSource();
                 clientShutdownTokenSource.Token.ThrowIfCancellationRequested();
                 receiveTask = new Task(receivingTask);
-                dataManager.ClientHandlerActive = true;
+                dataManager.GrpcClientHandlerActive = true;
                 receiveTask.Start();
                 
             }
@@ -70,7 +70,7 @@ namespace PitBoss
             {
                 Console.WriteLine($"gRPC Client RpcException: {ex.Message}");
                 GlobalLogger.Log($"gRPC Client RpcException: {ex.Message}");
-                dataManager.ClientHandlerActive = false;
+                dataManager.GrpcClientHandlerActive = false;
             }
         }
 
@@ -86,7 +86,7 @@ namespace PitBoss
 
         public async void disconnectFromServer()
         {
-            dataManager.ClientHandlerActive = false;
+            dataManager.GrpcClientHandlerActive = false;
             clientShutdownTokenSource.Cancel();
             Thread.Sleep(100);
             duplexStream.Dispose();
@@ -98,7 +98,7 @@ namespace PitBoss
         {
             Console.WriteLine("gRpc Client receivingTask started.");
             GlobalLogger.Log("gRpc Client receivingTask started.");
-            while (dataManager.ClientHandlerActive)
+            while (dataManager.GrpcClientHandlerActive)
             {
                 try
                 {
@@ -130,8 +130,8 @@ namespace PitBoss
 
         public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            Console.WriteLine($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-            GlobalLogger.Log($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            //Console.WriteLine($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            //GlobalLogger.Log($"gRpc Client sending new ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             try
             {
                 await outgoingStream.WriteAsync(artyMsg);

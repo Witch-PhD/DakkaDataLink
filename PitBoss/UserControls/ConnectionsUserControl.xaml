@@ -18,8 +18,13 @@
                     <TextBlock Text="{DynamicResource textblock_server_ip}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5"/>
                     <TextBox x:Name="serverIp_TextBox" Text="" Height="25" Width="125" Margin="5,5,5,5" ToolTip="{DynamicResource textbox_server_ip_tooltip}"/>
                 </StackPanel>
-                <Button x:Name="ConnectToServer_Button" Content="{DynamicResource button_connect}" Click="ConnectToServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
-                <Button x:Name="StartServer_Button" Content="{DynamicResource button_start}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartServer_Button_Click" Margin="5,5,5,5"/>
+                
+                <Button x:Name="ConnectToGrpcServer_Button" Visibility="Collapsed" Content="{DynamicResource button_connect}" Click="ConnectToGrpcServer_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
+                <Button x:Name="StartStopGrpcServer_Button" Visibility="Collapsed" Content="{DynamicResource button_start}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartStopGrpcServer_Button_Click" Margin="5,5,5,5"/>
+
+                <Button x:Name="StartStopUdpClient_Button" Content="{DynamicResource button_connect}" Click="StartStopUdpClient_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
+                <Button x:Name="StartStopUdpServer_Button" Content="{DynamicResource button_start}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartStopUdpServer_Button_Click" Margin="5,5,5,5"/>
+
                 <StackPanel x:Name="userIp_stackPanel" Visibility="Hidden">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center" Margin="3,3,3,3" Text="{DynamicResource textblock_user_ip}"/>

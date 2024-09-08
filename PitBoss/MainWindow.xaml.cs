@@ -83,6 +83,7 @@ namespace PitBoss
                 case DataManager.ProgramOperatingMode.eIdle:
                     //Gunner_TabItem.IsEnabled = true;
                     //Spotter_TabItem.IsEnabled = true;
+                    dataManager.DeactivateKeyboardListener();
                     Gunner_TabItem.Visibility = Visibility.Collapsed;
                     Spotter_TabItem.Visibility = Visibility.Collapsed;
                     break;
@@ -90,6 +91,7 @@ namespace PitBoss
                 case DataManager.ProgramOperatingMode.eSpotter:
                     //Spotter_TabItem.IsSelected = true;
                     //Gunner_TabItem.IsEnabled = false;
+                    dataManager.ActivateKeyboardListener();
                     Spotter_TabItem.Visibility = Visibility.Visible;
                     Gunner_TabItem.Visibility = Visibility.Collapsed;
                     break;
@@ -97,11 +99,13 @@ namespace PitBoss
                 case DataManager.ProgramOperatingMode.eGunner:
                     //Gunner_TabItem.IsSelected = true;
                     //Spotter_TabItem.IsEnabled = false;
+                    dataManager.DeactivateKeyboardListener();
                     Gunner_TabItem.Visibility = Visibility.Visible;
                     Spotter_TabItem.Visibility = Visibility.Collapsed;
                     break;
 
                 default:
+                    dataManager.DeactivateKeyboardListener();
                     Gunner_TabItem.IsEnabled = true;
                     Spotter_TabItem.IsEnabled = true;
                     //Gunner_TabItem.Visibility = Visibility.Visible;

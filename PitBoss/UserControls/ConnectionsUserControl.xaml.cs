@@ -25,18 +25,79 @@ namespace PitBoss.UserControls
         }
         private DataManager dataManager;
 
-        private void ConnectToServer_Button_Click(object sender, RoutedEventArgs e)
+        private void StartStopUdpClient_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (dataManager.ClientHandlerActive)
+            if (dataManager.UdpHandlerActive) // Stopping
             {
-                DataManager.Instance.StopClient();
-                ConnectToServer_Button.Content = "Connect to Server";
+                DataManager.Instance.StopUdpClient();
+                StartStopUdpClient_Button.Content = "Connect to Server";
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
                 mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
 
-                SpotterKeystrokeHandler.Instance.Deactivate();
-                StartServer_Button.IsEnabled = true;
+                serverIp_TextBox.IsEnabled = true;
+                gunnerMode_RadioButton.IsEnabled = true;
+                spotterMode_RadioButton.IsEnabled = true;
+                StartStopUdpServer_Button.IsEnabled = true;
+            }
+            else // Starting
+            {
+                serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
+                bool validIP = IPAddress.TryParse(serverIp_TextBox.Text, out _);
+                if (validIP)
+                {
+                    DataManager.Instance.StartUdpClient(serverIp_TextBox.Text);
+                    StartStopUdpClient_Button.Content = "Disconnect";
+
+                    StartStopUdpServer_Button.IsEnabled = false;
+                    serverIp_TextBox.IsEnabled = false;
+                }
+                else
+                {
+                    Console.WriteLine("*** Invalid server IP address. Check your values.");
+                }
+                setOperatingModes();
+            }
+        }
+
+        private void StartStopUdpServer_Button_Click(Object sender, RoutedEventArgs e)
+        {
+            if (dataManager.UdpHandlerActive) // Stopping
+            {
+                DataManager.Instance.StopUdpServer();
+                StartStopUdpServer_Button.Content = "Start as Server";
+
+                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
+
+                serverIp_TextBox.IsEnabled = true;
+                gunnerMode_RadioButton.IsEnabled = true;
+                spotterMode_RadioButton.IsEnabled = true;
+                StartStopUdpClient_Button.IsEnabled = true;
+            }
+            else // Starting
+            {
+                DataManager.Instance.StartUdpServer();
+                StartStopUdpServer_Button.Content = "Disconnect";
+
+                StartStopUdpClient_Button.IsEnabled = false;
+                serverIp_TextBox.IsEnabled = false;
+                setOperatingModes();
+            }
+            
+        }
+
+        private void ConnectToGrpcServer_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataManager.GrpcClientHandlerActive)
+            {
+                DataManager.Instance.StopGrpcClient();
+                ConnectToGrpcServer_Button.Content = "Connect to Server";
+
+                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
+
+                StartStopGrpcServer_Button.IsEnabled = true;
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
@@ -47,10 +108,10 @@ namespace PitBoss.UserControls
                 bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}", out _);
                 if (validIP)
                 {
-                    DataManager.Instance.StartClient(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}");
-                    ConnectToServer_Button.Content = "Disconnect";
+                    DataManager.Instance.StartGrpcClient(serverIp_TextBox.Text + $":{PitBossConstants.SERVER_PORT}");
+                    ConnectToGrpcServer_Button.Content = "Disconnect";
 
-                    StartServer_Button.IsEnabled = false;
+                    StartStopGrpcServer_Button.IsEnabled = false;
                     serverIp_TextBox.IsEnabled = false;
 
                     setOperatingModes();
@@ -62,19 +123,18 @@ namespace PitBoss.UserControls
             }
         }
 
-        private void StartServer_Button_Click(object sender, RoutedEventArgs e)
+        private void StartStopGrpcServer_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (dataManager.ServerHandlerActive)
+            if (dataManager.GrpcServerHandlerActive)
             {
-                DataManager.Instance.StopServer();
+                DataManager.Instance.StopGrpcServer();
 
-                StartServer_Button.Content = "Start as Server";
+                StartStopGrpcServer_Button.Content = "Start as Server";
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
                 mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
 
-                SpotterKeystrokeHandler.Instance.Deactivate();
-                ConnectToServer_Button.IsEnabled = true;
+                ConnectToGrpcServer_Button.IsEnabled = true;
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
@@ -83,11 +143,11 @@ namespace PitBoss.UserControls
             }
             else
             {
-                DataManager.Instance.StartServer();
+                DataManager.Instance.StartGrpcServer();
 
-                StartServer_Button.Content = "Stop Server";
+                StartStopGrpcServer_Button.Content = "Stop Server";
 
-                ConnectToServer_Button.IsEnabled = false;
+                ConnectToGrpcServer_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
 
                 userIp_stackPanel.Visibility = Visibility.Visible;
@@ -109,7 +169,6 @@ namespace PitBoss.UserControls
             else
             {
                 newMode = DataManager.ProgramOperatingMode.eSpotter;
-                SpotterKeystrokeHandler.Instance.Activate();
             }
 
             gunnerMode_RadioButton.IsEnabled = false;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,9 @@ namespace PitBoss
                 if (m_Instance == null)
                 {
                     m_Instance = new DataManager();
-                    m_Instance.serverHandler = gRpcServerHandler.Instance;
-                    m_Instance.clientHandler = gRpcClientHandler.Instance;
+                    m_Instance.udpHandler = UdpHandler.Instance;
+                    m_Instance.gRpcServerHandler = gRpcServerHandler.Instance;
+                    m_Instance.gRpcClientHandler = gRpcClientHandler.Instance;
                     m_Instance.m_userOptions = new UserOptions();
                     m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
                     //m_Instance.ConnectedGunsCallsigns = new ObservableCollection<string>();
@@ -40,8 +42,9 @@ namespace PitBoss
             
         }
 
-        private gRpcServerHandler serverHandler;
-        private gRpcClientHandler clientHandler;
+        private UdpHandler udpHandler;
+        private gRpcServerHandler gRpcServerHandler;
+        private gRpcClientHandler gRpcClientHandler;
         private UserOptions m_userOptions;
         private ArtilleryProfiles m_ArtyProfiles;
 
@@ -163,37 +166,54 @@ namespace PitBoss
             }
         }
 
-
-        private bool m_ClientHandlerActive = false;
-        public bool ClientHandlerActive
+        private bool m_UdpHandlerActive = false;
+        public bool UdpHandlerActive
         {
             get
             {
-                return m_ClientHandlerActive;
+                return m_UdpHandlerActive;
             }
             set
             {
-                if (value != m_ClientHandlerActive)
+                if (value != m_UdpHandlerActive)
                 {
-                    m_ClientHandlerActive = value;
+                    m_UdpHandlerActive = value;
 
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool m_ServerHandlerActive = false;
-        public bool ServerHandlerActive
+        private bool m_GrpcClientHandlerActive = false;
+        public bool GrpcClientHandlerActive
         {
             get
             {
-                return m_ServerHandlerActive;
+                return m_GrpcClientHandlerActive;
             }
             set
             {
-                if (value != m_ServerHandlerActive)
+                if (value != m_GrpcClientHandlerActive)
                 {
-                    m_ServerHandlerActive = value;
+                    m_GrpcClientHandlerActive = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool m_GrpcServerHandlerActive = false;
+        public bool GrpcServerHandlerActive
+        {
+            get
+            {
+                return m_GrpcServerHandlerActive;
+            }
+            set
+            {
+                if (value != m_GrpcServerHandlerActive)
+                {
+                    m_GrpcServerHandlerActive = value;
 
                     OnPropertyChanged();
                 }
@@ -244,87 +264,131 @@ namespace PitBoss
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public ArtyMsg getAssembledMsg()
+        public ArtyMsg getAssembledCoords()
         {
             ArtyMsg artyMsg = new ArtyMsg();
-            artyMsg.Az = LatestAz;
-            artyMsg.Dist = LatestDist;
+            artyMsg.Coords = new Coords();
+            artyMsg.Coords.Az = LatestAz;
+            artyMsg.Coords.Dist = LatestDist;
             artyMsg.Callsign = MyCallsign;
-            if (ServerHandlerActive)
-            {
-                artyMsg.ConnectedGuns = ConnectedClients;
-            }
+            //if (GrpcServerHandlerActive)
+            //{
+            //    artyMsg.ConnectedGuns = ConnectedClients;
+            //}
 
             return artyMsg;
         }
 
-        public void unpackIncomingArtyMsg(ArtyMsg msg)
+        public void unpackIncomingCoords(ArtyMsg msg)
         {
-            LatestAz = msg.Az;
-            LatestDist = msg.Dist;
-            if (!(ServerHandlerActive))
-            {
-                ConnectedClients = msg.ConnectedGuns;
-            }
+            LatestAz = msg.Coords.Az;
+            LatestDist = msg.Coords.Az;
         }
 
-        public void StartServer()
+        public void StartUdpServer()
         {
-            serverHandler.StartServer();
+            udpHandler.Start();
         }
 
-        public void StopServer()
+        public void StopUdpServer()
         {
-            serverHandler.StopServer();
+            udpHandler.Stop();
         }
 
-        public void StartClient(string targetIpAndPort)
+        public void StartUdpClient(string ipAddress)
         {
-            clientHandler.connectToServer(targetIpAndPort);
+            IPAddress ip = IPAddress.Parse(ipAddress);
+            udpHandler.Start(ip);
         }
 
-        public void StopClient()
+        public void StopUdpClient()
         {
-            clientHandler.disconnectFromServer();
+            udpHandler.Stop();
+        }
+
+        public void StartGrpcServer()
+        {
+            gRpcServerHandler.StartServer();
+        }
+
+        public void StopGrpcServer()
+        {
+            gRpcServerHandler.StopServer();
+        }
+
+        public void StartGrpcClient(string targetIpAndPort)
+        {
+            gRpcClientHandler.connectToServer(targetIpAndPort);
+        }
+
+        public void StopGrpcClient()
+        {
+            gRpcClientHandler.disconnectFromServer();
         }
 
         public void SendCoords()
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
-            ArtyMsg artyMsg = getAssembledMsg();
+            ArtyMsg artyMsg = getAssembledCoords();
             if (PreviousCoords.Count >= 20)
             {
                 PreviousCoords.RemoveAt(PreviousCoords.Count-1);
             }
             FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
             PreviousCoords.Insert(0, thisFiringEntry);
-            thisFiringEntry.Dist = artyMsg.Dist;
-            thisFiringEntry.Az = artyMsg.Az;
-            if (ServerHandlerActive) // If spotter is server.
-            {
-                serverHandler.sendArtyMsg(artyMsg);
-            }
-            else if (ClientHandlerActive)
-            {
-                clientHandler.sendArtyMsg(artyMsg); // If spotter is client.
-            }
-            else
-            {
-                // wut
-            }
+            thisFiringEntry.Dist = artyMsg.Coords.Dist;
+            thisFiringEntry.Az = artyMsg.Coords.Az;
+
+            udpHandler.SendCoordsToAll(artyMsg);
+            //if (GrpcServerHandlerActive) // If spotter is server.
+            //{
+            //    gRpcServerHandler.sendArtyMsg(artyMsg);
+            //}
+            //else if (GrpcClientHandlerActive)
+            //{
+            //    gRpcClientHandler.sendArtyMsg(artyMsg); // If spotter is client.
+            //}
+            //else
+            //{
+            //    // wut
+            //}
         }
 
         public event EventHandler<bool> newCoordsReceived;
         public void NewArtyMsgReceived(ArtyMsg theMsg)
         {
-            unpackIncomingArtyMsg(theMsg);
-            
-            newCoordsReceived?.Invoke(this, true);
-            Console.WriteLine($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
-            GlobalLogger.Log($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
+            if (theMsg.Coords != null)
+            {
+                unpackIncomingCoords(theMsg);
+                newCoordsReceived?.Invoke(this, true);
+                Console.WriteLine($"DataManager.NewArtyMsgReceived() [Coords] CallSign: {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
+                GlobalLogger.Log($"DataManager.NewArtyMsgReceived() [Coords] {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
+            }
+            else if (theMsg.ClientReport != null)
+            {
+                Console.WriteLine($"DataManager.NewArtyMsgReceived() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
+                GlobalLogger.Log($"DataManager.NewArtyMsgReceived() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
+            }
+            else if (theMsg.ServerReport != null)
+            {
+
+            }
+            else
+            {
+                // TODO: Report warning: empty message.
+            }
+
         }
 
 
-        
+        public void ActivateKeyboardListener()
+        {
+            SpotterKeystrokeHandler.Instance.Activate();
+        }
+
+        public void DeactivateKeyboardListener()
+        {
+            SpotterKeystrokeHandler.Instance.Deactivate();
+        }
     }
 }

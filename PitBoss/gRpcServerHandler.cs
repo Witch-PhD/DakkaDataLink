@@ -49,7 +49,7 @@ namespace PitBoss
         private Server? theServer;
         public void StartServer()
         {
-            dataManager.ServerHandlerActive = true;
+            dataManager.GrpcServerHandlerActive = true;
             theServer = new Server
             {
                 Services = { Arty.BindService(this) },
@@ -74,7 +74,7 @@ namespace PitBoss
         {
             Task serverShutdown = theServer.KillAsync();
             await serverShutdown;
-            dataManager.ServerHandlerActive = false;
+            dataManager.GrpcServerHandlerActive = false;
             theServer = null;
             Console.WriteLine("gRPC Server stopped.");
             GlobalLogger.Log($"gRPC Server stopped.");
@@ -106,7 +106,7 @@ namespace PitBoss
                     ArtyMsg newMsg = requestStream.Current;
                     if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner) // If gunner is server, relay this received msg to other clients. This will echo back to the spotter.
                     {
-                        newMsg.ConnectedGuns = dataManager.ConnectedClients;
+                        //newMsg.ConnectedGuns = dataManager.ConnectedClients;
                         dataManager.NewArtyMsgReceived(newMsg);
                         sendArtyMsg(newMsg);
                     }
@@ -134,8 +134,8 @@ namespace PitBoss
 
         public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
-            GlobalLogger.Log($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            //Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            //GlobalLogger.Log($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             foreach (IServerStreamWriter<ArtyMsg> gun in outgoingStreams)
@@ -156,8 +156,8 @@ namespace PitBoss
                 }
             }
             stopwatch.Stop();
-            Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
-            GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+            //Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+            //GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
         }
     }
 }

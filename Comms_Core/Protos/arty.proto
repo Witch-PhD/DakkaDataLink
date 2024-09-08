@@ -11,8 +11,28 @@ service Arty
 
 message ArtyMsg
 {
+	string Callsign = 1;
+	oneof MsgType
+	{
+		Coords coords = 2;
+		ClientReport clientReport = 3;
+		ServerReport ServerReport = 4;
+	}
+}
+
+message Coords
+{
 	double Az = 1;
 	double Dist = 2;
-	string Callsign = 3;
-	int32 ConnectedGuns = 4;
+}
+
+message ClientReport
+{
+	int32 ClientType = 1; // 0 == Invalid, 1 == Spotter, Client == 2
+	string SpotterPassword = 2;
+}
+
+message ServerReport
+{
+	repeated string ActiveCallsigns = 2;
 }

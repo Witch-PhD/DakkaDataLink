@@ -22,8 +22,8 @@ namespace PitBoss
 
         public FiringHistoryEntry(ArtyMsg artyMsg)
         {
-            Dist = artyMsg.Dist;
-            Az = artyMsg.Az;
+            Dist = artyMsg.Coords.Dist;
+            Az = artyMsg.Coords.Az;
         }
 
         private double m_Az = 0.0;
