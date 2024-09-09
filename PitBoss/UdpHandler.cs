@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Comms_Core;
 using Grpc.Core;
+using System.Data;
 
 namespace PitBoss
 {
@@ -38,7 +39,7 @@ namespace PitBoss
         public UdpClient udpClient = new UdpClient(PitBossConstants.SERVER_PORT);
         private Thread? m_udpReceiveThread;
 
-        private List<IPEndPoint> m_RemoteEndPoints = new List<IPEndPoint>();
+        private Dictionary<IPEndPoint, RemoteUserEntry> m_RemoteUserEntries = new Dictionary<IPEndPoint, RemoteUserEntry>();
         private IPEndPoint? m_serverIpEndPoint;
         private bool m_RunningAsServer = false;
 
@@ -55,7 +56,8 @@ namespace PitBoss
                 if (serverIpAddress != null) // Starting as client
                 {
                     m_serverIpEndPoint = new IPEndPoint(serverIpAddress, PitBossConstants.SERVER_PORT);
-                    m_RemoteEndPoints.Add(m_serverIpEndPoint);
+                    m_RemoteUserEntries[m_serverIpEndPoint] = new RemoteUserEntry(m_serverIpEndPoint, "Server");
+                    m_RemoteUserEntries[m_serverIpEndPoint].CanTimeOut = false;
                     m_RunningAsServer = false;
                     Console.WriteLine($"UdpHandler starting as client...");
                     GlobalLogger.Log($"UdpHandler starting as client...");
@@ -103,7 +105,7 @@ namespace PitBoss
             dataManager.UdpHandlerActive = false; // TODO: Move this somewhere else.
             m_udpReceiveThread = null; // TODO: move this up a block or two?
             m_serverIpEndPoint = null; // TODO: maybe move this to the receive task?
-            m_RemoteEndPoints.Clear();
+            m_RemoteUserEntries.Clear();
             receiveTaskCancelSource = null;
         }
 
@@ -122,7 +124,7 @@ namespace PitBoss
             {
                 byte[] rawData = msg.ToByteArray();
                 int dataLength = rawData.Length;
-                foreach (IPEndPoint endPoint in m_RemoteEndPoints)
+                foreach (IPEndPoint endPoint in m_RemoteUserEntries.Keys)
                 {
                     udpClient.SendAsync(rawData, dataLength, endPoint);
                 }
@@ -141,18 +143,19 @@ namespace PitBoss
 
         private void sendStatusTimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
         {
-            if (m_serverIpEndPoint != null) // Running as client
+            if (m_RunningAsServer == false) // Running as client
             {
                 SendClientReport();
             }
             else // Running as server
             {
-
+                SendServerReport();
             }
         }
 
         private void SendClientReport()
         {
+            checkForTimedOutUsers();
             ArtyMsg msg = new ArtyMsg();
             msg.Callsign = dataManager.MyCallsign;
             msg.ClientReport = new ClientReport();
@@ -163,20 +166,42 @@ namespace PitBoss
             {
                 byte[] rawData = msg.ToByteArray();
                 int dataLength = rawData.Length;
-                foreach (IPEndPoint endPoint in m_RemoteEndPoints) // This should only have 1 entry (the server) if running as client.
+                foreach (IPEndPoint endPoint in m_RemoteUserEntries.Keys) // This should only have 1 entry (the server) if running as client.
                 {
                     udpClient.SendAsync(rawData, dataLength, endPoint);
                 }
-            }
-            catch (RpcException ex)
-            {
-                Console.WriteLine($"*** UdpHandler.SendClientReport RpcException: {ex.Message}");
-                GlobalLogger.Log($"*** UdpHandler.SendClientReport RpcException: {ex.Message}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"*** UdpHandler.SendClientReport Other Exception: {ex.Message}");
                 GlobalLogger.Log($"*** UdpHandler.SendClientReport Other Exception: {ex.Message}");
+            }
+        }
+
+        private List<IPEndPoint> m_ClientsNeedingCoordsResentList = new List<IPEndPoint>();
+        private void SendServerReport()
+        {
+            checkForTimedOutUsers();
+            ArtyMsg msg = new ArtyMsg();
+            msg.Callsign = dataManager.MyCallsign;
+            msg.ServerReport = new ServerReport();
+            foreach (string activeCallsign in dataManager.ConnectedUsersCallsigns)
+            {
+                msg.ServerReport.ActiveCallsigns.Add(activeCallsign);
+            }
+            try
+            {
+                byte[] rawData = msg.ToByteArray();
+                int dataLength = rawData.Length;
+                foreach (IPEndPoint endPoint in m_RemoteUserEntries.Keys) // This should only have 1 entry (the server) if running as client.
+                {
+                    udpClient.SendAsync(rawData, dataLength, endPoint);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"*** UdpHandler.SendServerReport Other Exception: {ex.Message}");
+                GlobalLogger.Log($"*** UdpHandler.SendServerReport Other Exception: {ex.Message}");
             }
         }
 
@@ -196,12 +221,17 @@ namespace PitBoss
                     UdpReceiveResult result = await udpClient.ReceiveAsync(cancelToken);
                     remoteEndpoint = result.RemoteEndPoint;
                     ArtyMsg theMsg = ArtyMsg.Parser.ParseFrom(result.Buffer);
-                    if (!m_RemoteEndPoints.Contains(remoteEndpoint))
+                    if (!m_RemoteUserEntries.Keys.Contains(remoteEndpoint))
                     {
-                        m_RemoteEndPoints.Add(remoteEndpoint); // TODO: Need to handle timed out end points.
+                        m_RemoteUserEntries[remoteEndpoint] = new RemoteUserEntry(remoteEndpoint, theMsg.Callsign);
+                        //dataManager.ConnectedUsersCallsigns.Add(theMsg.Callsign);
+
+                        Console.WriteLine($"UdpHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user.");
+                        GlobalLogger.Log($"UdpHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user.");
+
                     }
                     // TODO: Update endpoint's timeout timer.
-                    dataManager.NewArtyMsgReceived(theMsg);
+                    processMsg(theMsg, remoteEndpoint);
                 }
                 catch (InvalidProtocolBufferException ex)
                 {
@@ -211,11 +241,101 @@ namespace PitBoss
                 {
                     // Do nothing. This is supposed to happen when the cancelToken is cancelled during Stop().
                 }
+                //Thread.Yield();
             }
 
             Console.WriteLine($"UdpHandler receive task stopped.");
             GlobalLogger.Log($"UdpHandler receive task stopped.");
         }
 
+        private void processMsg(ArtyMsg theMsg, IPEndPoint remoteEndPoint)
+        {
+            m_RemoteUserEntries[remoteEndPoint].Update(theMsg);
+            if (theMsg.Coords != null)
+            {
+                dataManager.NewArtyMsgReceived(theMsg);
+            }
+            else if (theMsg.ClientReport != null) // Received by the server.
+            {
+
+                Console.WriteLine($"UdpHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
+                GlobalLogger.Log($"UdpHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
+            }
+            else if (theMsg.ServerReport != null) // Received by a client.
+            {
+                //dataManager.ConnectedUsersCallsigns.Clear(); // TODO: Selective add/remove rather than clear all?
+                //foreach (string activeUserCallsign in theMsg.ServerReport.ActiveCallsigns)
+                //{
+                //    if (!dataManager.ConnectedUsersCallsigns.Contains(activeUserCallsign))
+                //    {
+                //        dataManager.ConnectedUsersCallsigns.Add(activeUserCallsign);
+                //    }
+                //}
+
+                Console.WriteLine($"UdpHandler.processMsg() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
+                GlobalLogger.Log($"UdpHandler.processMsg() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
+            }
+        }
+
+        private void checkForTimedOutUsers()
+        {
+            List<IPEndPoint> usersToRemove = new List<IPEndPoint>();
+            List<string> userCallsignsToUpdate = new List<string>();
+            foreach (KeyValuePair<IPEndPoint, RemoteUserEntry> activeUserEntry in m_RemoteUserEntries)
+            {
+                TimeSpan timeSinceLastSeen = DateTime.Now - activeUserEntry.Value.TimeLastSeen;
+                if ((activeUserEntry.Value.CanTimeOut) && (timeSinceLastSeen.TotalMilliseconds > PitBossConstants.REMOTE_USER_TIMEOUT_MILLISECONDS))
+                {
+                    usersToRemove.Add(activeUserEntry.Key);
+                    Console.WriteLine($"UdpHandler {activeUserEntry.Value.CallSign} ({activeUserEntry.Key}) timed out, removing from active users list.");
+                    GlobalLogger.Log($"UdpHandler {activeUserEntry.Value.CallSign} ({activeUserEntry.Key}) timed out, removing from active users list.");
+                }
+                else
+                {
+                    userCallsignsToUpdate.Add(activeUserEntry.Value.CallSign);
+                }
+            }
+            foreach (IPEndPoint timedOutUser in usersToRemove)
+            {
+                m_RemoteUserEntries.Remove(timedOutUser);
+            }
+
+            dataManager.UpdateConnectedUsers(userCallsignsToUpdate);
+
+        }
+
+
+        internal class RemoteUserEntry
+        {
+            internal RemoteUserEntry(IPEndPoint remoteEndPoint, string callsign)
+            {
+                this.RemoteEndPoint = remoteEndPoint;
+                this.CallSign = callsign;
+                this.LastClientReport = new ClientReport();
+                this.LastServerReport = new ServerReport();
+                this.TimeLastSeen = DateTime.Now;
+            }
+
+            internal void Update(ArtyMsg newestMsg)
+            {
+                this.CallSign = newestMsg.Callsign;
+                if (newestMsg.ServerReport != null)
+                {
+                    LastServerReport = newestMsg.ServerReport;
+                }
+                else if (newestMsg.ClientReport != null)
+                {
+                    LastClientReport = newestMsg.ClientReport;
+                }
+                TimeLastSeen = DateTime.Now;
+            }
+            IPEndPoint RemoteEndPoint { get; set; }
+            internal string CallSign { get; set; }
+            internal ServerReport LastServerReport { get; set; }
+            internal ClientReport LastClientReport { get; set; }
+            internal DateTime TimeLastSeen { get; set; }
+
+            internal bool CanTimeOut { get; set; } = true;
+        }
     }
 }

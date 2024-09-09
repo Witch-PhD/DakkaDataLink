@@ -22,17 +22,21 @@ message ArtyMsg
 
 message Coords
 {
-	double Az = 1;
-	double Dist = 2;
+	int32 MsgId = 1;
+	double Az = 2;
+	double Dist = 3;
 }
 
 message ClientReport
 {
 	int32 ClientType = 1; // 0 == Invalid, 1 == Spotter, Client == 2
 	string SpotterPassword = 2;
+	int32 LastCoordsIdReceived = 3;
 }
 
 message ServerReport
 {
+	int32 ActiveCallsignsCount = 1;
 	repeated string ActiveCallsigns = 2;
+	int32 LastCoordsIdSent = 3;
 }

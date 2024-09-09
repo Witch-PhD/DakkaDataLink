@@ -16,7 +16,9 @@ namespace PitBoss.UserControls
             dataManager = DataManager.Instance;
             InitializeComponent();
 
-            GetExternalIp();
+            GetExternalIp(); // TODO: Probably want to move this to the server start up function.
+            MyCallsign_Textbox.DataContext = dataManager;
+            ActiveUsers_DataGrid.ItemsSource = dataManager.ConnectedUsersCallsigns;
 
 #if DEBUG
             serverIp_TextBox.Text = "127.0.0.1";
@@ -39,6 +41,7 @@ namespace PitBoss.UserControls
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpServer_Button.IsEnabled = true;
+                MyCallsign_Textbox.IsEnabled = true;
             }
             else // Starting
             {
@@ -51,6 +54,7 @@ namespace PitBoss.UserControls
 
                     StartStopUdpServer_Button.IsEnabled = false;
                     serverIp_TextBox.IsEnabled = false;
+                    MyCallsign_Textbox.IsEnabled = false;
                 }
                 else
                 {
@@ -74,6 +78,7 @@ namespace PitBoss.UserControls
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpClient_Button.IsEnabled = true;
+                MyCallsign_Textbox.IsEnabled = true;
             }
             else // Starting
             {
@@ -82,6 +87,7 @@ namespace PitBoss.UserControls
 
                 StartStopUdpClient_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
+                MyCallsign_Textbox.IsEnabled = false;
                 setOperatingModes();
             }
             
@@ -101,6 +107,7 @@ namespace PitBoss.UserControls
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
+                MyCallsign_Textbox.IsEnabled = true;
             }
             else
             {
@@ -113,6 +120,7 @@ namespace PitBoss.UserControls
 
                     StartStopGrpcServer_Button.IsEnabled = false;
                     serverIp_TextBox.IsEnabled = false;
+                    MyCallsign_Textbox.IsEnabled = false;
 
                     setOperatingModes();
                 }
@@ -138,6 +146,7 @@ namespace PitBoss.UserControls
                 serverIp_TextBox.IsEnabled = true;
                 gunnerMode_RadioButton.IsEnabled = true;
                 spotterMode_RadioButton.IsEnabled = true;
+                MyCallsign_Textbox.IsEnabled = true;
 
                 userIp_stackPanel.Visibility = Visibility.Hidden;
             }
@@ -149,6 +158,7 @@ namespace PitBoss.UserControls
 
                 ConnectToGrpcServer_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
+                MyCallsign_Textbox.IsEnabled = false;
 
                 userIp_stackPanel.Visibility = Visibility.Visible;
 
