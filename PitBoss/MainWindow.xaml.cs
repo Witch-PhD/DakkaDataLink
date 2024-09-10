@@ -23,18 +23,18 @@ namespace PitBoss
     /// </summary>
     public partial class MainWindow : Window
     {
-#if DEBUG
+//#if DEBUG
         [DllImport("Kernel32")]
         public static extern void AllocConsole();
 
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
-#endif
+//#endif
         public MainWindow()
         {
-#if DEBUG
+//#if DEBUG
             AllocConsole();
-#endif
+//#endif
             InitializeComponent();
             this.Title = "The Pit Boss";
             this.SizeToContent = SizeToContent.WidthAndHeight;
@@ -69,9 +69,9 @@ namespace PitBoss
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             theUserOptionsUserControl.CloseAllWindows();
-#if DEBUG
+//#if DEBUG
             FreeConsole();
-#endif
+//#endif
             //theSpotterUserControl.CloseAllWindows();
             //theGunnerUserControl.CloseAllWindows();
         }

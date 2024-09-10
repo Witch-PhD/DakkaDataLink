@@ -49,13 +49,20 @@ namespace PitBoss
             {
                 lock (queueLock)
                 {
-                    using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath, true))
+                    try
                     {
-                        while (logQueue.Count > 0)
+                        using (StreamWriter outputFile = new StreamWriter(dataManager.userOptions.LoggerFilePath, true))
                         {
-                            string nextLogLine = logQueue.Dequeue();
-                            outputFile.WriteLine(nextLogLine);
+                            while (logQueue.Count > 0)
+                            {
+                                string nextLogLine = logQueue.Dequeue();
+                                outputFile.WriteLine(nextLogLine);
+                            }
                         }
+                    }
+                    catch (Exception e) // This should only occur if two instance of Pit Boss are running on the same machine.
+                    {
+                        Console.WriteLine($"GlobalLogger.loggerThreadTask {e.GetType()}: {e.Message} \n\tLOGGING TO FILE WILL NOW CEASE.");
                     }
                 }
                 Thread.Sleep(250);
