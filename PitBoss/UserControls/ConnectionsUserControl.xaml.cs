@@ -42,6 +42,7 @@ namespace PitBoss.UserControls
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpServer_Button.IsEnabled = true;
                 MyCallsign_Textbox.IsEnabled = true;
+                userIp_stackPanel.Visibility = Visibility.Hidden;
             }
             else // Starting
             {
@@ -55,6 +56,7 @@ namespace PitBoss.UserControls
                     StartStopUdpServer_Button.IsEnabled = false;
                     serverIp_TextBox.IsEnabled = false;
                     MyCallsign_Textbox.IsEnabled = false;
+                    userIp_stackPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -79,12 +81,14 @@ namespace PitBoss.UserControls
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpClient_Button.IsEnabled = true;
                 MyCallsign_Textbox.IsEnabled = true;
+                userIp_stackPanel.Visibility = Visibility.Hidden;
             }
             else // Starting
             {
                 DataManager.Instance.StartUdpServer();
                 StartStopUdpServer_Button.Content = "Disconnect";
 
+                userIp_stackPanel.Visibility = Visibility.Visible;
                 StartStopUdpClient_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
                 MyCallsign_Textbox.IsEnabled = false;

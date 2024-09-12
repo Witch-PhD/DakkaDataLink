@@ -9,6 +9,8 @@ using Google.Protobuf;
 using Comms_Core;
 using Grpc.Core;
 using System.Data;
+using System.Diagnostics;
+using System.Windows.Interop;
 
 namespace PitBoss
 {
@@ -109,8 +111,8 @@ namespace PitBoss
             receiveTaskCancelSource = null;
         }
 
-        
 
+        private int latestCoordsMsgId = 0;
         public void SendCoordsToAll(ArtyMsg msg)
         {
             if (msg.Coords == null)
@@ -122,12 +124,19 @@ namespace PitBoss
             GlobalLogger.Log($"UdpHandler sending new ArtyMsg: CallSign: {msg.Callsign} Az: {msg.Coords.Az}, Dist: {msg.Coords.Dist}");
             try
             {
+                latestCoordsMsgId++;
+                msg.Coords.MsgId = latestCoordsMsgId;
                 byte[] rawData = msg.ToByteArray();
                 int dataLength = rawData.Length;
+                //Stopwatch stopwatch = Stopwatch.StartNew();
                 foreach (IPEndPoint endPoint in m_RemoteUserEntries.Keys)
                 {
                     udpClient.SendAsync(rawData, dataLength, endPoint);
                 }
+                //stopwatch.Stop();
+                //Console.WriteLine($"UdpHandler sending to {m_RemoteUserEntries.Keys.Count} clients took {stopwatch.ElapsedMilliseconds} milliseconds.");
+                //GlobalLogger.Log($"UdpHandler sending to {m_RemoteUserEntries.Keys.Count} clients took {stopwatch.ElapsedMilliseconds} milliseconds.");
+
             }
             catch (RpcException ex)
             {
@@ -138,6 +147,24 @@ namespace PitBoss
             {
                 Console.WriteLine($"*** UdpHandler.SendToAll Other Exception: {ex.Message}");
                 GlobalLogger.Log($"*** UdpHandler.SendToAll Other Exception: {ex.Message}");
+            }
+        }
+
+        private void resendCoordsToClient(IPEndPoint endPoint)
+        {
+            Console.WriteLine($"UdpHandler.resendCoordsToClient -> {endPoint}");
+            GlobalLogger.Log($"UdpHandler.resendCoordsToClient -> {endPoint}");
+            ArtyMsg msg = dataManager.getAssembledCoords();
+            byte[] rawData = msg.ToByteArray();
+            int dataLength = rawData.Length;
+            try
+            {
+                udpClient.SendAsync(rawData, dataLength, endPoint);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"*** UdpHandler.resendCoordsToClient Other Exception: {ex.Message}");
+                GlobalLogger.Log($"*** UdpHandler.resendCoordsToClient Other Exception: {ex.Message}");
             }
         }
 
@@ -155,12 +182,13 @@ namespace PitBoss
 
         private void SendClientReport()
         {
-            checkForTimedOutUsers();
+            removeTimedOutUsers();
             ArtyMsg msg = new ArtyMsg();
             msg.Callsign = dataManager.MyCallsign;
             msg.ClientReport = new ClientReport();
             msg.ClientReport.ClientType = (int)dataManager.OperatingMode;
             msg.ClientReport.SpotterPassword = "";
+            msg.ClientReport.LastCoordsIdReceived = latestCoordsMsgId;
 
             try
             {
@@ -181,7 +209,7 @@ namespace PitBoss
         private List<IPEndPoint> m_ClientsNeedingCoordsResentList = new List<IPEndPoint>();
         private void SendServerReport()
         {
-            checkForTimedOutUsers();
+            removeTimedOutUsers();
             ArtyMsg msg = new ArtyMsg();
             msg.Callsign = dataManager.MyCallsign;
             msg.ServerReport = new ServerReport();
@@ -193,10 +221,15 @@ namespace PitBoss
             {
                 byte[] rawData = msg.ToByteArray();
                 int dataLength = rawData.Length;
+                //Stopwatch stopwatch = Stopwatch.StartNew();
                 foreach (IPEndPoint endPoint in m_RemoteUserEntries.Keys) // This should only have 1 entry (the server) if running as client.
                 {
                     udpClient.SendAsync(rawData, dataLength, endPoint);
                 }
+                //stopwatch.Stop();
+                //Console.WriteLine($"UdpHandler.SendServerReport sent to {m_RemoteUserEntries.Keys.Count} clients in {stopwatch.ElapsedMilliseconds} milliseconds");
+                //GlobalLogger.Log($"UdpHandler.SendServerReport sent to {m_RemoteUserEntries.Keys.Count} clients in {stopwatch.ElapsedMilliseconds} milliseconds");
+
             }
             catch (Exception ex)
             {
@@ -253,11 +286,15 @@ namespace PitBoss
             m_RemoteUserEntries[remoteEndPoint].Update(theMsg);
             if (theMsg.Coords != null)
             {
+                latestCoordsMsgId = theMsg.Coords.MsgId;
                 dataManager.NewArtyMsgReceived(theMsg);
             }
             else if (theMsg.ClientReport != null) // Received by the server.
             {
-
+                if (theMsg.ClientReport.LastCoordsIdReceived < latestCoordsMsgId)
+                {
+                    resendCoordsToClient(remoteEndPoint);
+                }
                 Console.WriteLine($"UdpHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
                 GlobalLogger.Log($"UdpHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
             }
@@ -277,7 +314,7 @@ namespace PitBoss
             }
         }
 
-        private void checkForTimedOutUsers()
+        private void removeTimedOutUsers()
         {
             List<IPEndPoint> usersToRemove = new List<IPEndPoint>();
             List<string> userCallsignsToUpdate = new List<string>();

@@ -272,6 +272,7 @@ namespace PitBoss
         {
             ArtyMsg artyMsg = new ArtyMsg();
             artyMsg.Coords = new Coords();
+            //artyMsg.Coords.MsgId = latestCoordsMsgId;
             artyMsg.Coords.Az = LatestAz;
             artyMsg.Coords.Dist = LatestDist;
             artyMsg.Callsign = MyCallsign;
@@ -346,6 +347,7 @@ namespace PitBoss
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledCoords();
+            
             if (PreviousCoords.Count >= 20)
             {
                 PreviousCoords.RemoveAt(PreviousCoords.Count-1);
