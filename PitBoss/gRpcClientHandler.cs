@@ -104,12 +104,14 @@ namespace PitBoss
                 {
                     if (ex.StatusCode == StatusCode.Cancelled)
                     {
+                        dataManager.ConnectedClients = 0;
                         break;
                     }
                     else
                     {
                         Console.WriteLine($"gRpcClientHandler.receivingTask RpcException: {ex.Message}");
                         GlobalLogger.Log($"gRpc Client receivingTask RpcException: {ex.Message}");
+                        dataManager.ConnectedClients = 0;
                         duplexStream.Dispose();
                         openGrpcChannel();
                         Thread.Sleep(1000);

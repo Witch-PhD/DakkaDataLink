@@ -91,6 +91,11 @@ namespace PitBoss
                 dataManager.ConnectedClients = outgoingStreams.Count;
                 Console.WriteLine($"gRPC Server: {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
                 GlobalLogger.Log($"gRPC Server:  {context.Peer} Connected. {outgoingStreams.Count} connections now active.");
+                
+                ArtyMsg? initialMsg = dataManager.getAssembledMsg();
+                await responseStream.WriteAsync(initialMsg);
+                initialMsg = null;
+
                 while (await requestStream.MoveNext(context.CancellationToken))
                 {
                     if (context.CancellationToken.IsCancellationRequested)
@@ -111,7 +116,7 @@ namespace PitBoss
                         //    dataManager.ConnectedGunsCallsigns.Add(newMsg.Callsign);
                         //}
                     }
-                    
+
                     //_ = requestStream.Current;
                 }
 
