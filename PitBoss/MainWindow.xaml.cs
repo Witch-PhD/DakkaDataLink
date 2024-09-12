@@ -26,7 +26,7 @@ namespace PitBoss
             AllocConsole();
 //#endif
             InitializeComponent();
-            this.Title = "The Pit Boss";
+            this.Title = $"The Pit Boss - v{PitBossConstants.VERSION_STRING}";
             this.SizeToContent = SizeToContent.WidthAndHeight;
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;

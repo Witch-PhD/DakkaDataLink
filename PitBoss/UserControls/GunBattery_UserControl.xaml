@@ -12,6 +12,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="{DynamicResource groupbox_coordinates_header}">
             <StackPanel Margin="3,3,3,3">
@@ -25,5 +26,16 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Previous Coordinates">
+            <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
+                    <DataGridTextColumn Header="{DynamicResource textblock_distance}" Binding="{Binding Path=Dist}" MinWidth="50"/>
+                    <DataGridTextColumn Header="{DynamicResource textblock_azimuth}" Binding="{Binding Path=Az}" MinWidth="50"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
     </Grid>
 </UserControl>

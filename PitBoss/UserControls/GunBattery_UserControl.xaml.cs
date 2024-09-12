@@ -13,7 +13,7 @@ namespace PitBoss.UserControls
             InitializeComponent();
             
             DataContext = dataManager;
-            
+            PreviousCoords_DataGrid.ItemsSource = dataManager.PreviousCoords;
         }
         DataManager dataManager;
 

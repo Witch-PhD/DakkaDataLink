@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 
 namespace PitBoss
 {
@@ -19,6 +20,7 @@ namespace PitBoss
                     m_Instance.clientHandler = gRpcClientHandler.Instance;
                     m_Instance.m_userOptions = new UserOptions();
                     m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
+                    BindingOperations.EnableCollectionSynchronization(m_Instance.PreviousCoords, m_Instance.PrevCoordsCollectionLock);
                     //m_Instance.ConnectedGunsCallsigns = new ObservableCollection<string>();
                 }
                 return m_Instance;
@@ -38,6 +40,7 @@ namespace PitBoss
         private UserOptions m_userOptions;
         private ArtilleryProfiles m_ArtyProfiles;
 
+        private readonly object PrevCoordsCollectionLock = new object();
         public ObservableCollection<FiringHistoryEntry> PreviousCoords = new ObservableCollection<FiringHistoryEntry>();
         public ObservableCollection<FiringHistoryEntry> SavedCoords = new ObservableCollection<FiringHistoryEntry>();
         //public ObservableCollection<string> ConnectedGunsCallsigns { get; set; }
@@ -287,20 +290,26 @@ namespace PitBoss
             clientHandler.disconnectFromServer();
         }
 
-        public void SendCoords()
+        public void saveCoordsToPrevList(ArtyMsg artyMsg)
         {
-            //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
-            ArtyMsg artyMsg = getAssembledMsg();
             if (PreviousCoords.Count >= 20)
             {
-                PreviousCoords.RemoveAt(PreviousCoords.Count-1);
+                PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
             }
             FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
             PreviousCoords.Insert(0, thisFiringEntry);
             thisFiringEntry.Dist = artyMsg.Dist;
             thisFiringEntry.Az = artyMsg.Az;
+        }
+
+        public void SendCoords()
+        {
+            //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
+            ArtyMsg artyMsg = getAssembledMsg();
+            
             if (ServerHandlerActive) // If spotter is server.
             {
+                saveCoordsToPrevList(artyMsg);
                 serverHandler.sendArtyMsg(artyMsg);
             }
             else if (ClientHandlerActive)
@@ -317,7 +326,10 @@ namespace PitBoss
         public void NewArtyMsgReceived(ArtyMsg theMsg)
         {
             unpackIncomingArtyMsg(theMsg);
-            
+            if (m_ClientHandlerActive)
+            {
+                saveCoordsToPrevList(theMsg);
+            }
             newCoordsReceived?.Invoke(this, true);
             Console.WriteLine($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
             GlobalLogger.Log($"DataManager.NewArtyMsgReceived(), CallSign: {theMsg.Callsign} Az: {theMsg.Az}, Dist: {theMsg.Dist}, Connected Guns: {theMsg.ConnectedGuns}");
