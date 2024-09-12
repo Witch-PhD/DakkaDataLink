@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace PitBoss
 {
@@ -21,11 +23,14 @@ namespace PitBoss
         private static RawKeyEventHandler keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             //this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += OnDispatcherUnhandledException;
 
             DateTime startTime = DateTime.Now;
             GlobalLogger.Log($"{startTime.Year}-{startTime.Month}-{startTime.Day} ({startTime.Hour}:{startTime.Minute}:{startTime.Second}.{startTime.Millisecond}) Application_Startup entered", false);
+
             keyDownHandler = new RawKeyEventHandler(KListener_KeyDown);
             keyUpHandler = new RawKeyEventHandler(KListener_KeyUp);
             KListener.KeyDown += keyDownHandler;

@@ -104,7 +104,7 @@ namespace PitBoss
             }
         }
 
-        
+
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -118,11 +118,17 @@ namespace PitBoss
                 m_LatestAz = value;
                 if (m_LatestAz >= 360.0)
                 {
-                    m_LatestAz -= 360.0;
+                    while (m_LatestAz >= 360.0)
+                    {
+                        m_LatestAz -= 360.0;
+                    }
                 }
                 else if (m_LatestAz < 0.0)
                 {
-                    m_LatestAz += 360.0;
+                    while (m_LatestAz < 0.0)
+                    {
+                        m_LatestAz += 360.0;
+                    }
                 }
                 OnPropertyChanged();
             }

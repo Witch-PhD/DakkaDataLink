@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Globalization;
 using static PitBoss.PitBossConstants;
 using Path = System.IO.Path;
+using System.Windows.Markup;
 
 namespace PitBoss
 {
@@ -59,9 +60,10 @@ namespace PitBoss
             }
             else
             {
-                CheckSaveSelectedLanguageWithoudEvent(true);
+     //           CheckSaveSelectedLanguageWithoudEvent(true);
                 LoadLanguage(dataManager.userOptions.Language);
             }
+            SaveSelectedLanguage_MenuItem.DataContext = dataManager.userOptions;
         }
 
         DataManager dataManager;
@@ -242,20 +244,20 @@ namespace PitBoss
             }
         }
 
-        private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
-        {
-            dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
-        }
-
-        private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
-        {
-            SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
-            SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
-
-            SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
-
-            SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
-            SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
-        }
+    //    private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
+    //    {
+    //        dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
+    //    }
+    //
+    //    private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
+    //    {
+    //        SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
+    //        SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
+    //
+    //        SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
+    //
+    //        SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
+    //        SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
+    //    }
     }
 }
