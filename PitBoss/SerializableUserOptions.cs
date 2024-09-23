@@ -15,6 +15,7 @@ namespace PitBoss
             OverlayOpacity = options.OverlayOpacity;
             Language = options.Language;
             SaveSelectedLanguage = options.SaveSelectedLanguage;
+            MyCallSign = options.MyCallSign;
 
             BindingDictionary_List = new List<string>();
             foreach (KeyValuePair<string, KeyCombo> entry in options.BindingDictionary)
@@ -61,6 +62,8 @@ namespace PitBoss
 
                 Language = tempObject.Language;
                 SaveSelectedLanguage = tempObject.SaveSelectedLanguage;
+
+                MyCallSign = tempObject.MyCallSign;
 
                 for (int i=0; i < tempObject.BindingDictionary_List.Count - 1; i += 2)
                 {

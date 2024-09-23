@@ -29,7 +29,7 @@
                 <Button x:Name="StartStopUdpClient_Button" Content="{DynamicResource button_connect}" Click="StartStopUdpClient_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5"/>
                 <Button x:Name="StartStopUdpServer_Button" Content="{DynamicResource button_start}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="StartStopUdpServer_Button_Click" Margin="5,5,5,5"/>
 
-                <StackPanel x:Name="userIp_stackPanel" Visibility="Hidden">
+                <StackPanel x:Name="userIp_stackPanel" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center" Margin="3,3,3,3" Text="{DynamicResource textblock_user_ip}"/>
                         <TextBox x:Name="userIp_textBox" Height="25" FontSize="14" VerticalContentAlignment="Center" Text="000.000.000.000" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" Margin="5,5,5,5"/>

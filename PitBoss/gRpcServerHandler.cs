@@ -92,7 +92,7 @@ namespace PitBoss
                 //Console.WriteLine($"gRPC Server: {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
                 GlobalLogger.Log($"gRPC Server:  {context.Peer} Connected. {outgoingStreams.Count} connections now active.");
                 
-                ArtyMsg? initialMsg = dataManager.getAssembledMsg();
+                ArtyMsg? initialMsg = dataManager.getAssembledCoords();
                 await responseStream.WriteAsync(initialMsg);
                 initialMsg = null;
 

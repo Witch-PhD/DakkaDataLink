@@ -17,6 +17,7 @@ namespace PitBoss.UserControls
             dataManager = DataManager.Instance;
             InitializeComponent();
             //DataContext = DataManager.Instance;
+            this.SizeToContent = SizeToContent.WidthAndHeight;
             AzLabel_TextBlock.DataContext = dataManager.userOptions;
             DistLabel_TextBlock.DataContext = dataManager.userOptions;
             MainBorder.DataContext = this;
@@ -29,7 +30,7 @@ namespace PitBoss.UserControls
 
             flashTimer = new System.Windows.Threading.DispatcherTimer();
             flashTimer.Tick += flashTask;
-            flashTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            flashTimer.Interval = new TimeSpan(0, 0, 0, 0, 350);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -98,7 +99,7 @@ namespace PitBoss.UserControls
 
         private System.Windows.Threading.DispatcherTimer flashTimer;
         private byte flashIteration = 1;
-        private byte flashIterationToComplete = 4; // One iteration does one color change. Full cycle must be a multiple of 2.
+        private byte flashIterationToComplete = 6; // One iteration does one color change. Full cycle must be a multiple of 2.
         internal void FlashOverlay()
         {
             //Thickness originalThickness = borderThickness;

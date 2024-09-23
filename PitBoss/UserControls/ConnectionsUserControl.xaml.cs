@@ -15,7 +15,6 @@ namespace PitBoss.UserControls
             dataManager = DataManager.Instance;
             InitializeComponent();
 
-            GetExternalIp(); // TODO: Probably want to move this to the server start up function.
             MyCallsign_Textbox.DataContext = dataManager;
             ActiveUsers_DataGrid.ItemsSource = dataManager.ConnectedUsersCallsigns;
 
@@ -41,7 +40,7 @@ namespace PitBoss.UserControls
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpServer_Button.IsEnabled = true;
                 MyCallsign_Textbox.IsEnabled = true;
-                userIp_stackPanel.Visibility = Visibility.Hidden;
+                //userIp_stackPanel.Visibility = Visibility.Hidden;
             }
             else // Starting
             {
@@ -51,12 +50,12 @@ namespace PitBoss.UserControls
                 if (validIP)
                 {
                     DataManager.Instance.StartUdpClient(serverIp_TextBox.Text);
-                    StartStopUdpClient_Button.Content = "Disconnect";
+                    StartStopUdpClient_Button.Content = "Disconnect from Server";
 
                     StartStopUdpServer_Button.IsEnabled = false;
                     serverIp_TextBox.IsEnabled = false;
                     MyCallsign_Textbox.IsEnabled = false;
-                    userIp_stackPanel.Visibility = Visibility.Visible;
+                    //userIp_stackPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -86,8 +85,9 @@ namespace PitBoss.UserControls
             else // Starting
             {
                 setOperatingModes();
+                GetExternalIp();
                 DataManager.Instance.StartUdpServer();
-                StartStopUdpServer_Button.Content = "Disconnect";
+                StartStopUdpServer_Button.Content = "Stop Server";
 
                 userIp_stackPanel.Visibility = Visibility.Visible;
                 StartStopUdpClient_Button.IsEnabled = false;
@@ -157,6 +157,7 @@ namespace PitBoss.UserControls
             }
             else
             {
+                GetExternalIp();
                 DataManager.Instance.StartGrpcServer();
 
                 StartStopGrpcServer_Button.Content = "Stop Server";

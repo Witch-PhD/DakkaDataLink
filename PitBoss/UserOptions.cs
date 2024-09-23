@@ -20,6 +20,25 @@ namespace PitBoss
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        protected string m_MyCallSign = "None";
+        public string MyCallSign
+        {
+            get
+            {
+                return m_MyCallSign;
+            }
+            set
+            {
+                if (m_MyCallSign != value)
+                {
+                    m_MyCallSign = value;
+                    m_MyCallSign = m_MyCallSign.Replace(" (Spotter)", "");
+                    m_MyCallSign = m_MyCallSign.Replace(" (Gunner)", "");
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         #region OverlaySettings
 
         protected double m_OverlayTransparency = 0.5;

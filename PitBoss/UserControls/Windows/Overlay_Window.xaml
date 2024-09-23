@@ -9,7 +9,7 @@
     <Window.Background>
         <SolidColorBrush x:Name="BackGroundBrush" Opacity="0.5" Color="DarkGray"/>
     </Window.Background>
-    <Border x:Name="MainBorder" BorderBrush="{Binding Path=CurrentBorderColor}" BorderThickness="2,2,2,2">
+    <Border x:Name="MainBorder" BorderBrush="{Binding Path=CurrentBorderColor}" BorderThickness="7,7,7,7">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

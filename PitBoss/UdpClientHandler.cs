@@ -222,10 +222,11 @@ namespace PitBoss
                 //Console.WriteLine($"UdpHandler.processMsg() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
                 GlobalLogger.Log($"New [ServerStatus] from CallSign: {theMsg.Callsign}, LastCoordsIdRecvd: {theMsg.ServerReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ServerReport.LastCoordsIdSent}, ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
 
-                if ((theMsg.ServerReport.LastCoordsIdReceived < latestCoordsMsgIdSent) && (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eSpotter))
+                if ((theMsg.ServerReport.LastCoordsIdReceived != latestCoordsMsgIdSent) && (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eSpotter))
                 {
                     GlobalLogger.Log($"UdpClientHandler resending coords to server -> {m_serverIpEndPoint}");
                     ArtyMsg msg = dataManager.getAssembledCoords();
+                    msg.Coords.MsgId = latestCoordsMsgIdSent;
                     byte[] rawData = msg.ToByteArray();
                     int dataLength = rawData.Length;
                     try

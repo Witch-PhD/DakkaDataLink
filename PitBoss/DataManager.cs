@@ -66,6 +66,7 @@ namespace PitBoss
                 if (m_userOptions != value)
                 {
                     m_userOptions = value;
+                    MyCallsign = m_userOptions.MyCallSign;
                     OnPropertyChanged();
                 }
             }
@@ -106,6 +107,7 @@ namespace PitBoss
                 if (m_MyCallsign != value)
                 {
                     m_MyCallsign = value;
+                    userOptions.MyCallSign = MyCallsign; // So it can be saved.
                     OnPropertyChanged();
                 }
             }
@@ -356,20 +358,11 @@ namespace PitBoss
             ConnectedClients = 0;
         }
 
-        public void saveCoordsToPrevList(ArtyMsg artyMsg)
+        public void SendCoords()
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledCoords();
-            
-            if (PreviousCoords.Count >= 20)
-            {
-                PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
-            }
-            FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
-            PreviousCoords.Insert(0, thisFiringEntry);
-            thisFiringEntry.Dist = artyMsg.Coords.Dist;
-            thisFiringEntry.Az = artyMsg.Coords.Az;
-
+            addPrevCoordsEntry(artyMsg);
             udpHandler.SendCoords(artyMsg);
             //if (GrpcServerHandlerActive) // If spotter is server.
             //{
@@ -385,6 +378,18 @@ namespace PitBoss
             //}
         }
 
+        private void addPrevCoordsEntry(ArtyMsg artyMsg)
+        {
+            if (PreviousCoords.Count >= 20)
+            {
+                PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
+            }
+            FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
+            PreviousCoords.Insert(0, thisFiringEntry);
+            thisFiringEntry.Dist = artyMsg.Coords.Dist;
+            thisFiringEntry.Az = artyMsg.Coords.Az;
+        }
+
         public event EventHandler<bool> newCoordsReceived;
         public void NewArtyMsgReceived(ArtyMsg theMsg, IPEndPoint? remoteEndPoint = null)
         {
@@ -392,6 +397,7 @@ namespace PitBoss
             {
                 unpackIncomingCoords(theMsg);
                 newCoordsReceived?.Invoke(this, true);
+                addPrevCoordsEntry(theMsg);
                 //Console.WriteLine($"DataManager.NewArtyMsgReceived() [Coords] CallSign: {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
                 GlobalLogger.Log($"New [Coords] received from {theMsg.Callsign}, Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}, MsgId: {theMsg.Coords.MsgId}");
             }
