@@ -362,7 +362,10 @@ namespace PitBoss
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledCoords();
-            addPrevCoordsEntry(artyMsg);
+            if ((OperatingMode == ProgramOperatingMode.eSpotter) && udpHandler.RunningAsServer)
+            {
+                addPrevCoordsEntry(artyMsg);
+            }
             udpHandler.SendCoords(artyMsg);
             //if (GrpcServerHandlerActive) // If spotter is server.
             //{
