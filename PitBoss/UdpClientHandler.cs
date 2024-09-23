@@ -28,6 +28,8 @@ namespace PitBoss
 
         private static UdpClientHandler? m_Instance;
 
+        private DateTime m_TimeServerLastSeen;
+
         public static UdpClientHandler Instance
         {
             get
@@ -37,6 +39,7 @@ namespace PitBoss
                     m_Instance = new UdpClientHandler();
                     m_Instance.sendStatusTimer.Elapsed += m_Instance.sendStatusTimerElapsed;
                     m_Instance.sendStatusTimer.Interval = 1500;
+                    //m_Instance.m_TimeServerLastSeen = DateTime.Now;
                 }
                 return m_Instance;
             }
@@ -61,7 +64,7 @@ namespace PitBoss
                 m_serverIpEndPoint = new IPEndPoint(serverIpAddress, PitBossConstants.SERVER_PORT);
                 udpClient.Connect(m_serverIpEndPoint);
                 GlobalLogger.Log($"UdpHandler starting as client...");
-
+                m_TimeServerLastSeen = DateTime.Now;
                 receiveTaskCancelSource = new CancellationTokenSource();
                 dataManager.UdpHandlerActive = true;
                 m_udpReceiveThread = new Thread(receivingTask);
@@ -108,6 +111,12 @@ namespace PitBoss
 
         private void SendClientReport()
         {
+            DateTime now = DateTime.Now;
+            TimeSpan timeSinceServerReport = now - m_TimeServerLastSeen;
+            if (timeSinceServerReport.TotalMilliseconds > PitBossConstants.REMOTE_USER_TIMEOUT_MILLISECONDS)
+            {
+                dataManager.UpdateConnectedUsers(new List<string>());
+            }
             ArtyMsg msg = new ArtyMsg();
             msg.Callsign = dataManager.MyCallsign;
             msg.ClientReport = new ClientReport();
@@ -206,6 +215,7 @@ namespace PitBoss
             }
             else if (theMsg.ServerReport != null) // Received by a client.
             {
+                m_TimeServerLastSeen = DateTime.Now;
                 List<string> connectedUsersList = theMsg.ServerReport.ActiveCallsigns.ToList<string>();
                 dataManager.UpdateConnectedUsers(connectedUsersList);
                 

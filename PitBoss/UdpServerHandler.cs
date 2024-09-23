@@ -21,7 +21,7 @@ namespace PitBoss
         private CancellationTokenSource? receiveTaskCancelSource;
         private System.Timers.Timer sendStatusTimer = new System.Timers.Timer();
 
-        private Dictionary<IPEndPoint, RemoteUserEntry> m_RemoteUserEntries = new Dictionary<IPEndPoint, RemoteUserEntry>();
+        private Dictionary<IPEndPoint, UdpHandler.RemoteUserEntry> m_RemoteUserEntries = new Dictionary<IPEndPoint, UdpHandler.RemoteUserEntry>();
         private static UdpServerHandler? m_Instance;
 
         private int latestCoordsMsgIdSent = 0;
@@ -119,7 +119,7 @@ namespace PitBoss
                     ArtyMsg theMsg = ArtyMsg.Parser.ParseFrom(result.Buffer);
                     if (!m_RemoteUserEntries.Keys.Contains(remoteEndpoint))
                     {
-                        m_RemoteUserEntries[remoteEndpoint] = new RemoteUserEntry(remoteEndpoint, theMsg.Callsign);
+                        m_RemoteUserEntries[remoteEndpoint] = new UdpHandler.RemoteUserEntry(remoteEndpoint, theMsg.Callsign);
                         //dataManager.ConnectedUsersCallsigns.Add(theMsg.Callsign);
 
                         //Console.WriteLine($"UdpServerHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user.");
@@ -213,7 +213,7 @@ namespace PitBoss
             msg.ServerReport.LastCoordsIdSent = latestCoordsMsgIdSent;
 
             msg.ServerReport.ActiveCallsigns.Add(dataManager.MyCallsign);
-            foreach (RemoteUserEntry users in m_RemoteUserEntries.Values)
+            foreach (UdpHandler.RemoteUserEntry users in m_RemoteUserEntries.Values)
             {
                 msg.ServerReport.ActiveCallsigns.Add(users.CallSign);
             }
@@ -261,7 +261,7 @@ namespace PitBoss
         {
             List<IPEndPoint> usersToRemove = new List<IPEndPoint>();
             List<string> userCallsignsToUpdate = new List<string>();
-            foreach (KeyValuePair<IPEndPoint, RemoteUserEntry> activeUserEntry in m_RemoteUserEntries)
+            foreach (KeyValuePair<IPEndPoint, UdpHandler.RemoteUserEntry> activeUserEntry in m_RemoteUserEntries)
             {
                 TimeSpan timeSinceLastSeen = DateTime.Now - activeUserEntry.Value.TimeLastSeen;
                 if ((activeUserEntry.Value.CanTimeOut) && (timeSinceLastSeen.TotalMilliseconds > PitBossConstants.REMOTE_USER_TIMEOUT_MILLISECONDS))
@@ -289,37 +289,6 @@ namespace PitBoss
 
 
 
-        internal class RemoteUserEntry
-        {
-            internal RemoteUserEntry(IPEndPoint remoteEndPoint, string callsign)
-            {
-                this.RemoteEndPoint = remoteEndPoint;
-                this.CallSign = callsign;
-                this.LastClientReport = new ClientReport();
-                this.LastServerReport = new ServerReport();
-                this.TimeLastSeen = DateTime.Now;
-            }
-
-            internal void Update(ArtyMsg newestMsg)
-            {
-                this.CallSign = newestMsg.Callsign;
-                if (newestMsg.ServerReport != null)
-                {
-                    LastServerReport = newestMsg.ServerReport;
-                }
-                else if (newestMsg.ClientReport != null)
-                {
-                    LastClientReport = newestMsg.ClientReport;
-                }
-                TimeLastSeen = DateTime.Now;
-            }
-            IPEndPoint RemoteEndPoint { get; set; }
-            internal string CallSign { get; set; }
-            internal ServerReport LastServerReport { get; set; }
-            internal ClientReport LastClientReport { get; set; }
-            internal DateTime TimeLastSeen { get; set; }
-
-            internal bool CanTimeOut { get; set; } = true;
-        }
+        
     }
 }

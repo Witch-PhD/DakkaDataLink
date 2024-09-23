@@ -83,7 +83,7 @@ namespace PitBoss
         }
 
         private int latestCoordsMsgId = 0;
-        public virtual void SendCoords(ArtyMsg msg)
+        public void SendCoords(ArtyMsg msg)
         {
             if (msg.Coords == null)
             {
@@ -100,6 +100,39 @@ namespace PitBoss
                 clientHandler.SendCoords(msg);
             }
 
+        }
+
+        internal class RemoteUserEntry
+        {
+            internal RemoteUserEntry(IPEndPoint remoteEndPoint, string callsign)
+            {
+                this.RemoteEndPoint = remoteEndPoint;
+                this.CallSign = callsign;
+                this.LastClientReport = new ClientReport();
+                this.LastServerReport = new ServerReport();
+                this.TimeLastSeen = DateTime.Now;
+            }
+
+            internal void Update(ArtyMsg newestMsg)
+            {
+                this.CallSign = newestMsg.Callsign;
+                if (newestMsg.ServerReport != null)
+                {
+                    LastServerReport = newestMsg.ServerReport;
+                }
+                else if (newestMsg.ClientReport != null)
+                {
+                    LastClientReport = newestMsg.ClientReport;
+                }
+                TimeLastSeen = DateTime.Now;
+            }
+            IPEndPoint RemoteEndPoint { get; set; }
+            internal string CallSign { get; set; }
+            internal ServerReport LastServerReport { get; set; }
+            internal ClientReport LastClientReport { get; set; }
+            internal DateTime TimeLastSeen { get; set; }
+
+            internal bool CanTimeOut { get; set; } = true;
         }
     }
 }
