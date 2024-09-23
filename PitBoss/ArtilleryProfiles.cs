@@ -66,7 +66,7 @@
 
         public const string LARIAT_120_NAME = "Lariat 120mm";
         public const string EXALT_150_NAME = "Exalt 150mm";
-        public const string SKYCALLER_NAME = "Skycaller";
+        public const string SKYCALLER_NAME = "Skycaller (Rocket Halftrack)";
         public const string WASP_NEST_NAME = "Wasp Nest (Towed Rocket)";
         public const string CREMARI_MORTAR_NAME = "Cremari Mortar";
         public const string MORTAR_LIGHT_TANK_NAME = "Devitt Mortar Tank (MLT)";
