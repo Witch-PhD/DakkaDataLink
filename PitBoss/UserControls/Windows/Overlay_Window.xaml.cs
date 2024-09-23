@@ -61,22 +61,7 @@ namespace PitBoss.UserControls
         /// Not used yet. To be used for user customization of alert flash.
         /// TODO: Plug this into a user selection in the Options tab.
         /// </summary>
-        private SolidColorBrush m_AlertBorderColor;
-        public SolidColorBrush AlertBorderColor
-        {
-            get
-            {
-                return m_AlertBorderColor;
-            }
-            set
-            {
-                if (m_AlertBorderColor != value)
-                {
-                    m_AlertBorderColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
 
 
 
@@ -122,7 +107,7 @@ namespace PitBoss.UserControls
             }
             else
             {
-                CurrentBorderColor = Brushes.Red;
+                CurrentBorderColor = (SolidColorBrush)dataManager.userOptions.OverlayAlertBorderColor;
             }
             if (flashIteration == flashIterationToComplete)
             {

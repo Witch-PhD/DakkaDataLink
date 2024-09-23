@@ -58,9 +58,9 @@ namespace PitBoss
             }
         }
 
-        protected Brush m_OverlayBackgroundColor = Brushes.DarkGray;
+        protected Color m_OverlayBackgroundColor = Colors.DarkGray;
         [XmlIgnore]
-        public Brush OverlayBackgroundColor
+        public Color OverlayBackgroundColor
         {
             get
             {
@@ -71,6 +71,24 @@ namespace PitBoss
                 if (m_OverlayBackgroundColor != value)
                 {
                     m_OverlayBackgroundColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private Brush m_OverlayAlertBorderColor = Brushes.Red;
+        [XmlIgnore]
+        public Brush OverlayAlertBorderColor
+        {
+            get
+            {
+                return m_OverlayAlertBorderColor;
+            }
+            set
+            {
+                if (m_OverlayAlertBorderColor != value)
+                {
+                    m_OverlayAlertBorderColor = value;
                     OnPropertyChanged();
                 }
             }

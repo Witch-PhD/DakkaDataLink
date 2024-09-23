@@ -20,19 +20,21 @@ namespace PitBoss.UserControls
             dataManager = DataManager.Instance;
             InitializeComponent();
             DataContext = dataManager;
-            initArtilleryProfiles();
+            initComboBoxes();
             updateKeyBindingStrings();
             dataManager.newCoordsReceived += OnNewCoordsReceived;
         }
         DataManager dataManager;
 
-        private void initArtilleryProfiles()
+        private void initComboBoxes()
         {
+            
             foreach (string artyName in ArtilleryProfiles.Instance.ArtyProfilesDict.Keys)
             {
                 ArtyProfile_ComboBox.Items.Add(artyName);
             }
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
+            LabelColor_ComboBox.SelectedValue = nameof(dataManager.userOptions.OverlayLabelsFontColor);
         }
 
         private void initColors()
@@ -45,20 +47,34 @@ namespace PitBoss.UserControls
 
             LabelColor_ComboBox.Items.Clear();
             ValueColor_ComboBox.Items.Clear();
+            OverlayBackgroundColor_ComboBox.Items.Clear();
+            OverlayAlertColor_ComboBox.Items.Clear();
             foreach (string color in colors)
             {
-                var lableColor = new ComboBoxItem
+                var labelColor = new ComboBoxItem
                 {   
                     Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
                     Tag = color
                 };
-                LabelColor_ComboBox.Items.Add(lableColor);
+                LabelColor_ComboBox.Items.Add(labelColor);
                 var valueColor = new ComboBoxItem
                 {
                     Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
                     Tag = color
                 };
                 ValueColor_ComboBox.Items.Add(valueColor);
+                var bgColor = new ComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                OverlayBackgroundColor_ComboBox.Items.Add(bgColor);
+                var alertColor = new ComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
+                    Tag = color
+                };
+                OverlayAlertColor_ComboBox.Items.Add(alertColor);
             }
         }
 
@@ -76,14 +92,17 @@ namespace PitBoss.UserControls
         {
             if (overlayWindow == null) // Opening Window
             {
-
                 initColors();
+
                 overlayWindow = new Overlay_Window();
+                overlayWindow.BackGroundBrush.Color = dataManager.userOptions.OverlayBackgroundColor;
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
                 OverlayOpacity_Slider.IsEnabled = true;
                 LabelColor_ComboBox.IsEnabled = true;
                 ValueColor_ComboBox.IsEnabled = true;
+                OverlayBackgroundColor_ComboBox.IsEnabled = true;
+                OverlayAlertColor_ComboBox.IsEnabled = true;
                 FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
@@ -107,6 +126,8 @@ namespace PitBoss.UserControls
                 OverlayOpacity_Slider.IsEnabled = false;
                 LabelColor_ComboBox.IsEnabled = false;
                 ValueColor_ComboBox.IsEnabled = false;
+                OverlayBackgroundColor_ComboBox.IsEnabled = false;
+                OverlayAlertColor_ComboBox.IsEnabled = false;
                 FontSize_TextBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.DataContext = null;
@@ -120,10 +141,6 @@ namespace PitBoss.UserControls
             get { return m_FlashOnNewCoords; }
             set { m_FlashOnNewCoords = value; OnPropertyChanged(); }
         }
-
-
-
-
 
         private void OnNewCoordsReceived(object sender, bool args)
         {
@@ -423,6 +440,20 @@ namespace PitBoss.UserControls
 
             checkedDictionaryUri = null;
             return true;
+        }
+
+        private void OverlayBackgroundColor_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (overlayWindow != null)
+            {
+                ComboBoxItem thingy = OverlayBackgroundColor_ComboBox.SelectedItem as ComboBoxItem;
+                overlayWindow.BackGroundBrush.Color = (Color)ColorConverter.ConvertFromString(thingy.Content as string);
+            }
+        }
+
+        private void OverlayAlertColor_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            overlayWindow?.FlashOverlay();
         }
     }
 }

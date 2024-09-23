@@ -38,15 +38,24 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayBackground_color}"/>
+                        <ComboBox x:Name="OverlayBackgroundColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayBackgroundColor}" SelectionChanged="OverlayBackgroundColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayAlert_color}"/>
+                        <ComboBox x:Name="OverlayAlertColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayAlertBorderColor}" SelectionChanged="OverlayAlertColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}"/>
                         <ComboBox x:Name="LabelColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayLabelsFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}"/>
                         <ComboBox x:Name="ValueColor_ComboBox" SelectedValuePath="Tag" SelectedValue="{Binding Path=userOptions.OverlayValuesFontColor}" Margin="3,3,3,3" IsEnabled="False"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
                         <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                             <TextBox.ToolTip>

@@ -11,6 +11,7 @@ namespace PitBoss
             OverlayBackgroundColor_BrushName = options.OverlayBackgroundColor.ToString();
             OverlayValuesFontColor_BrushName = options.OverlayValuesFontColor.ToString();
             OverlayLabelsFontColor_BrushName = options.OverlayLabelsFontColor.ToString();
+            OverlayAlertColor_BrushName = options.OverlayAlertBorderColor.ToString();
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
             Language = options.Language;
@@ -53,9 +54,10 @@ namespace PitBoss
                 }
 
                 BrushConverter brushConverter = new BrushConverter();
-                OverlayBackgroundColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayBackgroundColor_BrushName);
+                OverlayBackgroundColor = (Color)ColorConverter.ConvertFromString(tempObject.OverlayBackgroundColor_BrushName);
                 OverlayValuesFontColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayValuesFontColor_BrushName);
                 OverlayLabelsFontColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayLabelsFontColor_BrushName);
+                OverlayAlertBorderColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayAlertColor_BrushName);
 
                 OverlayOpacity = tempObject.OverlayOpacity;
                 OverlayFontSize = tempObject.OverlayFontSize;
@@ -92,6 +94,7 @@ namespace PitBoss
         public string OverlayBackgroundColor_BrushName;
         public string OverlayValuesFontColor_BrushName;
         public string OverlayLabelsFontColor_BrushName;
+        public string OverlayAlertColor_BrushName;
 
         /// <summary>
         /// Valid format is index 2n == key, index 2n+1 == value
