@@ -1,19 +1,9 @@
 ﻿using Microsoft.Win32;
-using PitBoss.UserControls;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Globalization;
-using static PitBoss.PitBossConstants;
 using Path = System.IO.Path;
 
 namespace PitBoss
@@ -36,7 +26,7 @@ namespace PitBoss
             AllocConsole();
 //#endif
             InitializeComponent();
-            this.Title = "The Pit Boss";
+            this.Title = $"The Pit Boss - v{PitBossConstants.VERSION_STRING}";
             this.SizeToContent = SizeToContent.WidthAndHeight;
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
@@ -59,9 +49,10 @@ namespace PitBoss
             }
             else
             {
-                CheckSaveSelectedLanguageWithoudEvent(true);
+     //           CheckSaveSelectedLanguageWithoudEvent(true);
                 LoadLanguage(dataManager.userOptions.Language);
             }
+            SaveSelectedLanguage_MenuItem.DataContext = dataManager.userOptions;
         }
 
         DataManager dataManager;
@@ -251,20 +242,20 @@ namespace PitBoss
             }
         }
 
-        private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
-        {
-            dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
-        }
-
-        private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
-        {
-            SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
-            SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
-
-            SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
-
-            SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
-            SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
-        }
+    //    private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
+    //    {
+    //        dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
+    //    }
+    //
+    //    private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
+    //    {
+    //        SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
+    //        SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
+    //
+    //        SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
+    //
+    //        SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
+    //        SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
+    //    }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Comms_Core;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -30,6 +28,7 @@ namespace PitBoss
                     m_Instance.m_userOptions = new UserOptions();
                     m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
                     BindingOperations.EnableCollectionSynchronization(m_Instance.ConnectedUsersCallsigns, m_Instance.connectedUsersCollectionLock);
+                    BindingOperations.EnableCollectionSynchronization(m_Instance.PreviousCoords, m_Instance.PrevCoordsCollectionLock);
                     //m_Instance.ConnectedGunsCallsigns = new ObservableCollection<string>();
                 }
                 return m_Instance;
@@ -50,6 +49,7 @@ namespace PitBoss
         private UserOptions m_userOptions;
         private ArtilleryProfiles m_ArtyProfiles;
 
+        private readonly object PrevCoordsCollectionLock = new object();
         public ObservableCollection<FiringHistoryEntry> PreviousCoords = new ObservableCollection<FiringHistoryEntry>();
         public ObservableCollection<FiringHistoryEntry> SavedCoords = new ObservableCollection<FiringHistoryEntry>();
         private readonly object connectedUsersCollectionLock = new object();
@@ -111,7 +111,7 @@ namespace PitBoss
             }
         }
 
-        
+
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -125,11 +125,17 @@ namespace PitBoss
                 m_LatestAz = value;
                 if (m_LatestAz >= 360.0)
                 {
-                    m_LatestAz -= 360.0;
+                    while (m_LatestAz >= 360.0)
+                    {
+                        m_LatestAz -= 360.0;
+                    }
                 }
                 else if (m_LatestAz < 0.0)
                 {
-                    m_LatestAz += 360.0;
+                    while (m_LatestAz < 0.0)
+                    {
+                        m_LatestAz += 360.0;
+                    }
                 }
                 OnPropertyChanged();
             }
@@ -350,14 +356,14 @@ namespace PitBoss
             ConnectedClients = 0;
         }
 
-        public void SendCoords()
+        public void saveCoordsToPrevList(ArtyMsg artyMsg)
         {
             //Coords newCoords = new Coords{ Az = _az, Dist = _dist };
             ArtyMsg artyMsg = getAssembledCoords();
             
             if (PreviousCoords.Count >= 20)
             {
-                PreviousCoords.RemoveAt(PreviousCoords.Count-1);
+                PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
             }
             FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
             PreviousCoords.Insert(0, thisFiringEntry);

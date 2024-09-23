@@ -1,4 +1,3 @@
-using Comms_Core;
 using Grpc.Core;
 
 namespace Comms_Core.Services

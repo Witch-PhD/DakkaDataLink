@@ -1,8 +1,6 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Runtime.InteropServices;
+﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace PitBoss
 {
@@ -21,6 +19,8 @@ namespace PitBoss
         private static RawKeyEventHandler keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             //this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += OnDispatcherUnhandledException;
 
@@ -37,9 +37,9 @@ namespace PitBoss
         void OnDispatcherUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
-            GlobalLogger.Log($"{ex.Message}");
+            GlobalLogger.Log($"*** Global unhandled exception: {ex.Message}\nStack Trace: {ex.StackTrace}");
             GlobalLogger.Shutdown();
-            MessageBox.Show("Unhandled exception occurred: \n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Unhandled exception occurred: \n" + ex.Message + "\nStack Trace: \n" + ex.StackTrace, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
         }
 
