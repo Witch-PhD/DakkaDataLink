@@ -65,7 +65,8 @@ namespace PitBoss
         public static void Shutdown()
         {
             m_instance.m_RunLogger = false;
-            Thread.Sleep(500);
+            bool joined = m_instance.loggerThread.Join(2000);
+            //Thread.Sleep(750);
             m_instance.FlushLog();
         }
 
@@ -93,10 +94,12 @@ namespace PitBoss
                     DateTime dateTime = DateTime.Now;
                     string timeStampedLog = $"({dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}.{dateTime.Millisecond})  {message}";
                     Instance.logQueue.Enqueue(timeStampedLog);
+                    Console.WriteLine(timeStampedLog);
                 }
                 else
                 {
                     Instance.logQueue.Enqueue(message);
+                    Console.WriteLine(message);
                 }
             }
         }

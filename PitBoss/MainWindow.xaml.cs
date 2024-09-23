@@ -68,8 +68,13 @@ namespace PitBoss
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            //dataManager.StopGrpcClient();
+            //dataManager.StopGrpcServer();
+            dataManager.StopUdp();
             theUserOptionsUserControl.CloseAllWindows();
-//#if DEBUG
+            GlobalLogger.Log("Application exiting.");
+            GlobalLogger.Shutdown();
+            //#if DEBUG
             FreeConsole();
 //#endif
             //theSpotterUserControl.CloseAllWindows();

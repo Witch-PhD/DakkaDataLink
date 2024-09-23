@@ -89,7 +89,7 @@ namespace PitBoss
             {
                 return;
             }
-            // Console.WriteLine("Key Down: " + args.Key.ToString());
+            // //Console.WriteLine("Key Down: " + args.Key.ToString());
             //////// Modifiers ////////
 
             if (m_SetBindingInProgress)
@@ -220,7 +220,7 @@ namespace PitBoss
             {
                 return;
             }
-           // Console.WriteLine("Key Up: " + args.Key.ToString());
+           // //Console.WriteLine("Key Up: " + args.Key.ToString());
             //    if (args.Key == Key.RightShift)
             //    {
             //        rightShiftHeldDown = false;

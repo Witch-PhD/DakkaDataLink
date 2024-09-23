@@ -31,7 +31,7 @@ namespace PitBoss.UserControls
         {
             if (dataManager.UdpHandlerActive) // Stopping
             {
-                DataManager.Instance.StopUdpClient();
+                DataManager.Instance.StopUdp();
                 StartStopUdpClient_Button.Content = "Connect to Server";
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
@@ -46,6 +46,7 @@ namespace PitBoss.UserControls
             }
             else // Starting
             {
+                setOperatingModes();
                 serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
                 bool validIP = IPAddress.TryParse(serverIp_TextBox.Text, out _);
                 if (validIP)
@@ -60,9 +61,9 @@ namespace PitBoss.UserControls
                 }
                 else
                 {
-                    Console.WriteLine("*** Invalid server IP address. Check your values.");
+                    //Console.WriteLine("*** Invalid server IP address. Check your values.");
                 }
-                setOperatingModes();
+                
             }
         }
 
@@ -70,7 +71,7 @@ namespace PitBoss.UserControls
         {
             if (dataManager.UdpHandlerActive) // Stopping
             {
-                DataManager.Instance.StopUdpServer();
+                DataManager.Instance.StopUdp();
                 StartStopUdpServer_Button.Content = "Start as Server";
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
@@ -85,6 +86,7 @@ namespace PitBoss.UserControls
             }
             else // Starting
             {
+                setOperatingModes();
                 DataManager.Instance.StartUdpServer();
                 StartStopUdpServer_Button.Content = "Disconnect";
 
@@ -92,7 +94,7 @@ namespace PitBoss.UserControls
                 StartStopUdpClient_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
                 MyCallsign_Textbox.IsEnabled = false;
-                setOperatingModes();
+                
             }
             
         }
@@ -130,7 +132,7 @@ namespace PitBoss.UserControls
                 }
                 else
                 {
-                    Console.WriteLine("*** Invalid server IP address. Check your values.");
+                    //Console.WriteLine("*** Invalid server IP address. Check your values.");
                 }
             }
         }

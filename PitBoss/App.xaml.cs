@@ -25,7 +25,7 @@ namespace PitBoss
             AppDomain.CurrentDomain.UnhandledException += OnDispatcherUnhandledException;
 
             DateTime startTime = DateTime.Now;
-            GlobalLogger.Log($"{startTime.Year}-{startTime.Month}-{startTime.Day} ({startTime.Hour}:{startTime.Minute}:{startTime.Second}.{startTime.Millisecond}) Application_Startup entered", false);
+            //GlobalLogger.Log($"{startTime.Year}-{startTime.Month}-{startTime.Day} ({startTime.Hour}:{startTime.Minute}:{startTime.Second}.{startTime.Millisecond}) Application_Startup entered", false);
             keyDownHandler = new RawKeyEventHandler(KListener_KeyDown);
             keyUpHandler = new RawKeyEventHandler(KListener_KeyUp);
             KListener.KeyDown += keyDownHandler;
@@ -47,7 +47,7 @@ namespace PitBoss
         {
             SpotterKeystrokeHandler.Instance.handleKeyDown(args);
             
-            // I tried writing the data in file here also, to make sure the problem is not in Console.WriteLine
+            // I tried writing the data in file here also, to make sure the problem is not in //Console.WriteLine
         }
 
         static void KListener_KeyUp(object sender, RawKeyEventArgs args)
@@ -57,15 +57,15 @@ namespace PitBoss
             //    return;
             //}
             SpotterKeystrokeHandler.Instance.handleKeyUp(args);
-            //Console.WriteLine(args.Key.ToString());
-            // I tried writing the data in file here also, to make sure the problem is not in Console.WriteLine
+            ////Console.WriteLine(args.Key.ToString());
+            // I tried writing the data in file here also, to make sure the problem is not in //Console.WriteLine
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            GlobalLogger.Log("Application exiting.");
+            //GlobalLogger.Log("Application exiting.");
             KListener.Dispose();
-            GlobalLogger.Shutdown();
+            //GlobalLogger.Shutdown();
         }
 
     }

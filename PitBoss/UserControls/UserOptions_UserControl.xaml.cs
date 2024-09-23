@@ -65,6 +65,10 @@ namespace PitBoss.UserControls
 
         public void CloseAllWindows()
         {
+            if (overlayWindow != null)
+            {
+                dataManager.userOptions.OverlayOpacity = OverlayOpacity_Slider.Value;
+            }
             overlayWindow?.Close();
         }
 
@@ -410,7 +414,7 @@ namespace PitBoss.UserControls
             {
                 if (checkedDictionaryUri != null && checkedDictionaryUri.Equals(dictionary.Source))
                 {
-                    Console.WriteLine("Check");
+                    //Console.WriteLine("Check");
                     return false;
                 }
 

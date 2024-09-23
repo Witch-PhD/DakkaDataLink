@@ -287,24 +287,31 @@ namespace PitBoss
         public void unpackIncomingCoords(ArtyMsg msg)
         {
             LatestAz = msg.Coords.Az;
-            LatestDist = msg.Coords.Az;
+            LatestDist = msg.Coords.Dist;
         }
 
         public void StartUdpServer()
         {
+            MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
             ConnectedUsersCallsigns.Add(MyCallsign);
             udpHandler.Start();
         }
 
-        public void StopUdpServer()
+        public void StopUdp()
         {
-            udpHandler.Stop();
+            if (m_UdpHandlerActive)
+            {
+                udpHandler.Stop();
+            }
+            MyCallsign = MyCallsign.Replace(" (Spotter)", "");
+            MyCallsign = MyCallsign.Replace(" (Gunner)", "");
             ConnectedUsersCallsigns.Clear();
             ConnectedClients = 0;
         }
 
         public void StartUdpClient(string ipAddress)
         {
+            MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
             ConnectedUsersCallsigns.Add(MyCallsign);
             IPAddress ip = IPAddress.Parse(ipAddress);
             udpHandler.Start(ip);
@@ -319,7 +326,7 @@ namespace PitBoss
 
         public void StartGrpcServer()
         {
-            ConnectedUsersCallsigns.Add(MyCallsign);
+            ConnectedUsersCallsigns.Add(MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)"));
             gRpcServerHandler.StartServer();
         }
 
@@ -332,7 +339,7 @@ namespace PitBoss
 
         public void StartGrpcClient(string targetIpAndPort)
         {
-            ConnectedUsersCallsigns.Add(MyCallsign);
+            ConnectedUsersCallsigns.Add(MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)"));
             gRpcClientHandler.connectToServer(targetIpAndPort);
         }
 
@@ -357,7 +364,7 @@ namespace PitBoss
             thisFiringEntry.Dist = artyMsg.Coords.Dist;
             thisFiringEntry.Az = artyMsg.Coords.Az;
 
-            udpHandler.SendCoordsToAll(artyMsg);
+            udpHandler.SendCoords(artyMsg);
             //if (GrpcServerHandlerActive) // If spotter is server.
             //{
             //    gRpcServerHandler.sendArtyMsg(artyMsg);
@@ -379,31 +386,8 @@ namespace PitBoss
             {
                 unpackIncomingCoords(theMsg);
                 newCoordsReceived?.Invoke(this, true);
-                Console.WriteLine($"DataManager.NewArtyMsgReceived() [Coords] CallSign: {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
-                GlobalLogger.Log($"DataManager.NewArtyMsgReceived() [Coords] {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
-            }
-            else if (theMsg.ClientReport != null) // Received by the server.
-            {
-        //        if (!ConnectedUsersCallsigns.Contains(theMsg.Callsign))
-        //        {
-        //            ConnectedUsersCallsigns.Add(theMsg.Callsign);
-        //        }
-        //        Console.WriteLine($"DataManager.NewArtyMsgReceived() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
-        //        GlobalLogger.Log($"DataManager.NewArtyMsgReceived() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
-            }
-            else if (theMsg.ServerReport != null) // Received by a client.
-            {
-        //        ConnectedUsersCallsigns.Clear(); // TODO: Selective add/remove rather than clear all?
-        //        foreach (string activeUserCallsign in theMsg.ServerReport.ActiveCallsigns)
-        //        {
-        //            if (!ConnectedUsersCallsigns.Contains(activeUserCallsign))
-        //            {
-        //                ConnectedUsersCallsigns.Add(activeUserCallsign);
-        //            }
-        //        }
-        //
-        //        Console.WriteLine($"DataManager.NewArtyMsgReceived() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
-        //        GlobalLogger.Log($"DataManager.NewArtyMsgReceived() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
+                //Console.WriteLine($"DataManager.NewArtyMsgReceived() [Coords] CallSign: {theMsg.Callsign} Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}");
+                GlobalLogger.Log($"New [Coords] received from {theMsg.Callsign}, Az: {theMsg.Coords.Az}, Dist: {theMsg.Coords.Dist}, MsgId: {theMsg.Coords.MsgId}");
             }
             else
             {
@@ -414,7 +398,6 @@ namespace PitBoss
         public void UpdateConnectedUsers(List<string> activeUsers)
         {
             ConnectedUsersCallsigns.Clear();
-            ConnectedUsersCallsigns.Add(MyCallsign);
             foreach (string user in activeUsers)
             {
                 ConnectedUsersCallsigns.Add(user);

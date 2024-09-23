@@ -62,11 +62,11 @@ namespace PitBoss
             //portsEnumerator.Reset();
             foreach (ServerPort port in theServer.Ports)
             {
-                //Console.WriteLine($"Server listening on {ListeningIp}:{port.BoundPort}");
+                ////Console.WriteLine($"Server listening on {ListeningIp}:{port.BoundPort}");
                 dataManager.ServerActiveListeningPort = port.BoundPort;
             }
             //dataManager.ServerActiveListeningPort = theServer.Ports[portsEnumerator];
-            Console.WriteLine($"gRPC server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
+            //Console.WriteLine($"gRPC server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
             GlobalLogger.Log($"gRPC server listening on {ListeningIp}:{dataManager.ServerActiveListeningPort}");
         }
 
@@ -76,7 +76,7 @@ namespace PitBoss
             await serverShutdown;
             dataManager.GrpcServerHandlerActive = false;
             theServer = null;
-            Console.WriteLine("gRPC Server stopped.");
+            //Console.WriteLine("gRPC Server stopped.");
             GlobalLogger.Log($"gRPC Server stopped.");
         }
 
@@ -95,7 +95,7 @@ namespace PitBoss
             {
                 outgoingStreams.Add(responseStream);
                 dataManager.ConnectedClients = outgoingStreams.Count;
-                Console.WriteLine($"gRPC Server: {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
+                //Console.WriteLine($"gRPC Server: {context.Peer}. Connected. {outgoingStreams.Count} connections now active.");
                 GlobalLogger.Log($"gRPC Server:  {context.Peer} Connected. {outgoingStreams.Count} connections now active.");
                 while (await requestStream.MoveNext(context.CancellationToken))
                 {
@@ -127,14 +127,14 @@ namespace PitBoss
                 outgoingStreams.Remove(responseStream);
                 dataManager.ConnectedClients = outgoingStreams.Count;
                 //dataManager.ConnectedClients--;
-                Console.WriteLine($"gRPC Server: {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
+                //Console.WriteLine($"gRPC Server: {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
                 GlobalLogger.Log($"gRPC Server: {currentPeer}. Disconnected. {outgoingStreams.Count} connections now active.");
             }
         }
 
         public async void sendArtyMsg(ArtyMsg artyMsg)
         {
-            //Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
+            ////Console.WriteLine($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             //GlobalLogger.Log($"gRPC Server sending ArtyMsg: CallSign: {artyMsg.Callsign} Az: {artyMsg.Az}, Dist: {artyMsg.Dist}, Connected Guns: {artyMsg.ConnectedGuns}");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -146,17 +146,17 @@ namespace PitBoss
                 }
                 catch (RpcException ex)
                 {
-                    Console.WriteLine($"*** gRpc Server.sendArtyMsg RpcException {ex.Message}"); // TODO: Add peer IP here somehow.
+                    //Console.WriteLine($"*** gRpc Server.sendArtyMsg RpcException {ex.Message}"); // TODO: Add peer IP here somehow.
                     GlobalLogger.Log($"*** gRpc Server.sendArtyMsg RpcException: {ex.Message}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
+                    //Console.WriteLine($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
                     GlobalLogger.Log($"*** gRpc Server.sendArtyMsg Other Exception: {ex.Message}");
                 }
             }
             stopwatch.Stop();
-            //Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
+            ////Console.WriteLine($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
             //GlobalLogger.Log($"gRPC Server took {stopwatch.ElapsedMilliseconds} milliseconds to send to {artyMsg.ConnectedGuns} clients");
         }
     }

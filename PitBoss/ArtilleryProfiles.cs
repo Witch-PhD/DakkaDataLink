@@ -54,7 +54,7 @@ namespace PitBoss
                     break;
 
                 default:
-                    Console.WriteLine($"ArtilleryProfiles.SwitchToProfile: Invalid profile name received: {profileName}");
+                    //Console.WriteLine($"ArtilleryProfiles.SwitchToProfile: Invalid profile name received: {profileName}");
                     CurrentProfile = Lariat120mm;
                     break;
             }

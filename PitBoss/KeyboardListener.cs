@@ -20,7 +20,7 @@ namespace PitBoss
             }
             catch
             {
-                Console.WriteLine("There was some error somewhere...");
+                //Console.WriteLine("There was some error somewhere...");
             }
             return InterceptKeys.CallNextHookEx(hookId, nCode, wParam, lParam);
         }
