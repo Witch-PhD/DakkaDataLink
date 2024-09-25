@@ -88,9 +88,9 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <TextBlock Text="{DynamicResource textblock_custom_shortcuts}" Margin="3,3,3,3" VerticalAlignment="Center"/>
-                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Padding="5" Content="{DynamicResource button_show}" Click="Shortcuts_Button_Click"/>
+                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Padding="5" Content="{DynamicResource button_hide}" Click="Shortcuts_Button_Click"/>
                 </StackPanel>
-                <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Hidden">
+                <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Visible">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition/>
