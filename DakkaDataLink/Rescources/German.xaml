@@ -19,7 +19,7 @@
 
     <!--About Window-->
     <system:String x:Key="textblock_description">Ein Tool für die Artillery Koordination, 2024.</system:String>
-    <system:String x:Key="textblock_author">von [82DK-A] Witch,PhD</system:String>
+    <system:String x:Key="textblock_author">von [82DK-A|⦿] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Unterstützer:</system:String>
     <system:String x:Key="textblock_version">Version:</system:String>
     <system:String x:Key="textblock_translators">Übersetzer:</system:String>
