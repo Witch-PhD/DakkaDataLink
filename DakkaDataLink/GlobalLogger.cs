@@ -93,7 +93,11 @@ namespace DakkaDataLink
                 if (appendTimestamp)
                 {
                     DateTime dateTime = DateTime.Now;
-                    string timeStampedLog = $"({dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}.{dateTime.Millisecond})  {message}";
+                    string formattedHour = string.Format("{0:D2}", dateTime.Hour);
+                    string formattedMin = string.Format("{0:D2}", dateTime.Minute);
+                    string formattedSec = string.Format("{0:D2}", dateTime.Second);
+                    string formattedMilli = string.Format("{0:D3}", dateTime.Millisecond);
+                    string timeStampedLog = $"({formattedHour}:{formattedMin}:{formattedSec}.{formattedMilli})  {message}";
                     Instance.logQueue.Enqueue(timeStampedLog);
                     Console.WriteLine(timeStampedLog);
                 }
