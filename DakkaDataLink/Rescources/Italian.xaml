@@ -26,6 +26,8 @@
     
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Coordiante di Fuoco</system:String>
+    <!-- <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String> -->
+    <!-- <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String> -->
     <system:String x:Key="textblock_distance">Dist:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Distanza</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl Destro + Freccia Su/Giù per 1 incremento. Shift Destro + Freccia Su/Giù per 3 incrementi.</system:String>
