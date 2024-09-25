@@ -11,8 +11,34 @@ service Arty
 
 message ArtyMsg
 {
-	double Az = 1;
-	double Dist = 2;
-	string Callsign = 3;
-	int32 ConnectedGuns = 4;
+	string Callsign = 1;
+	oneof MsgType
+	{
+		Coords coords = 2;
+		ClientReport clientReport = 3;
+		ServerReport ServerReport = 4;
+	}
+}
+
+message Coords
+{
+	int32 MsgId = 1;
+	double Az = 2;
+	double Dist = 3;
+}
+
+message ClientReport
+{
+	int32 ClientType = 1; // 0 == Invalid, 1 == Spotter, Gunner == 2
+	string SpotterPassword = 2;
+	int32 LastCoordsIdReceived = 3;
+	int32 LastCoordsIdSent = 4; // For use by spotter if they are client.
+}
+
+message ServerReport
+{
+	int32 ActiveCallsignsCount = 1;
+	repeated string ActiveCallsigns = 2;
+	int32 LastCoordsIdReceived = 3;
+	int32 LastCoordsIdSent = 4;
 }
