@@ -55,9 +55,11 @@
     <system:String x:Key="groupbox_overlay_header">Ustawienia nakładki</system:String>
     <system:String x:Key="button_toggle">Przełącz nakładkę</system:String>
     <system:String x:Key="textblock_opacity">Przezroczystość:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
     <system:String x:Key="textblock_label_color">Kolor etykiety:</system:String>
     <system:String x:Key="textblock_value_color">Kolor wartości:</system:String>
     <system:String x:Key="textblock_overlay_color">Kolor nakładki:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
     <system:String x:Key="comboboxitem_color_red">Czerwony</system:String>
     <system:String x:Key="comboboxitem_color_orange">Pomarańczowy</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Żółty</system:String>

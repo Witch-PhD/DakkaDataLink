@@ -55,9 +55,11 @@
     <system:String x:Key="groupbox_overlay_header">Impostazioni della Sovraimpressione</system:String>
     <system:String x:Key="button_toggle">Commutare la Sovraimpressione</system:String>
     <system:String x:Key="textblock_opacity">Opacità:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
     <system:String x:Key="textblock_label_color">Colore Scritte:</system:String>
     <system:String x:Key="textblock_value_color">Colore Valori:</system:String>
     <system:String x:Key="textblock_overlay_color">Colore sovrapposto:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rosso</system:String>
     <system:String x:Key="comboboxitem_color_orange">Arancione</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Giallo</system:String>

@@ -55,6 +55,8 @@
     <system:String x:Key="groupbox_overlay_header">Configuración de la superposición</system:String>
     <system:String x:Key="button_toggle">Alternar superposición</system:String>
     <system:String x:Key="textblock_opacity">Opacidad:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
     <system:String x:Key="textblock_label_color">Color de etiqueta:</system:String>
     <system:String x:Key="textblock_value_color">Color del valor:</system:String>
     <system:String x:Key="textblock_overlay_color">Color de superposición:</system:String>
