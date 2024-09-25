@@ -26,7 +26,7 @@ namespace DakkaDataLink
             AllocConsole();
 //#endif
             InitializeComponent();
-            this.Title = $"The Pit Boss - v{DdlConstants.VERSION_STRING}";
+            this.Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
             this.SizeToContent = SizeToContent.WidthAndHeight;
             dataManager = DataManager.Instance;
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
