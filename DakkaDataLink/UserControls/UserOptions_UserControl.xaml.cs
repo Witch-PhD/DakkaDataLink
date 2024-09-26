@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,16 @@ namespace DakkaDataLink.UserControls
     {
         private double opacity = 0.1;
         private Uri checkedDictionaryUri;
+        public ObservableCollection<TranslatableComboBoxItem> comboBoxColorOptions = new ObservableCollection<TranslatableComboBoxItem>();
+
+        private SolidColorBrush[] brushes =
+        {
+            Brushes.Red, Brushes.Orange, Brushes.Yellow, Brushes.Green,
+                Brushes.Blue, Brushes.Purple, Brushes.Magenta, Brushes.Pink,
+                Brushes.Black, Brushes.White, Brushes.Gray, Brushes.DarkGray
+        };
+        
+        private Dictionary<string, string> hexColorToBrushNameDict = new Dictionary<string, string>();
 
         public UserOptions_UserControl()
         {
@@ -35,50 +46,47 @@ namespace DakkaDataLink.UserControls
             }
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
             LabelColor_ComboBox.SelectedValue = nameof(dataManager.userOptions.OverlayLabelsFontColor);
+            initColors();
         }
 
         private void initColors()
         {
-            string[] colors ={
-                nameof(Brushes.Red), nameof(Brushes.Orange), nameof(Brushes.Yellow), nameof(Brushes.Green),
-                nameof(Brushes.Blue), nameof(Brushes.Purple), nameof(Brushes.Magenta), nameof(Brushes.Pink),
-                nameof(Brushes.Black), nameof(Brushes.White), nameof(Brushes.Gray), nameof(Brushes.DarkGray)
-                };
-
-            LabelColor_ComboBox.Items.Clear();
-            ValueColor_ComboBox.Items.Clear();
-            OverlayBackgroundColor_ComboBox.Items.Clear();
-            OverlayAlertColor_ComboBox.Items.Clear();
-            foreach (string color in colors)
+            var values = typeof(Brushes).GetProperties().Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
+            
+            for (int i = 0; i < brushes.Length; i++)
             {
-                var labelColor = new ComboBoxItem
-                {   
-                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
-                    Tag = color
-                };
-                LabelColor_ComboBox.Items.Add(labelColor);
-                var valueColor = new ComboBoxItem
+                for (int j = 0; j < values.Length; j++)
                 {
-                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
-                    Tag = color
-                };
-                ValueColor_ComboBox.Items.Add(valueColor);
-                var bgColor = new ComboBoxItem
-                {
-                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
-                    Tag = color
-                };
-                OverlayBackgroundColor_ComboBox.Items.Add(bgColor);
-                var alertColor = new ComboBoxItem
-                {
-                    Content = Application.Current.Resources["comboboxitem_color_" + color.ToLower()] as string,
-                    Tag = color
-                };
-                OverlayAlertColor_ComboBox.Items.Add(alertColor);
+                    if (values[j].Brush == brushes[i])
+                    {
+                        hexColorToBrushNameDict[brushes[i].ToString()] = values[j].Name;
+                    }
+                }
             }
+
+            comboBoxColorOptions.Clear();
+            foreach (string brushMapping in hexColorToBrushNameDict.Values)
+            {
+                TranslatableComboBoxItem colorItem = new TranslatableComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_color_" + brushMapping.ToLower()] as string,
+                    Tag = brushMapping
+                };
+                comboBoxColorOptions.Add(colorItem);
+            }
+
+            LabelColor_ComboBox.ItemsSource = comboBoxColorOptions;
+            ValueColor_ComboBox.ItemsSource = comboBoxColorOptions;
+            OverlayBackgroundColor_ComboBox.ItemsSource = comboBoxColorOptions;
+            OverlayAlertColor_ComboBox.ItemsSource = comboBoxColorOptions;
+
+            OverlayBackgroundColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayBackgroundColor.ToString()];
+            OverlayAlertColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayAlertBorderColor.ToString()];
+            ValueColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayValuesFontColor.ToString()];
+            LabelColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayLabelsFontColor.ToString()];
         }
 
-        public void CloseAllWindows()
+            public void CloseAllWindows()
         {
             if (overlayWindow != null)
             {
@@ -95,7 +103,7 @@ namespace DakkaDataLink.UserControls
                 initColors();
 
                 overlayWindow = new Overlay_Window();
-                overlayWindow.BackGroundBrush.Color = dataManager.userOptions.OverlayBackgroundColor;
+                overlayWindow.BackGroundBrush.Color = dataManager.userOptions.OverlayBackgroundColor.Color;
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 overlayWindow.ResizeMode = ResizeMode.CanResizeWithGrip;
                 OverlayOpacity_Slider.IsEnabled = true;
@@ -446,14 +454,70 @@ namespace DakkaDataLink.UserControls
         {
             if (overlayWindow != null)
             {
-                ComboBoxItem thingy = OverlayBackgroundColor_ComboBox.SelectedItem as ComboBoxItem;
-                overlayWindow.BackGroundBrush.Color = (Color)ColorConverter.ConvertFromString(thingy.Content as string);
+                //ComboBoxItem thingy = OverlayBackgroundColor_ComboBox.SelectedItem as ComboBoxItem;
+                //overlayWindow.BackGroundBrush.Color = (Color)ColorConverter.ConvertFromString(thingy.Content as string);
+                
+
+                string selectedColorName = OverlayBackgroundColor_ComboBox.SelectedValue as string;
+                BrushConverter brushConverter = new BrushConverter();
+                SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
+                dataManager.userOptions.OverlayBackgroundColor = selectedColorBrush;
+                overlayWindow.BackGroundBrush.Color = selectedColorBrush.Color;
             }
         }
 
         private void OverlayAlertColor_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            overlayWindow?.FlashOverlay();
+            string selectedColorName = OverlayAlertColor_ComboBox.SelectedValue as string;
+            if (selectedColorName != null)
+            {
+                BrushConverter brushConverter = new BrushConverter();
+                SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
+                dataManager.userOptions.OverlayAlertBorderColor = selectedColorBrush;
+
+                overlayWindow?.FlashOverlay();
+            }
         }
+
+        private void LabelColor_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedColorName = LabelColor_ComboBox.SelectedValue as string;
+            if (selectedColorName != null)
+            {
+                BrushConverter brushConverter = new BrushConverter();
+                SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
+                dataManager.userOptions.OverlayLabelsFontColor = selectedColorBrush;
+            }
+        }
+
+        private void ValueColor_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedColorName = ValueColor_ComboBox.SelectedValue as string;
+            if (selectedColorName != null)
+            {
+                BrushConverter brushConverter = new BrushConverter();
+                SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
+                dataManager.userOptions.OverlayValuesFontColor = selectedColorBrush;
+            }
+        }
+
+        public class TranslatableComboBoxItem
+        {
+            public TranslatableComboBoxItem()
+            {
+
+            }
+
+            public TranslatableComboBoxItem(string _Content, string _Tag)
+            {
+                Content = _Content;
+                Tag = _Tag;
+            }
+
+            public string Content {  get; set; }
+            public string Tag { get; set; }
+        }
+
+
     }
 }

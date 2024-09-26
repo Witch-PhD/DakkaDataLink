@@ -24,13 +24,16 @@ namespace DakkaDataLink
         {
 //#if DEBUG
             AllocConsole();
-//#endif
+            //#endif
+            dataManager = DataManager.Instance;
+            LoadSettings();
             InitializeComponent();
+            theUserOptionsUserControl.updateKeyBindingStrings();
             this.Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
             this.SizeToContent = SizeToContent.WidthAndHeight;
-            dataManager = DataManager.Instance;
+            
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
-            LoadSettings();
+            
             if (dataManager.userOptions.SaveSelectedLanguage == false)
             {
                 string cultureName = CultureInfo.CurrentCulture.EnglishName;
@@ -234,7 +237,7 @@ namespace DakkaDataLink
                 SerializableUserOptions theOptions = new(dataManager.userOptions);
                 theOptions.DeserializeFrom(settingsFilePath);
                 dataManager.userOptions = theOptions;
-                theUserOptionsUserControl.updateKeyBindingStrings();
+                //theUserOptionsUserControl.updateKeyBindingStrings();
             }
             else
             {

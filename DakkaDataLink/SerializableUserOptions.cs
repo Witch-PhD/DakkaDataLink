@@ -54,7 +54,7 @@ namespace DakkaDataLink
                 }
 
                 BrushConverter brushConverter = new BrushConverter();
-                OverlayBackgroundColor = (Color)ColorConverter.ConvertFromString(tempObject.OverlayBackgroundColor_BrushName);
+                OverlayBackgroundColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayBackgroundColor_BrushName);
                 OverlayValuesFontColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayValuesFontColor_BrushName);
                 OverlayLabelsFontColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayLabelsFontColor_BrushName);
                 OverlayAlertBorderColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayAlertColor_BrushName);

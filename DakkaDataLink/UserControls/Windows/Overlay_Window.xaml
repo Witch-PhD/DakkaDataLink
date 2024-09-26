@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Overlay_Window" Height="100" Width="100" AllowsTransparency="True" WindowStyle="None" PreviewMouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
     <Window.Background>
-        <SolidColorBrush x:Name="BackGroundBrush" Opacity="0.5" Color="DarkGray"/>
+        <SolidColorBrush x:Name="BackGroundBrush" Opacity="0.5"/>
     </Window.Background>
     <Border x:Name="MainBorder" BorderBrush="{Binding Path=CurrentBorderColor}" BorderThickness="7,7,7,7">
         <Grid>

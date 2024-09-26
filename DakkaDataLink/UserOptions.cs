@@ -58,9 +58,9 @@ namespace DakkaDataLink
             }
         }
 
-        protected Color m_OverlayBackgroundColor = Colors.DarkGray;
+        protected SolidColorBrush m_OverlayBackgroundColor = Brushes.DarkGray;
         [XmlIgnore]
-        public Color OverlayBackgroundColor
+        public SolidColorBrush OverlayBackgroundColor
         {
             get
             {
@@ -76,9 +76,9 @@ namespace DakkaDataLink
             }
         }
 
-        private Brush m_OverlayAlertBorderColor = Brushes.Red;
+        private SolidColorBrush m_OverlayAlertBorderColor = Brushes.Red;
         [XmlIgnore]
-        public Brush OverlayAlertBorderColor
+        public SolidColorBrush OverlayAlertBorderColor
         {
             get
             {
@@ -94,9 +94,9 @@ namespace DakkaDataLink
             }
         }
 
-        protected Brush m_OverlayValuesFontColor = Brushes.Red;
+        protected SolidColorBrush m_OverlayValuesFontColor = Brushes.Red;
         [XmlIgnore]
-        public Brush OverlayValuesFontColor
+        public SolidColorBrush OverlayValuesFontColor
         {
             get
             {
@@ -112,9 +112,9 @@ namespace DakkaDataLink
             }
         }
 
-        protected Brush m_OverlayLabelsFontColor = Brushes.Bisque;
+        protected SolidColorBrush m_OverlayLabelsFontColor = Brushes.White;
         [XmlIgnore]
-        public Brush OverlayLabelsFontColor
+        public SolidColorBrush OverlayLabelsFontColor
         {
             get
             {
