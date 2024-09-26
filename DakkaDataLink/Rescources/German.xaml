@@ -29,8 +29,8 @@
     <system:String x:Key="textblock_distance">Dist:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Entfernung</system:String>
     <system:String x:Key="groupbox_coordinates_header">Schusskoordinaten</system:String>
-    <!-- <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String> -->
-    <!-- <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String> -->
+    <!-- <system:String x:Key="previous_coordinates_text">Vorherige Koordinaten</system:String> -->
+    <!-- <system:String x:Key="saved_coordinates_text">Gespeicherte Koordinaten</system:String> -->
     <system:String x:Key="textbox_tooltip_distance">Rechte STRG + Pfeiltaste Oben/Unten für 1 tick Schritt. Recht Shift + Pfeiltaste Oben/Unten für 3 tick Schritt.</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Gradzahl</system:String>
@@ -58,11 +58,11 @@
     <system:String x:Key="groupbox_overlay_header">Overlayeinstellungen</system:String>
     <system:String x:Key="button_toggle">Overlay An/Aus</system:String>
     <system:String x:Key="textblock_opacity">Deckkraft:</system:String>
-    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">Hintergrundfarbe:</system:String>
     <system:String x:Key="textblock_label_color">Textfarbe:</system:String>
     <system:String x:Key="textblock_value_color">Zahlenfarbe:</system:String>
     <system:String x:Key="textblock_overlay_color">Überlagerungsfarbe:</system:String>
-    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">Alarmfarbe:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rot</system:String>
     <system:String x:Key="comboboxitem_color_orange">Orange</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Gelb</system:String>
