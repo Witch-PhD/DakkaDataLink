@@ -26,8 +26,8 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Współrzędne ostrzału</system:String>
-    <!-- <system:String x:Key="previous_coordinates_text">poprzednie koordynaty</system:String> plug this in. -->
-    <!-- <system:String x:Key="saved_coordinates_text">zapisane koordynaty</system:String> plug this in. -->
+    <system:String x:Key="previous_coordinates_text">poprzednie koordynaty</system:String>
+    <system:String x:Key="saved_coordinates_text">zapisane koordynaty</system:String>
     <system:String x:Key="textblock_distance">Dystans:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Odległość</system:String>
     <system:String x:Key="textbox_tooltip_distance">Ctrl prawy + Strzałka w górę/dół, aby zmienić o 1 krok. Shift prawy + Strzałka w górę/dół, aby zmienić o 3 kroki.</system:String>

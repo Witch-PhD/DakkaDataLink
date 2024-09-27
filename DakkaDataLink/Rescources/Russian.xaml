@@ -26,8 +26,8 @@
 
     <!--Gunner and Spotter-->
     <system:String x:Key="groupbox_coordinates_header">Координаты стрельбы</system:String>
-    <!-- <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String> -->
-    <!-- <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String> -->
+    <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String>
+    <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String>
     <system:String x:Key="textblock_distance">Дист.:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Дистанция</system:String>
     <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>

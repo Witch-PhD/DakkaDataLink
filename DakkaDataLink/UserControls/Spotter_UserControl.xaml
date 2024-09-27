@@ -57,8 +57,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
-                <GroupBox Header="Previous Coordinates" Grid.Row="0" Grid.Column="0">
+
+                <GroupBox Header="{DynamicResource previous_coordinates_text}" Grid.Row="0" Grid.Column="0">
                     <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
@@ -78,7 +78,7 @@
 
 
 
-                <GroupBox Header="Saved Coordinates" Grid.Row="0" Grid.Column="2">
+                <GroupBox Header="{DynamicResource saved_coordinates_text}" Grid.Row="0" Grid.Column="2">
                     <DataGrid x:Name="SavedCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=EntryName}" MinWidth="80"/>

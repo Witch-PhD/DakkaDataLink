@@ -27,7 +27,7 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Previous Coordinates">
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="{DynamicResource previous_coordinates_text}">
             <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
