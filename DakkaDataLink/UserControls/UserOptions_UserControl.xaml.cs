@@ -23,7 +23,7 @@ namespace DakkaDataLink.UserControls
                 Brushes.Blue, Brushes.Purple, Brushes.Magenta, Brushes.Pink,
                 Brushes.Black, Brushes.White, Brushes.Gray, Brushes.DarkGray
         };
-        
+
         private Dictionary<string, string> hexColorToBrushNameDict = new Dictionary<string, string>();
 
         public UserOptions_UserControl()
@@ -34,12 +34,16 @@ namespace DakkaDataLink.UserControls
             initComboBoxes();
             updateKeyBindingStrings();
             dataManager.newCoordsReceived += OnNewCoordsReceived;
+            dataManager.userOptions.PropertyChanged += OnPropertyChanged;
         }
+
+        
+
         DataManager dataManager;
 
         private void initComboBoxes()
         {
-            
+
             foreach (string artyName in ArtilleryProfiles.Instance.ArtyProfilesDict.Keys)
             {
                 ArtyProfile_ComboBox.Items.Add(artyName);
@@ -52,7 +56,7 @@ namespace DakkaDataLink.UserControls
         private void initColors()
         {
             var values = typeof(Brushes).GetProperties().Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
-            
+
             for (int i = 0; i < brushes.Length; i++)
             {
                 for (int j = 0; j < values.Length; j++)
@@ -86,7 +90,7 @@ namespace DakkaDataLink.UserControls
             LabelColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayLabelsFontColor.ToString()];
         }
 
-            public void CloseAllWindows()
+        public void CloseAllWindows()
         {
             if (overlayWindow != null)
             {
@@ -427,6 +431,14 @@ namespace DakkaDataLink.UserControls
             {
                 ShorcutsMenu.Visibility = Visibility.Visible;
                 Shortcuts_Button.Content = Application.Current.Resources["button_hide"] as string;
+            }
+        }
+
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Language")
+            {
+                initColors();
             }
         }
 
