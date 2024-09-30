@@ -234,10 +234,18 @@ namespace DakkaDataLink
 
             if (File.Exists(settingsFilePath))
             {
-                SerializableUserOptions theOptions = new(dataManager.userOptions);
-                theOptions.DeserializeFrom(settingsFilePath);
-                dataManager.userOptions = theOptions;
-                //theUserOptionsUserControl.updateKeyBindingStrings();
+                try
+                {
+                    SerializableUserOptions theOptions = new(dataManager.userOptions);
+                    theOptions.DeserializeFrom(settingsFilePath);
+                    dataManager.userOptions = theOptions;
+                    //theUserOptionsUserControl.updateKeyBindingStrings();
+                }
+                catch (Exception ex)
+                {
+                    GlobalLogger.Log("*** LoadSettings Exception. Settings files possibly corrupted. Rewriting with default values.");
+                    SaveUserSettings();
+                }
             }
             else
             {
