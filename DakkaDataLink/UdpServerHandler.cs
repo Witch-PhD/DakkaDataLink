@@ -159,11 +159,11 @@ namespace DakkaDataLink
             }
             else if (theMsg.ClientReport != null) // Received by the server.
             {
-                GlobalLogger.Log($"New [ClientStatus] received from CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}, LastCoordsIdRecvd: {theMsg.ClientReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ClientReport.LastCoordsIdSent}");
+                //GlobalLogger.Log($"New [ClientStatus] received from CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}, LastCoordsIdRecvd: {theMsg.ClientReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ClientReport.LastCoordsIdSent}");
                 // If this is a gunner client, and they did not receive the latest coords...
                 if ((theMsg.ClientReport.LastCoordsIdReceived != latestCoordsMsgIdSent) && (theMsg.ClientReport.ClientType == 2))
                 {
-                    GlobalLogger.Log($"UdpServerHandler.resendCoordsToClient -> {remoteEndPoint}. Client last received msgId: {theMsg.ClientReport.LastCoordsIdReceived}, Server last sent msgId: {latestCoordsMsgIdSent} ");
+                    GlobalLogger.Log($"UdpServerHandler.resendCoordsToClient -> {theMsg.Callsign}. Client last received msgId: {theMsg.ClientReport.LastCoordsIdReceived}, Server last sent msgId: {latestCoordsMsgIdSent} ");
                     resendCoordsToClient(remoteEndPoint);
                 }
                 //Console.WriteLine($"UdpServerHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");

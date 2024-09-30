@@ -220,7 +220,7 @@ namespace DakkaDataLink
                 dataManager.UpdateConnectedUsers(connectedUsersList);
                 
                 //Console.WriteLine($"UdpHandler.processMsg() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
-                GlobalLogger.Log($"New [ServerStatus] from CallSign: {theMsg.Callsign}, LastCoordsIdRecvd: {theMsg.ServerReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ServerReport.LastCoordsIdSent}, ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
+                //GlobalLogger.Log($"New [ServerStatus] from CallSign: {theMsg.Callsign}, LastCoordsIdRecvd: {theMsg.ServerReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ServerReport.LastCoordsIdSent}, ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
 
                 if ((theMsg.ServerReport.LastCoordsIdReceived != latestCoordsMsgIdSent) && (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eSpotter))
                 {
