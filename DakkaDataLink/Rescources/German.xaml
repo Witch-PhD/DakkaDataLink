@@ -24,19 +24,23 @@
     <system:String x:Key="textblock_version">Version:</system:String>
     <system:String x:Key="textblock_translators">Übersetzer:</system:String>
 
-    <!--Gunner and Spotter-->
-
+    <!--Spotter_UserControl and GunBattery_UserControl-->
+    <system:String x:Key="groupbox_coordinates_header">Schusskoordinaten</system:String>
     <system:String x:Key="textblock_distance">Dist:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Entfernung</system:String>
-    <system:String x:Key="groupbox_coordinates_header">Schusskoordinaten</system:String>
-    <system:String x:Key="previous_coordinates_text">Vorherige Koordinaten</system:String>
-    <system:String x:Key="saved_coordinates_text">Gespeicherte Koordinaten</system:String>
-    <system:String x:Key="textbox_tooltip_distance">Rechte STRG + Pfeiltaste Oben/Unten für 1 tick Schritt. Recht Shift + Pfeiltaste Oben/Unten für 3 tick Schritt.</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Gradzahl</system:String>
+
+    <!--Spotter_UserControl-->
+    <system:String x:Key="textbox_tooltip_distance">Rechte STRG + Pfeiltaste Oben/Unten für 1 tick Schritt. Recht Shift + Pfeiltaste Oben/Unten für 3 tick Schritt.</system:String>
     <system:String x:Key="textbox_tooltip_azimuth">Rechte STRG + Pfeiltaste Rechts/Links für 1 Grad Schritt. Rechte Shift + Pfeiltsate Rechts/Links für 10 Grad Schritt.</system:String>
-    <system:String x:Key="button_text">Koordinaten senden</system:String>
     <system:String x:Key="button_tooltip">Rechte STRG + NumPad Null um zusenden.</system:String>
+    <system:String x:Key="button_text">Koordinaten senden</system:String>
+
+    <!--<system:String x:Key="timeString">Time</system:String>                                 -->
+    <!--<system:String x:Key="nameString">Name</system:String>                                 -->
+    <system:String x:Key="previous_coordinates_text">Vorherige Koordinaten</system:String>
+    <system:String x:Key="saved_coordinates_text">Gespeicherte Koordinaten</system:String>
 
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Verbindungseinstellungen</system:String>
@@ -76,20 +80,22 @@
     <system:String x:Key="comboboxitem_color_gray">Grau</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Dunkelgrau</system:String>
     <system:String x:Key="textblock_font_size">Schriftgröße:</system:String>
+    <system:String x:Key="textblock_flash_on_new_cords">Flash bei neuen Koordinaten</system:String>
+    
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Aufklärereinstellungen</system:String>
     <system:String x:Key="textblock_artillery_progile">Artillerysystem:</system:String>
     <system:String x:Key="textblock_custom_shortcuts">Benutzerdefinierte Tastenkombinationen:</system:String>
     <system:String x:Key="button_show">Anzeigen</system:String>
     <system:String x:Key="button_hide">Verstecken</system:String>
-    <system:String x:Key="textblock_custom_shortcut_1">Az + 1</system:String>
-    <system:String x:Key="textblock_custom_shortcut_2">Az - 1</system:String>
-    <system:String x:Key="textblock_custom_shortcut_3">Az + 10</system:String>
-    <system:String x:Key="textblock_custom_shortcut_4">Az - 10</system:String>
-    <system:String x:Key="textblock_custom_shortcut_5">Dist + 1 Tick</system:String>
-    <system:String x:Key="textblock_custom_shortcut_6">Dist - 1 Tick</system:String>
-    <system:String x:Key="textblock_custom_shortcut_7">Dist + 3 Ticks</system:String>
-    <system:String x:Key="textblock_custom_shortcut_8">Dist - 3 Ticks</system:String>
+    <system:String x:Key="textblock_custom_shortcut_1">Az + 1 Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_2">Az - 1 Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_3">Az + 10 Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_4">Az - 10 Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_5">Dist + 1 Tick Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_6">Dist - 1 Tick Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_7">Dist + 3 Ticks Verknüpfung</system:String>
+    <system:String x:Key="textblock_custom_shortcut_8">Dist - 3 Ticks Verknüpfung</system:String>
     <system:String x:Key="textblock_custom_shortcut_9">Koordinaten senden</system:String>
     <system:String x:Key="button_change">Übernehmen</system:String>
 

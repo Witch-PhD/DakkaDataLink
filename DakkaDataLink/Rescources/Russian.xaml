@@ -24,19 +24,24 @@
     <system:String x:Key="textblock_version">Версия:</system:String>
     <system:String x:Key="textblock_translators">Переводчики:</system:String>
 
-    <!--Gunner and Spotter-->
+    <!--Spotter_UserControl and GunBattery_UserControl-->
     <system:String x:Key="groupbox_coordinates_header">Координаты стрельбы</system:String>
-    <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String>
-    <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String>
     <system:String x:Key="textblock_distance">Дист.:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Дистанция</system:String>
-    <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>
     <system:String x:Key="textblock_azimuth">Азим.:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Азимут</system:String>
+
+    <!--Spotter_UserControl-->
+    <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>
     <system:String x:Key="textbox_tooltip_azimuth">Правый Ctrl + Вправо/Влево для 1 градуса. Правый Shift + Вправо/Влево для 10 градусов.</system:String>
     <system:String x:Key="button_text">Отправить координаты</system:String>
     <system:String x:Key="button_tooltip">Правый Ctrl + NumPad Zero для отправки.</system:String>
-
+    
+    <!--<system:String x:Key="timeString">Time</system:String>                                 -->
+    <!--<system:String x:Key="nameString">Name</system:String>                                 -->
+    <system:String x:Key="previous_coordinates_text">Предыдущие координаты</system:String>
+    <system:String x:Key="saved_coordinates_text">Сохраненные координаты</system:String>
+    
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Настройки подключения</system:String>
     <system:String x:Key="user_role_header">Я являюсь:</system:String>
@@ -57,11 +62,11 @@
     <system:String x:Key="groupbox_overlay_header">Настройки оверлея</system:String>
     <system:String x:Key="button_toggle">Переключить оверлей</system:String>
     <system:String x:Key="textblock_opacity">Прозрачность:</system:String>
-    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
-    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">Цвет фона:</system:String>
     <system:String x:Key="textblock_label_color">Цвет метки:</system:String>
     <system:String x:Key="textblock_value_color">Цвет значения:</system:String>
     <system:String x:Key="textblock_overlay_color">Цвет наложения:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">Цвет оповещения:</system:String>
     <system:String x:Key="comboboxitem_color_red">Красный</system:String>
     <system:String x:Key="comboboxitem_color_orange">Оранжевый</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Желтый</system:String>
@@ -75,6 +80,7 @@
     <system:String x:Key="comboboxitem_color_gray">Серый</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Темно-серый</system:String>
     <system:String x:Key="textblock_font_size">Размер шрифта:</system:String>
+    <system:String x:Key="textblock_flash_on_new_cords">Блистайте на новых координатах</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Настройки наблюдателя</system:String>

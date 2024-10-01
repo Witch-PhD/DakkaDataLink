@@ -23,19 +23,24 @@
     <system:String x:Key="textblock_contributors">Collaboratori:</system:String>
     <system:String x:Key="textblock_version">Versione:</system:String>
     <system:String x:Key="textblock_translators">Traduttori:</system:String>
-    
-    <!--Gunner and Spotter-->
+
+    <!--Spotter_UserControl and GunBattery_UserControl-->
     <system:String x:Key="groupbox_coordinates_header">Coordiante di Fuoco</system:String>
-    <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String>
-    <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String>
     <system:String x:Key="textblock_distance">Dist:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Distanza</system:String>
-    <system:String x:Key="textbox_tooltip_distance">Ctrl Destro + Freccia Su/Giù per 1 incremento. Shift Destro + Freccia Su/Giù per 3 incrementi.</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azimut</system:String>
+
+    <!--Spotter_UserControl-->
+    <system:String x:Key="textbox_tooltip_distance">Ctrl Destro + Freccia Su/Giù per 1 incremento. Shift Destro + Freccia Su/Giù per 3 incrementi.</system:String>
     <system:String x:Key="textbox_tooltip_azimuth">Ctrl Destro + Freccia Destra/Sinistra per cambiare di 1 grado. Shift Destro + Freccia Destra/Sinistra per cambiare di 10 gradi</system:String>
     <system:String x:Key="button_text">Invia Coordinate</system:String>
     <system:String x:Key="button_tooltip">Ctrl Destro + Zero del Tastierino Numerico per inviare.</system:String>
+
+    <!--<system:String x:Key="timeString">Time</system:String>                                 -->
+    <!--<system:String x:Key="nameString">Name</system:String>                                 -->
+    <system:String x:Key="previous_coordinates_text">Coordinate precedenti</system:String>
+    <system:String x:Key="saved_coordinates_text">Coordinate salvate</system:String>
     
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Impostazioni di Connessione</system:String>
@@ -57,11 +62,11 @@
     <system:String x:Key="groupbox_overlay_header">Impostazioni della Sovraimpressione</system:String>
     <system:String x:Key="button_toggle">Commutare la Sovraimpressione</system:String>
     <system:String x:Key="textblock_opacity">Opacità:</system:String>
-    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
-    <system:String x:Key="textblock_label_color">Colore Scritte:</system:String>
-    <system:String x:Key="textblock_value_color">Colore Valori:</system:String>
-    <system:String x:Key="textblock_overlay_color">Colore sovrapposto:</system:String>
-    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">Colore di sfondo:</system:String>
+    <system:String x:Key="textblock_label_color">Colore dell'etichetta:</system:String>
+    <system:String x:Key="textblock_value_color">Colore del valore:</system:String>
+    <system:String x:Key="textblock_overlay_color">Colore dell'overlay:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">Colore di avviso:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rosso</system:String>
     <system:String x:Key="comboboxitem_color_orange">Arancione</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Giallo</system:String>
@@ -75,6 +80,8 @@
     <system:String x:Key="comboboxitem_color_gray">Grigio</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Grigio Scuro</system:String>
     <system:String x:Key="textblock_font_size">Dimensione Caratteri:</system:String>
+    <system:String x:Key="textblock_flash_on_new_cords">Brilla a nuove coordinate</system:String>
+    
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Impostazioni Osservatore</system:String>
     <system:String x:Key="textblock_artillery_progile">Provilo d'Artiglieria:</system:String>

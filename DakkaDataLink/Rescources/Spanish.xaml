@@ -24,18 +24,23 @@
     <system:String x:Key="textblock_version">Versión:</system:String>
     <system:String x:Key="textblock_translators">Traductores:</system:String>
 
-    <!--Gunner and Spotter-->
+    <!--Spotter_UserControl and GunBattery_UserControl-->
     <system:String x:Key="groupbox_coordinates_header">Coordenadas de disparo</system:String>
-    <system:String x:Key="previous_coordinates_text">*Previous Coordinates</system:String>
-    <system:String x:Key="saved_coordinates_text">*Saved Coordinates</system:String>
     <system:String x:Key="textblock_distance">Dist.:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Distancia</system:String>
-    <system:String x:Key="textbox_tooltip_distance">Ctrl derecho + Flecha arriba/abajo para un paso de 1 tick. Shift derecho + Flecha arriba/abajo para un paso de 3 ticks.</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azimut</system:String>
+
+    <!--Spotter_UserControl-->
+    <system:String x:Key="textbox_tooltip_distance">Ctrl derecho + Flecha arriba/abajo para un paso de 1 tick. Shift derecho + Flecha arriba/abajo para un paso de 3 ticks.</system:String>
     <system:String x:Key="textbox_tooltip_azimuth">Ctrl derecho + Flecha derecha/izquierda para un paso de 1 grado. Shift derecho + Flecha derecha/izquierda para un paso de 10 grados.</system:String>
     <system:String x:Key="button_text">Enviar coordenadas</system:String>
     <system:String x:Key="button_tooltip">Ctrl derecho + Numpad Cero para enviar.</system:String>
+
+    <!--<system:String x:Key="timeString">Time</system:String>                                 -->
+    <!--<system:String x:Key="nameString">Name</system:String>                                 -->
+    <system:String x:Key="previous_coordinates_text">Coordenadas anteriores</system:String>
+    <system:String x:Key="saved_coordinates_text">Coordenadas guardadas</system:String>
 
     <!--Connections-->
     <system:String x:Key="groupbox_connection_header">Configuración de conexión</system:String>
@@ -57,11 +62,11 @@
     <system:String x:Key="groupbox_overlay_header">Configuración de la superposición</system:String>
     <system:String x:Key="button_toggle">Alternar superposición</system:String>
     <system:String x:Key="textblock_opacity">Opacidad:</system:String>
-    <system:String x:Key="textblock_overlayBackground_color">*Background Color:</system:String>
-    <system:String x:Key="textblock_overlayAlert_color">*Alert Color:</system:String>
+    <system:String x:Key="textblock_overlayBackground_color">Color de fondo:</system:String>
     <system:String x:Key="textblock_label_color">Color de etiqueta:</system:String>
-    <system:String x:Key="textblock_value_color">Color del valor:</system:String>
+    <system:String x:Key="textblock_value_color">Color de valor:</system:String>
     <system:String x:Key="textblock_overlay_color">Color de superposición:</system:String>
+    <system:String x:Key="textblock_overlayAlert_color">Color de alerta:</system:String>
     <system:String x:Key="comboboxitem_color_red">Rojo</system:String>
     <system:String x:Key="comboboxitem_color_orange">Naranja</system:String>
     <system:String x:Key="comboboxitem_color_yellow">Amarillo</system:String>
@@ -75,6 +80,7 @@
     <system:String x:Key="comboboxitem_color_gray">Gris</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Gris oscuro</system:String>
     <system:String x:Key="textblock_font_size">Tamaño de la fuente:</system:String>
+    <system:String x:Key="textblock_flash_on_new_cords">Brilla en nuevas coordenadas</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Configuración del observador</system:String>
