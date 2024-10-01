@@ -34,65 +34,78 @@
                         <TextBox x:Name="OverlayOpacity_TextBox" IsReadOnly="True" Text="{Binding Path=Opacity, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Width="50" Margin="3,3,3,3"/>
                     </StackPanel>
                     <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
-                    <CheckBox x:Name="UseFlashAlert_CheckBox" Content="Flash On New Coords" IsChecked="{Binding UseFlashAlert}" IsEnabled="False" Margin="3,3,3,3"/>
+                    <CheckBox x:Name="UseFlashAlert_CheckBox" Content="{DynamicResource textblock_flash_on_new_cords}" IsChecked="{Binding UseFlashAlert}" IsEnabled="False" Margin="3,3,3,3"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="1">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayBackground_color}"/>
-                        <ComboBox x:Name="OverlayBackgroundColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="OverlayBackgroundColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
-                    </StackPanel>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayAlert_color}"/>
-                        <ComboBox x:Name="OverlayAlertColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="OverlayAlertColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}"/>
-                        <ComboBox x:Name="LabelColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="LabelColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}"/>
-                        <ComboBox x:Name="ValueColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="ValueColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}"/>
-                        <TextBox x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
-                            <TextBox.ToolTip>
-                                Min: 8, Max: 72
-                            </TextBox.ToolTip>
-                            <TextBox.Text>
-                                <Binding Path="userOptions.OverlayFontSize" NotifyOnValidationError="True">
-                                    <Binding.ValidationRules>
-                                        <validators:IntMinMaxValidator Min="8" Max="72"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                    </StackPanel>
-                </StackPanel>
+                    <TextBlock Grid.Column="0" Grid.Row="0" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayBackground_color}" />
+                    <ComboBox Grid.Column="1" Grid.Row="0" x:Name="OverlayBackgroundColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="OverlayBackgroundColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayAlert_color}" />
+                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="OverlayAlertColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="OverlayAlertColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_label_color}" />
+                    <ComboBox Grid.Column="1" Grid.Row="2" x:Name="LabelColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="LabelColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}" />
+                    <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ValueColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="ValueColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}" />
+                    <TextBox Grid.Column="1" Grid.Row="4" MinWidth="70" x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
+                        <TextBox.ToolTip>
+                            Min: 8, Max: 72
+                        </TextBox.ToolTip>
+                        <TextBox.Text>
+                            <Binding Path="userOptions.OverlayFontSize" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <validators:IntMinMaxValidator Min="8" Max="72" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
             </Grid>
         </GroupBox>
 
         <GroupBox Header="{DynamicResource groupbox_settings_header}" Grid.Row="0" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <TextBlock Text="{DynamicResource textblock_artillery_progile}" Margin="3,3,3,3" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
-                </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Text="{DynamicResource textblock_custom_shortcuts}" Margin="3,3,3,3" VerticalAlignment="Center"/>
-                    <Button x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Padding="5" Content="{DynamicResource button_hide}" Click="Shortcuts_Button_Click"/>
-                </StackPanel>
-                <Grid x:Name="ShorcutsMenu" Grid.Row="2" Visibility="Visible">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblock_artillery_progile}" Margin="3,3,3,3" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="0" x:Name="ArtyProfile_ComboBox" IsEditable="False" Margin="3,3,3,3" SelectionChanged="ArtyProfile_ComboBox_SelectionChanged" VerticalAlignment="Top"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource textblock_custom_shortcuts}" Margin="3,3,3,3" VerticalAlignment="Center" />
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="Shortcuts_Button" Margin="3,3,3,3" VerticalAlignment="Top" Padding="5" Content="{DynamicResource button_hide}" Click="Shortcuts_Button_Click" />
+                </Grid>
+                
+                <Grid x:Name="ShorcutsMenu" Grid.Row="1" Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
@@ -109,15 +122,15 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_1}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_2}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_3}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_4}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_5}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_6}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_7}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_8}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
-                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_9}" HorizontalAlignment="Right" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_1}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_2}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_3}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_4}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_5}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_6}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_7}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_8}" Margin="3,3,3,3"/>
+                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource textblock_custom_shortcut_9}" Margin="3,3,3,3"/>
 
                     <TextBox x:Name="AzPlusOne_KeyBinding_TextBox" Grid.Row="1" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
                     <TextBox x:Name="AzMinusOne_KeyBinding_TextBox" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Stretch" Margin="3,3,3,3"/>
