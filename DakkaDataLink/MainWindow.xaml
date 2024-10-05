@@ -33,6 +33,7 @@
                 <MenuItem x:Name="Italian_MenuItem" Header="Italiano" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Russian_MenuItem" Header="Русский" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Spanish_MenuItem" Header="Español" Click="Language_MenuItem_Click"/>
+                <MenuItem x:Name="Orky_MenuItem" Header="Orky" Click="Language_MenuItem_Click" IsEnabled="False"/>
                 <Separator/>
                 <MenuItem x:Name="SaveSelectedLanguage_MenuItem" IsCheckable="True" IsChecked="{Binding Path=SaveSelectedLanguage}">
                     <MenuItem.Header>
