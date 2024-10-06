@@ -13,27 +13,27 @@ namespace DakkaDataLink
     /// </summary>
     public partial class MainWindow : Window
     {
-//#if DEBUG
+        //#if DEBUG
         [DllImport("Kernel32")]
         public static extern void AllocConsole();
 
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
-//#endif
+        //#endif
         public MainWindow()
         {
-//#if DEBUG
+            //#if DEBUG
             AllocConsole();
             //#endif
             dataManager = DataManager.Instance;
             LoadSettings();
             InitializeComponent();
             theUserOptionsUserControl.updateKeyBindingStrings();
-            this.Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
-            this.SizeToContent = SizeToContent.WidthAndHeight;
-            
+            Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
+            SizeToContent = SizeToContent.WidthAndHeight;
+
             StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
-            
+
             if (dataManager.userOptions.SaveSelectedLanguage == false)
             {
                 string cultureName = CultureInfo.CurrentCulture.EnglishName;
@@ -52,7 +52,7 @@ namespace DakkaDataLink
             }
             else
             {
-     //           CheckSaveSelectedLanguageWithoudEvent(true);
+                //           CheckSaveSelectedLanguageWithoudEvent(true);
                 LoadLanguage(dataManager.userOptions.Language);
             }
             SaveSelectedLanguage_MenuItem.DataContext = dataManager.userOptions;
@@ -70,7 +70,7 @@ namespace DakkaDataLink
             GlobalLogger.Shutdown();
             //#if DEBUG
             FreeConsole();
-//#endif
+            //#endif
             //theSpotterUserControl.CloseAllWindows();
             //theGunnerUserControl.CloseAllWindows();
         }
@@ -139,7 +139,14 @@ namespace DakkaDataLink
             if (sender is MenuItem item)
             {
                 string languageName = item.Name[..^9];
-                LoadLanguage(languageName);
+                if (languageName == "Orky")
+                {
+                    LoadLanguage("Orkish");
+                }
+                else
+                {
+                    LoadLanguage(languageName);
+                }
                 dataManager.userOptions.Language = languageName;
             }
         }
@@ -253,20 +260,20 @@ namespace DakkaDataLink
             }
         }
 
-    //    private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
-    //    {
-    //        dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
-    //    }
-    //
-    //    private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
-    //    {
-    //        SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
-    //        SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
-    //
-    //        SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
-    //
-    //        SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
-    //        SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
-    //    }
+        //    private void SaveSelectedLanguage_CheckBox_Changed(object sender, RoutedEventArgs e)
+        //    {
+        //        dataManager.userOptions.SaveSelectedLanguage = SaveSelectedLanguage_CheckBox.IsChecked == true;
+        //    }
+        //
+        //    private void CheckSaveSelectedLanguageWithoudEvent(bool isChecked)
+        //    {
+        //        SaveSelectedLanguage_CheckBox.Checked -= SaveSelectedLanguage_CheckBox_Changed;
+        //        SaveSelectedLanguage_CheckBox.Unchecked -= SaveSelectedLanguage_CheckBox_Changed;
+        //
+        //        SaveSelectedLanguage_CheckBox.IsChecked = isChecked;
+        //
+        //        SaveSelectedLanguage_CheckBox.Checked += SaveSelectedLanguage_CheckBox_Changed;
+        //        SaveSelectedLanguage_CheckBox.Unchecked += SaveSelectedLanguage_CheckBox_Changed;
+        //    }
     }
 }
