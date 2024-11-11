@@ -150,6 +150,7 @@ namespace DakkaDataLink
             m_RemoteUserEntries[remoteEndPoint].Update(theMsg);
             if (theMsg.Coords != null)
             {
+                SendCoordsAck(theMsg.Coords.MsgId, remoteEndPoint);
                 latestCoordsMsgIdRecvd = theMsg.Coords.MsgId;
                 dataManager.NewArtyMsgReceived(theMsg);
                 if (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eGunner)
@@ -170,6 +171,18 @@ namespace DakkaDataLink
                 //Console.WriteLine($"UdpServerHandler.processMsg() [ClientStatus] CallSign: {theMsg.Callsign} Type: {theMsg.ClientReport.ClientType}");
                 
             }
+        }
+
+        public void SendCoordsAck(int coordsId, IPEndPoint remoteEndPoint)
+        {
+            ArtyMsg ackMsg = new ArtyMsg();
+            ackMsg.Ack = new AckMsgId();
+            ackMsg.Callsign = dataManager.MyCallsign;
+            ackMsg.Ack.MsgId = coordsId;
+
+            byte[] rawData = ackMsg.ToByteArray();
+            int dataLength = rawData.Length;
+            udpClient.SendAsync(rawData, dataLength, remoteEndPoint);
         }
 
         public void SendCoordsToAll(ArtyMsg msg)

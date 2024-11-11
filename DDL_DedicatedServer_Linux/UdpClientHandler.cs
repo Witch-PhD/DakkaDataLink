@@ -150,15 +150,17 @@ namespace DakkaDataLink
                 return;
             }
             //Console.WriteLine($"UdpHandler sending new ArtyMsg: CallSign: {msg.Callsign} Az: {msg.Coords.Az}, Dist: {msg.Coords.Dist}");
-            
+
             try
             {
+
                 latestCoordsMsgIdSent++;
                 msg.Coords.MsgId = latestCoordsMsgIdSent;
                 byte[] rawData = msg.ToByteArray();
                 int dataLength = rawData.Length;
                 //Stopwatch stopwatch = Stopwatch.StartNew();
                 GlobalLogger.Log($"UdpClientHandler sending new ArtyMsg: CallSign: {msg.Callsign} Az: {msg.Coords.Az}, Dist: {msg.Coords.Dist}, MsgId: {msg.Coords.MsgId}");
+                lastCoordsSendAcknowledged = false;
                 udpClient.SendAsync(rawData, dataLength);
                 //stopwatch.Stop();
                 ////Console.WriteLine($"UdpHandler sending to {m_RemoteUserEntries.Keys.Count} clients took {stopwatch.ElapsedMilliseconds} milliseconds.");
@@ -206,6 +208,7 @@ namespace DakkaDataLink
             GlobalLogger.Log($"UdpHandler receive task stopped.");
         }
 
+        bool lastCoordsSendAcknowledged = true;
         private void processMsg(ArtyMsg theMsg, IPEndPoint remoteEndPoint)
         {
             if (theMsg.Coords != null)
@@ -213,16 +216,23 @@ namespace DakkaDataLink
                 latestCoordsMsgIdRecvd = theMsg.Coords.MsgId;
                 dataManager.NewArtyMsgReceived(theMsg);
             }
+            if (theMsg.Ack != null)
+            {
+                if (theMsg.Ack.MsgId == latestCoordsMsgIdSent)
+                {
+                    lastCoordsSendAcknowledged = true;
+                }
+            }
             else if (theMsg.ServerReport != null) // Received by a client.
             {
                 m_TimeServerLastSeen = DateTime.Now;
                 List<string> connectedUsersList = theMsg.ServerReport.ActiveCallsigns.ToList<string>();
                 dataManager.UpdateConnectedUsers(connectedUsersList);
-                
+
                 //Console.WriteLine($"UdpHandler.processMsg() [ServerStatus] CallSign: {theMsg.Callsign} ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
                 //GlobalLogger.Log($"New [ServerStatus] from CallSign: {theMsg.Callsign}, LastCoordsIdRecvd: {theMsg.ServerReport.LastCoordsIdReceived}, LastCoordsIdSent: {theMsg.ServerReport.LastCoordsIdSent}, ActiveCallsigns: {theMsg.ServerReport.ActiveCallsigns}");
 
-                if ((theMsg.ServerReport.LastCoordsIdReceived != latestCoordsMsgIdSent) && (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eSpotter))
+                if ((lastCoordsSendAcknowledged == false) && (dataManager.OperatingMode == DataManager.ProgramOperatingMode.eSpotter))
                 {
                     GlobalLogger.Log($"UdpClientHandler resending coords to server -> {m_serverIpEndPoint}");
                     ArtyMsg msg = dataManager.getAssembledCoords();

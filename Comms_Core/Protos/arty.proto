@@ -17,6 +17,7 @@ message ArtyMsg
 		Coords coords = 2;
 		ClientReport clientReport = 3;
 		ServerReport ServerReport = 4;
+		AckMsgId Ack = 5;
 	}
 }
 
@@ -25,6 +26,11 @@ message Coords
 	int32 MsgId = 1;
 	double Az = 2;
 	double Dist = 3;
+}
+
+message AckMsgId
+{
+	int32 MsgId = 1;
 }
 
 message ClientReport

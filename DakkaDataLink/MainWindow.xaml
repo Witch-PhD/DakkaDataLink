@@ -23,9 +23,7 @@
                 <Separator/>
                 <MenuItem Header="{DynamicResource menu_file_item_exit}"/>
             </MenuItem>
-            <MenuItem Header="{DynamicResource menu_help_header}">
-                <MenuItem x:Name="About_MenuItem" Header="{DynamicResource menu_help_item_exit}" Click="About_MenuItem_Click"/>
-            </MenuItem>
+            
             <MenuItem Header="{DynamicResource menu_language_header}">
                 <MenuItem x:Name="English_MenuItem" Header="English" Click="Language_MenuItem_Click"/>
                 <MenuItem x:Name="Polish_MenuItem" Header="Polski" Click="Language_MenuItem_Click"/>
@@ -43,6 +41,9 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource menu_help_header}">
+                <MenuItem x:Name="About_MenuItem" Header="{DynamicResource menu_help_item_exit}" Click="About_MenuItem_Click"/>
             </MenuItem>
         </Menu>
         <TabControl x:Name="Main_TabControl" Grid.Row="1" Grid.Column="0">
