@@ -56,6 +56,7 @@ namespace DakkaDataLink
         {
             if (m_udpReceiveThread == null)
             {
+                //IPAddress[] addresses =  Dns.GetHostAddresses("vitchdebitch.hopto.org");
                 //Console.WriteLine($"UdpServerHandler starting...");
                 GlobalLogger.Log($"UdpServerHandler starting...");
                 udpClient = new UdpClient(DdlConstants.SERVER_PORT);
