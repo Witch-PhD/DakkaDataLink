@@ -57,3 +57,7 @@ And thank you to all the people who have helped me test this so far, in particul
 Avail</br>
 Kyuss/Gustavo</br>
 All of 82DK's artillery section
+
+### Donate
+All of this has been done for the love of creation, the game, and the group I play with, but I will happily accept and appreciate any monetary donation that you wish to send.</br>
+![Donate](https://github.com/user-attachments/assets/b374242f-f478-4722-b635-2de55c023792)
