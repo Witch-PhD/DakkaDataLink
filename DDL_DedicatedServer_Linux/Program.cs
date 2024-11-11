@@ -18,6 +18,7 @@ namespace DDL_DedicatedServer_Linux
                 KillString = Console.ReadLine();
             }
             dataManager.StopUdp();
+            GlobalLogger.Shutdown();
         }
     }
 }

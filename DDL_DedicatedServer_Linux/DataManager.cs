@@ -302,7 +302,7 @@ namespace DakkaDataLink
 
         public void StartUdpServer()
         {
-            m_operatingMode = ProgramOperatingMode.eSpotter;
+            m_operatingMode = ProgramOperatingMode.eGunner; // Force this dedicated server to be a relay by telling it it is a gunner.
             MyCallsign = "DDL";
             ConnectedUsersCallsigns.Add(MyCallsign);
             udpHandler.Start();
