@@ -22,7 +22,7 @@ namespace DakkaDataLink
         {
             logQueue = new Queue<string>();
             loggerThread = new Thread(loggerThreadTask);
-            loggerThread.IsBackground = false;
+            loggerThread.IsBackground = true;
             loggerThread.Start();
         }
 
