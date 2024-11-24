@@ -12,9 +12,9 @@ namespace DDL_DedicatedServer_Linux
             {
                 GlobalLogger.Log($"Dakka Data Link v{DdlConstants.VERSION_STRING} Dedicated Server starting.");
                 dataManager.StartUdpServer();
-                Console.WriteLine("Type Exit to quit.");
+                Console.WriteLine("Type Quit to quit.");
                 string? KillString = "";
-                while (KillString != "Exit")
+                while (KillString != "Quit")
                 {
                     KillString = Console.ReadLine();
                 }

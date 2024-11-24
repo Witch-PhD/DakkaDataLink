@@ -39,7 +39,7 @@ namespace DakkaDataLink
 
 
 #region Logger
-        protected string m_LoggerFilePath = "Log.txt";
+        protected string m_LoggerFilePath = "./Log.txt";
         public string LoggerFilePath
         {
             get

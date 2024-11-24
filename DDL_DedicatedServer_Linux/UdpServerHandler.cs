@@ -124,7 +124,7 @@ namespace DakkaDataLink
                         //dataManager.ConnectedUsersCallsigns.Add(theMsg.Callsign);
 
                         //Console.WriteLine($"UdpServerHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user.");
-                        GlobalLogger.Log($"UdpServerHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user.");
+                        GlobalLogger.Log($"UdpServerHandler {m_RemoteUserEntries[remoteEndpoint].CallSign} ({remoteEndpoint}) is now an active user. {m_RemoteUserEntries.Count} Users active.");
 
                     }
                     // TODO: Update endpoint's timeout timer.
@@ -292,7 +292,7 @@ namespace DakkaDataLink
                     usersToRemove.Add(activeUserEntry.Key);
                     dataManager.ConnectedUsersCallsigns.Remove(activeUserEntry.Value.CallSign);
                     //Console.WriteLine($"UdpServerHandler {activeUserEntry.Value.CallSign} ({activeUserEntry.Key}) timed out, removing from active users list.");
-                    GlobalLogger.Log($"UdpServerHandler {activeUserEntry.Value.CallSign} ({activeUserEntry.Key}) timed out, removing from active users list.");
+                    GlobalLogger.Log($"UdpServerHandler {activeUserEntry.Value.CallSign} ({activeUserEntry.Key}) timed out.");
                 }
                 else
                 {
@@ -303,7 +303,10 @@ namespace DakkaDataLink
             {
                 m_RemoteUserEntries.Remove(timedOutUser);
             }
-
+            if (usersToRemove.Count > 0)
+            {
+                GlobalLogger.Log($"{m_RemoteUserEntries.Count} active users.");
+            }
             //dataManager.UpdateConnectedUsers(userCallsignsToUpdate);
 
         }
