@@ -156,7 +156,7 @@ namespace DakkaDataLink
             Application.Current.Resources.MergedDictionaries.Clear();
             ResourceDictionary dictionary = new()
             {
-                Source = new Uri((@"\Rescources\" + languageName + ".xaml"), UriKind.Relative)
+                Source = new Uri((@"\Resources\" + languageName + ".xaml"), UriKind.Relative)
             };
             Application.Current.Resources.MergedDictionaries.Add(dictionary);
         }

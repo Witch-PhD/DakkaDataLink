@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DakkaDataLink"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="450" Width="800">
+        Title="AboutWindow" Height="465" Width="800">
     <StackPanel Margin="5,5,5,5">
         <TextBlock FontSize="32" Text="Dakka Data Link" HorizontalAlignment="Center"/>
         <TextBlock Text="{DynamicResource textblock_description}" Margin="0,0,0,5"/>
@@ -24,6 +24,10 @@
         <StackPanel Orientation="Horizontal">
             <TextBlock FontSize="24" Text="{DynamicResource textblock_version}"/>
             <TextBlock x:Name="Version_TextBlock" FontSize="24" Text="x.x.x"/>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock FontSize="16">Donate via PayPal:</TextBlock>
+            <Image Source="Resources/PayPalDonate.png" HorizontalAlignment="Left" Width="151" Height="151"/>
         </StackPanel>
     </StackPanel>
 </Window>

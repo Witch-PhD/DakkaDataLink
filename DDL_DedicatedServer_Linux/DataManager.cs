@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DakkaDataLink
@@ -23,10 +22,8 @@ namespace DakkaDataLink
                 {
                     m_Instance = new DataManager();
                     m_Instance.udpHandler = UdpHandler.Instance;
-                    m_Instance.m_userOptions = new UserOptions();
                     m_Instance.m_ArtyProfiles = ArtilleryProfiles.Instance;
-                    BindingOperations.EnableCollectionSynchronization(m_Instance.ConnectedUsersCallsigns, m_Instance.connectedUsersCollectionLock);
-                    BindingOperations.EnableCollectionSynchronization(m_Instance.PreviousCoords, m_Instance.PrevCoordsCollectionLock);
+
                     //m_Instance.ConnectedGunsCallsigns = new ObservableCollection<string>();
                 }
                 return m_Instance;
@@ -37,20 +34,24 @@ namespace DakkaDataLink
         
         private DataManager()
         {
-            //m_userOptions = new UserOptions();
+            m_userOptions = new UserOptions();
             
         }
 
         private UdpHandler udpHandler;
-        private UserOptions m_userOptions;
+        
         private ArtilleryProfiles m_ArtyProfiles;
+
+
+
 
         private readonly object PrevCoordsCollectionLock = new object();
         public ObservableCollection<FiringHistoryEntry> PreviousCoords = new ObservableCollection<FiringHistoryEntry>();
         public ObservableCollection<FiringHistoryEntry> SavedCoords = new ObservableCollection<FiringHistoryEntry>();
         private readonly object connectedUsersCollectionLock = new object();
         public ObservableCollection<string> ConnectedUsersCallsigns = new ObservableCollection<string>();
-        
+
+        private UserOptions m_userOptions;
         public UserOptions userOptions
         {
             get
@@ -69,7 +70,6 @@ namespace DakkaDataLink
         }
 
         
-
         public enum ProgramOperatingMode
         {
             eIdle,
@@ -103,7 +103,9 @@ namespace DakkaDataLink
                 if (m_MyCallsign != value)
                 {
                     m_MyCallsign = value;
+#if !DEDICATED_SERVER
                     userOptions.MyCallSign = MyCallsign; // So it can be saved.
+#endif
                     OnPropertyChanged();
                 }
             }
@@ -192,7 +194,6 @@ namespace DakkaDataLink
             }
         }
 
-
         private int m_ServerActiveListeningPort = 50082;
         public int ServerActiveListeningPort
         {
@@ -256,7 +257,8 @@ namespace DakkaDataLink
 
         public void StartUdpServer()
         {
-            MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
+            m_operatingMode = ProgramOperatingMode.eGunner; // Force this dedicated server to be a relay by telling it it is a gunner.
+            MyCallsign = "DDL";
             ConnectedUsersCallsigns.Add(MyCallsign);
             udpHandler.Start();
         }
@@ -291,6 +293,10 @@ namespace DakkaDataLink
         public void SendCoords()
         {
             ArtyMsg artyMsg = getAssembledCoords();
+            if ((OperatingMode == ProgramOperatingMode.eSpotter) && udpHandler.RunningAsServer)
+            {
+                addPrevCoordsEntry(artyMsg);
+            }
             udpHandler.SendCoords(artyMsg);
         }
 
@@ -336,12 +342,16 @@ namespace DakkaDataLink
 
         public void ActivateKeyboardListener()
         {
+#if !DEDICATED_SERVER
             SpotterKeystrokeHandler.Instance.Activate();
+#endif
         }
 
         public void DeactivateKeyboardListener()
         {
+#if !DEDICATED_SERVER
             SpotterKeystrokeHandler.Instance.Deactivate();
+#endif
         }
 
 

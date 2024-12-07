@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Remove="Protos\arty.proto" />
-    <None Remove="Protos\greet.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\arty.proto" />
-    <Protobuf Include="Protos\greet.proto">
-      <GrpcServices>Both</GrpcServices>
-    </Protobuf>
+    <Protobuf Include="Protos\arty.proto" GrpcServices="None" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

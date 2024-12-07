@@ -150,7 +150,7 @@ namespace DakkaDataLink
                 return;
             }
             //Console.WriteLine($"UdpHandler sending new ArtyMsg: CallSign: {msg.Callsign} Az: {msg.Coords.Az}, Dist: {msg.Coords.Dist}");
-            
+
             try
             {
 

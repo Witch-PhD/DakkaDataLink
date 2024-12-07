@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -44,24 +45,46 @@ namespace DakkaDataLink.UserControls
             }
             else // Starting
             {
-                setOperatingModes();
+                
                 serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
+                string targetIpString;
+                bool validUrl = false;
+                
+                
                 bool validIP = IPAddress.TryParse(serverIp_TextBox.Text, out _);
                 if (validIP)
                 {
-                    DataManager.Instance.StartUdpClient(serverIp_TextBox.Text);
-                    StartStopUdpClient_Button.Content = "Disconnect from Server";
-
-                    StartStopUdpServer_Button.IsEnabled = false;
-                    serverIp_TextBox.IsEnabled = false;
-                    MyCallsign_Textbox.IsEnabled = false;
-                    //userIp_stackPanel.Visibility = Visibility.Visible;
+                    targetIpString = serverIp_TextBox.Text;
                 }
                 else
                 {
-                    //Console.WriteLine("*** Invalid server IP address. Check your values.");
+                    IPAddress[] addresses;
+                    try
+                    {
+                        addresses = Dns.GetHostAddresses(serverIp_TextBox.Text);
+                        validUrl = true;
+                        targetIpString = addresses[0].ToString();
+                    }
+                    catch (SocketException ex)
+                    {
+                        MessageBox.Show(Window.GetWindow(this), "Failed to start: Invalid or unknown URL.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                    catch (HttpRequestException ex)
+                    {
+                        MessageBox.Show(Window.GetWindow(this), "Failed to start: Invalid or unknown URL.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
                 }
-                
+
+                setOperatingModes();
+                DataManager.Instance.StartUdpClient(targetIpString);
+                StartStopUdpClient_Button.Content = "Disconnect from Server";
+
+                StartStopUdpServer_Button.IsEnabled = false;
+                serverIp_TextBox.IsEnabled = false;
+                MyCallsign_Textbox.IsEnabled = false;
+                //userIp_stackPanel.Visibility = Visibility.Visible;
             }
         }
 
@@ -80,97 +103,24 @@ namespace DakkaDataLink.UserControls
                 spotterMode_RadioButton.IsEnabled = true;
                 StartStopUdpClient_Button.IsEnabled = true;
                 MyCallsign_Textbox.IsEnabled = true;
-                userIp_stackPanel.Visibility = Visibility.Hidden;
+                userIp_stackPanel.Visibility = Visibility.Collapsed;
             }
             else // Starting
             {
                 setOperatingModes();
-                GetExternalIp();
+                bool gotIp = ShowExternalIp();
                 DataManager.Instance.StartUdpServer();
                 StartStopUdpServer_Button.Content = "Stop Server";
-
-                userIp_stackPanel.Visibility = Visibility.Visible;
+                if (gotIp)
+                {
+                    userIp_stackPanel.Visibility = Visibility.Visible;
+                }
                 StartStopUdpClient_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;
                 MyCallsign_Textbox.IsEnabled = false;
                 
             }
             
-        }
-
-        private void ConnectToGrpcServer_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (dataManager.GrpcClientHandlerActive)
-            {
-                DataManager.Instance.StopGrpcClient();
-                ConnectToGrpcServer_Button.Content = "Connect to Server";
-
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
-
-                StartStopGrpcServer_Button.IsEnabled = true;
-                serverIp_TextBox.IsEnabled = true;
-                gunnerMode_RadioButton.IsEnabled = true;
-                spotterMode_RadioButton.IsEnabled = true;
-                MyCallsign_Textbox.IsEnabled = true;
-            }
-            else
-            {
-                serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
-                bool validIP = IPEndPoint.TryParse(serverIp_TextBox.Text + $":{DdlConstants.SERVER_PORT}", out _);
-                if (validIP)
-                {
-                    DataManager.Instance.StartGrpcClient(serverIp_TextBox.Text + $":{DdlConstants.SERVER_PORT}");
-                    ConnectToGrpcServer_Button.Content = "Disconnect";
-
-                    StartStopGrpcServer_Button.IsEnabled = false;
-                    serverIp_TextBox.IsEnabled = false;
-                    MyCallsign_Textbox.IsEnabled = false;
-
-                    setOperatingModes();
-                }
-                else
-                {
-                    //Console.WriteLine("*** Invalid server IP address. Check your values.");
-                }
-            }
-        }
-
-        private void StartStopGrpcServer_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (dataManager.GrpcServerHandlerActive)
-            {
-                DataManager.Instance.StopGrpcServer();
-
-                StartStopGrpcServer_Button.Content = "Start as Server";
-
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
-
-                ConnectToGrpcServer_Button.IsEnabled = true;
-                serverIp_TextBox.IsEnabled = true;
-                gunnerMode_RadioButton.IsEnabled = true;
-                spotterMode_RadioButton.IsEnabled = true;
-                MyCallsign_Textbox.IsEnabled = true;
-
-                userIp_stackPanel.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                GetExternalIp();
-                DataManager.Instance.StartGrpcServer();
-
-                StartStopGrpcServer_Button.Content = "Stop Server";
-
-                ConnectToGrpcServer_Button.IsEnabled = false;
-                serverIp_TextBox.IsEnabled = false;
-                MyCallsign_Textbox.IsEnabled = false;
-
-                userIp_stackPanel.Visibility = Visibility.Visible;
-
-                setOperatingModes();
-            }
-
         }
 
         private void setOperatingModes()
@@ -195,9 +145,24 @@ namespace DakkaDataLink.UserControls
 
         }
 
-        private void GetExternalIp()
+        /// <summary>
+        /// Show the external IP address used by this PC.
+        /// </summary>
+        /// <returns>True if success, False if failed.</returns>
+        private bool ShowExternalIp()
         {
-            userIp_textBox.Text = new HttpClient().GetStringAsync("https://checkip.amazonaws.com/").GetAwaiter().GetResult();
+            bool success = true;
+            try
+            {
+                userIp_textBox.Text = new HttpClient().GetStringAsync("https://checkip.amazonaws.com/").GetAwaiter().GetResult();
+                //userIp_textBox.Text = new HttpClient().GetStringAsync("https://www.hgeay45yhshrtynfn.com/").GetAwaiter().GetResult();
+            }
+            catch (HttpRequestException ex)
+            {
+                userIp_textBox.Text = "Could not resolve.";
+                success = false;
+            }
+            return success;
         }
 
         private void CopyIp_Button_Click(object sender, RoutedEventArgs e)

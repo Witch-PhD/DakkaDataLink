@@ -12,12 +12,13 @@
 
   <ItemGroup>
     <None Remove="icon.ico" />
+    <None Remove="Resources\PayPalDonate.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Rescources\English.xaml" />
-    <Page Remove="Rescources\German.xaml" />
-    <Page Remove="Rescources\Polish.xaml" />
+    <Page Remove="Resources\English.xaml" />
+    <Page Remove="Resources\German.xaml" />
+    <Page Remove="Resources\Polish.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,9 +37,10 @@
 
   <ItemGroup>
     <Resource Include="icon.ico" />
-    <Resource Include="Rescources\English.xaml" />
-    <Resource Include="Rescources\German.xaml" />
-    <Resource Include="Rescources\Polish.xaml" />
+    <Resource Include="Resources\English.xaml" />
+    <Resource Include="Resources\German.xaml" />
+    <Resource Include="Resources\PayPalDonate.png" />
+    <Resource Include="Resources\Polish.xaml" />
   </ItemGroup>
 
 </Project>
