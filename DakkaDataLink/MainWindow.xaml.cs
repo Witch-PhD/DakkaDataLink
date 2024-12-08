@@ -13,18 +13,18 @@ namespace DakkaDataLink
     /// </summary>
     public partial class MainWindow : Window
     {
-        //#if DEBUG
+        #if DEBUG
         [DllImport("Kernel32")]
         public static extern void AllocConsole();
 
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
-        //#endif
+        #endif
         public MainWindow()
         {
-            //#if DEBUG
+            #if DEBUG
             AllocConsole();
-            //#endif
+            #endif
             dataManager = DataManager.Instance;
             LoadSettings();
             InitializeComponent();
@@ -68,9 +68,9 @@ namespace DakkaDataLink
             theUserOptionsUserControl.CloseAllWindows();
             GlobalLogger.Log("Application exiting.");
             GlobalLogger.Shutdown();
-            //#if DEBUG
+            #if DEBUG
             FreeConsole();
-            //#endif
+            #endif
             //theSpotterUserControl.CloseAllWindows();
             //theGunnerUserControl.CloseAllWindows();
         }
