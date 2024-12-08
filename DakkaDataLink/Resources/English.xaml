@@ -50,7 +50,7 @@
     <system:String x:Key="user_role_gunner">Gunner</system:String> 
     <system:String x:Key="user_role_spotter">Spotter</system:String>
     
-    <system:String x:Key="textblock_server_ip">Server's IP:</system:String>
+    <system:String x:Key="textblock_server_ip">Server IP or URL:</system:String>
     <system:String x:Key="textbox_server_ip_tooltip">ex: 192.168.0.1</system:String>
     <system:String x:Key="button_connect">Connect to Server</system:String>
     <system:String x:Key="button_start">Start as Server</system:String>

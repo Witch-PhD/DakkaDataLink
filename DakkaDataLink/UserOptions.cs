@@ -39,6 +39,23 @@ namespace DakkaDataLink
             }
         }
 
+        protected string m_LastServerIp = "";
+        public string LastServerIp
+        {
+            get
+            {
+                return m_LastServerIp;
+            }
+            set
+            {
+                if (m_LastServerIp != value)
+                {
+                    m_LastServerIp = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         #region OverlaySettings
 
         protected double m_OverlayTransparency = 0.5;

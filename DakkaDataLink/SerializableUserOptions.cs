@@ -17,6 +17,7 @@ namespace DakkaDataLink
             Language = options.Language;
             SaveSelectedLanguage = options.SaveSelectedLanguage;
             MyCallSign = options.MyCallSign;
+            LastServerIp = options.LastServerIp;
 
             BindingDictionary_List = new List<string>();
             foreach (KeyValuePair<string, KeyCombo> entry in options.BindingDictionary)
@@ -66,6 +67,8 @@ namespace DakkaDataLink
                 SaveSelectedLanguage = tempObject.SaveSelectedLanguage;
 
                 MyCallSign = tempObject.MyCallSign;
+
+                LastServerIp = tempObject.LastServerIp;
 
                 for (int i=0; i < tempObject.BindingDictionary_List.Count - 1; i += 2)
                 {

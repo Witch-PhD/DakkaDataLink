@@ -246,6 +246,7 @@ namespace DakkaDataLink
                     SerializableUserOptions theOptions = new(dataManager.userOptions);
                     theOptions.DeserializeFrom(settingsFilePath);
                     dataManager.userOptions = theOptions;
+                    
                     //theUserOptionsUserControl.updateKeyBindingStrings();
                 }
                 catch (Exception ex)

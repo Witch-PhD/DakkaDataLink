@@ -296,14 +296,17 @@ namespace DakkaDataLink
 
         private void addPrevCoordsEntry(ArtyMsg artyMsg)
         {
-            if (PreviousCoords.Count >= 20)
+            lock (PrevCoordsCollectionLock)
             {
-                PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
+                if (PreviousCoords.Count >= 20)
+                {
+                    PreviousCoords.RemoveAt(PreviousCoords.Count - 1);
+                }
+                FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
+                PreviousCoords.Insert(0, thisFiringEntry);
+                thisFiringEntry.Dist = artyMsg.Coords.Dist;
+                thisFiringEntry.Az = artyMsg.Coords.Az;
             }
-            FiringHistoryEntry thisFiringEntry = new FiringHistoryEntry();
-            PreviousCoords.Insert(0, thisFiringEntry);
-            thisFiringEntry.Dist = artyMsg.Coords.Dist;
-            thisFiringEntry.Az = artyMsg.Coords.Az;
         }
 
         public event EventHandler<bool> newCoordsReceived;
