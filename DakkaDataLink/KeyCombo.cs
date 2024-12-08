@@ -44,7 +44,7 @@ namespace DakkaDataLink
 
         public static bool operator !=(KeyCombo thisCombo, KeyCombo thatCombo)
         {
-            throw new NotImplementedException();
+            return !(thisCombo == thatCombo);
         }
 
         bool IEquatable<KeyCombo>.Equals(KeyCombo? other)
