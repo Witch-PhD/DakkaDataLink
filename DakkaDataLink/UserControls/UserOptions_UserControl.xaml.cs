@@ -471,6 +471,10 @@ namespace DakkaDataLink.UserControls
                 
 
                 string selectedColorName = OverlayBackgroundColor_ComboBox.SelectedValue as string;
+                if (selectedColorName == null)
+                {
+                    return;
+                }
                 BrushConverter brushConverter = new BrushConverter();
                 SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
                 dataManager.userOptions.OverlayBackgroundColor = selectedColorBrush;
