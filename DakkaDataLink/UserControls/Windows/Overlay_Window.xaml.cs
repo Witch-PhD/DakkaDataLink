@@ -129,7 +129,7 @@ namespace DakkaDataLink.UserControls
                 if (m_AudioAlertVolume != value)
                 {
                     m_AudioAlertVolume = value;
-                    m_MediaPlayer.Volume = m_AudioAlertVolume;
+                    //m_MediaPlayer.Volume = m_AudioAlertVolume;
                     OnPropertyChanged();
                 }
             }
