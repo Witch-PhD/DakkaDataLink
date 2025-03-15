@@ -177,7 +177,7 @@ namespace DakkaDataLink
         {
             ArtyMsg ackMsg = new ArtyMsg();
             ackMsg.Ack = new AckMsgId();
-            ackMsg.Callsign = dataManager.MyCallsign;
+            ackMsg.Callsign = dataManager.GetMyDisplayableCallsign();
             ackMsg.Ack.MsgId = coordsId;
 
             byte[] rawData = ackMsg.ToByteArray();
@@ -229,12 +229,13 @@ namespace DakkaDataLink
         {
             removeTimedOutUsers();
             ArtyMsg msg = new ArtyMsg();
-            msg.Callsign = dataManager.MyCallsign;
+            string myDisplayableCallsign = dataManager.GetMyDisplayableCallsign();
+            msg.Callsign = myDisplayableCallsign;
             msg.ServerReport = new ServerReport();
             msg.ServerReport.LastCoordsIdReceived = latestCoordsMsgIdRecvd;
             msg.ServerReport.LastCoordsIdSent = latestCoordsMsgIdSent;
 
-            msg.ServerReport.ActiveCallsigns.Add(dataManager.MyCallsign + " (Server)");
+            msg.ServerReport.ActiveCallsigns.Add(myDisplayableCallsign + " (Server)");
             foreach (UdpHandler.RemoteUserEntry users in m_RemoteUserEntries.Values)
             {
                 msg.ServerReport.ActiveCallsigns.Add(users.CallSign);

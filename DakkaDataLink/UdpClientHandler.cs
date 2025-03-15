@@ -118,7 +118,7 @@ namespace DakkaDataLink
                 dataManager.UpdateConnectedUsers(new List<string>());
             }
             ArtyMsg msg = new ArtyMsg();
-            msg.Callsign = dataManager.MyCallsign;
+            msg.Callsign = dataManager.GetMyDisplayableCallsign();
             msg.ClientReport = new ClientReport();
             msg.ClientReport.ClientType = (int)dataManager.OperatingMode;
             msg.ClientReport.SpotterPassword = "";

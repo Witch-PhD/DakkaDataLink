@@ -41,8 +41,7 @@ namespace DakkaDataLink
             
         }
 
-        private UdpHandler udpHandler;
-        private UserOptions m_userOptions;
+        private UdpHandler? udpHandler;
         private ArtilleryProfiles m_ArtyProfiles;
 
         private readonly object PrevCoordsCollectionLock = new object();
@@ -51,6 +50,7 @@ namespace DakkaDataLink
         private readonly object connectedUsersCollectionLock = new object();
         public ObservableCollection<string> ConnectedUsersCallsigns = new ObservableCollection<string>();
         
+        private UserOptions m_userOptions;
         public UserOptions userOptions
         {
             get
@@ -109,7 +109,27 @@ namespace DakkaDataLink
             }
         }
 
+        private string m_MyCallsignSuffixes = "";
+        public string MyCallsignSuffixes
+        {
+            get
+            {
+                return m_MyCallsignSuffixes;
+            }
+            set
+            {
+                if (m_MyCallsignSuffixes != value)
+                {
+                    m_MyCallsignSuffixes= value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+        public string GetMyDisplayableCallsign()
+        {
+            return m_MyCallsign + m_MyCallsignSuffixes;
+        }
 
         private double m_LatestAz = 0.0;
         public double LatestAz
@@ -243,7 +263,7 @@ namespace DakkaDataLink
             artyMsg.Coords = new Coords();
             artyMsg.Coords.Az = LatestAz;
             artyMsg.Coords.Dist = LatestDist;
-            artyMsg.Callsign = MyCallsign;
+            artyMsg.Callsign = GetMyDisplayableCallsign();
 
             return artyMsg;
         }
@@ -256,8 +276,16 @@ namespace DakkaDataLink
 
         public void StartUdpServer()
         {
-            MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
-            ConnectedUsersCallsigns.Add(MyCallsign);
+            if (m_operatingMode == ProgramOperatingMode.eSpotter)
+            {
+                MyCallsignSuffixes = " (Spotter)";
+            }
+            else
+            {
+                MyCallsignSuffixes = " (Gunner)";
+            }
+            string fullCallsign = GetMyDisplayableCallsign();
+            ConnectedUsersCallsigns.Add(fullCallsign);
             udpHandler.Start();
         }
 
@@ -267,16 +295,26 @@ namespace DakkaDataLink
             {
                 udpHandler.Stop();
             }
-            MyCallsign = MyCallsign.Replace(" (Spotter)", "");
-            MyCallsign = MyCallsign.Replace(" (Gunner)", "");
+            //MyCallsign = MyCallsign.Replace(" (Spotter)", "");
+            //MyCallsign = MyCallsign.Replace(" (Gunner)", "");
+            MyCallsignSuffixes = "";
             ConnectedUsersCallsigns.Clear();
             ConnectedClients = 0;
         }
 
         public void StartUdpClient(string ipAddress)
         {
-            MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
-            ConnectedUsersCallsigns.Add(MyCallsign);
+            if (m_operatingMode == ProgramOperatingMode.eSpotter)
+            {
+                MyCallsignSuffixes = " (Spotter)";
+            }
+            else
+            {
+                MyCallsignSuffixes = " (Gunner)";
+            }
+            string fullCallsign = GetMyDisplayableCallsign();
+           // MyCallsign = MyCallsign + (m_operatingMode == ProgramOperatingMode.eSpotter ? " (Spotter)" : " (Gunner)");
+            ConnectedUsersCallsigns.Add(fullCallsign);
             IPAddress ip = IPAddress.Parse(ipAddress);
             udpHandler.Start(ip);
         }

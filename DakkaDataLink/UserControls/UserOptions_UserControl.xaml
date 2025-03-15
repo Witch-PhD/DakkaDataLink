@@ -35,6 +35,16 @@
                     </StackPanel>
                     <Slider x:Name="OverlayOpacity_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=Opacity}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
                     <CheckBox x:Name="UseFlashAlert_CheckBox" Content="{DynamicResource textblock_flash_on_new_cords}" IsChecked="{Binding UseFlashAlert}" IsEnabled="False" Margin="3,3,3,3"/>
+                    <CheckBox x:Name="UseAudioAlert_CheckBox" Content="Audio On New Coords" IsChecked="{Binding UseAudioAlert}" IsEnabled="False" Margin="3,3,3,3"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Alert Sound:</TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="AudioAlert_ComboBox" SelectionChanged="AudioAlert_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" HorizontalAlignment="Stretch"/>
+                            <Button x:Name="AudioAlertPlay_Button" Content=" Play " Click="AudioAlertPlay_Button_Click" Margin="3,3,3,3" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock>Volume</TextBlock>
+                    <Slider x:Name="AudioAlertVolume_Slider" Maximum="1.0" Minimum="0.0" SmallChange="0.1" TickFrequency="0.05" IsSnapToTickEnabled="True" TickPlacement="TopLeft" Value="{Binding Path=AudioAlertVolume}" HorizontalAlignment="Stretch" Margin="3,3,3,3" IsEnabled="False"/>
                 </StackPanel>
 
                 <Grid Grid.Row="0" Grid.Column="1">

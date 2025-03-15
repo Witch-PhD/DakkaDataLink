@@ -13,6 +13,11 @@
   <ItemGroup>
     <None Remove="icon.ico" />
     <None Remove="Resources\PayPalDonate.png" />
+    <None Remove="Sounds\Beeps.wav" />
+    <None Remove="Sounds\Defcon.wav" />
+    <None Remove="Sounds\Emergency.wav" />
+    <None Remove="Sounds\LongSiren.wav" />
+    <None Remove="Sounds\ShortSiren.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +28,21 @@
 
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="Sounds\Beeps.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Defcon.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Emergency.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\LongSiren.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ShortSiren.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
