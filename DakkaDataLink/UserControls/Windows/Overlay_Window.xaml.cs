@@ -16,6 +16,7 @@ namespace DakkaDataLink.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
+            m_MediaPlayer = new MediaPlayer();
             //DataContext = DataManager.Instance;
             this.SizeToContent = SizeToContent.WidthAndHeight;
             AzLabel_TextBlock.DataContext = dataManager.userOptions;
@@ -32,7 +33,7 @@ namespace DakkaDataLink.UserControls
             flashTimer.Tick += flashTask;
             flashTimer.Interval = new TimeSpan(0, 0, 0, 0, 350);
         }
-
+        private MediaPlayer m_MediaPlayer;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
@@ -82,6 +83,58 @@ namespace DakkaDataLink.UserControls
             }
         }
 
+        private bool m_UseAudioAlert = true;
+        public bool UseAudioAlert
+        {
+            get
+            {
+                return m_UseAudioAlert;
+            }
+            set
+            {
+                if (m_UseAudioAlert != value)
+                {
+                    m_UseAudioAlert = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string m_AudioAlertFilePath = "";
+        public string AudioAlertFilePath
+        {
+            get
+            {
+                return m_AudioAlertFilePath;
+            }
+            set
+            {
+                m_AudioAlertFilePath = Environment.CurrentDirectory + "\\" + value;
+                if (m_AudioAlertFilePath != value)
+                {
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double m_AudioAlertVolume = 0.5;
+        public double AudioAlertVolume
+        {
+            get
+            {
+                return m_AudioAlertVolume;
+            }
+            set
+            {
+                if (m_AudioAlertVolume != value)
+                {
+                    m_AudioAlertVolume = value;
+                    //m_MediaPlayer.Volume = m_AudioAlertVolume;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private System.Windows.Threading.DispatcherTimer flashTimer;
         private byte flashIteration = 1;
         private byte flashIterationToComplete = 6; // One iteration does one color change. Full cycle must be a multiple of 2.
@@ -95,6 +148,22 @@ namespace DakkaDataLink.UserControls
             if (flashTimer.IsEnabled == false)
             {
                 flashTimer.IsEnabled = true;
+            }
+        }
+
+        
+        internal void PlayAudioAlert()
+        {
+            if (m_UseAudioAlert)
+            {
+                //AudioAlertFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "DakkaDataLink/Sounds/Defcon.wav");
+                //AudioAlertFilePath = "C:/Users/Witch Doctor/source/repos/PitBoss/DakkaDataLink/Resources/Sounds/Defcon.wav";
+                //m_MediaPlayer.Open(new Uri(m_AudioAlertFilePath));
+                //m_MediaPlayer.Open(new Uri(AudioAlertFilePath));
+                m_MediaPlayer = new MediaPlayer();
+                m_MediaPlayer.Open(new Uri(m_AudioAlertFilePath));
+                m_MediaPlayer.Volume = AudioAlertVolume;
+                m_MediaPlayer.Play();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ namespace DakkaDataLink.UserControls
         private double opacity = 0.1;
         private Uri checkedDictionaryUri;
         public ObservableCollection<TranslatableComboBoxItem> comboBoxColorOptions = new ObservableCollection<TranslatableComboBoxItem>();
+        public ObservableCollection<string> comboBoxAudioAlertOptions = new ObservableCollection<string>();
 
         private SolidColorBrush[] brushes =
         {
@@ -51,6 +53,7 @@ namespace DakkaDataLink.UserControls
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
             LabelColor_ComboBox.SelectedValue = nameof(dataManager.userOptions.OverlayLabelsFontColor);
             initColors();
+            initSounds();
         }
 
         private void initColors()
@@ -90,6 +93,25 @@ namespace DakkaDataLink.UserControls
             LabelColor_ComboBox.SelectedValue = hexColorToBrushNameDict[dataManager.userOptions.OverlayLabelsFontColor.ToString()];
         }
 
+        private void initSounds()
+        {
+            comboBoxAudioAlertOptions.Clear();
+            AudioAlert_ComboBox.ItemsSource = comboBoxAudioAlertOptions;
+            string[] filesInSoundDir = Directory.GetFiles("Sounds", "*.wav");
+
+            for (int fileNum = 0; fileNum <= filesInSoundDir.Length-1; fileNum++)
+            {
+
+                string[] fileNameParts = filesInSoundDir[fileNum].Split("\\");
+                string fileName = fileNameParts[fileNameParts.Length-1];
+                fileName = fileName.Replace(".wav", "");
+                filesInSoundDir[fileNum] = fileName;
+                comboBoxAudioAlertOptions.Add(fileName);
+            }
+            AudioAlert_ComboBox.SelectedIndex = 0;
+            
+        }
+
         public void CloseAllWindows()
         {
             if (overlayWindow != null)
@@ -105,7 +127,7 @@ namespace DakkaDataLink.UserControls
             if (overlayWindow == null) // Opening Window
             {
                 initColors();
-
+                initSounds();
                 overlayWindow = new Overlay_Window();
                 overlayWindow.BackGroundBrush.Color = dataManager.userOptions.OverlayBackgroundColor.Color;
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -118,8 +140,15 @@ namespace DakkaDataLink.UserControls
                 FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
+                AudioAlertVolume_Slider.DataContext = overlayWindow;
                 UseFlashAlert_CheckBox.IsEnabled = true;
                 UseFlashAlert_CheckBox.DataContext = overlayWindow;
+                UseAudioAlert_CheckBox.IsEnabled = true;
+                UseAudioAlert_CheckBox.DataContext = overlayWindow;
+                AudioAlert_ComboBox.IsEnabled = true;
+                AudioAlertVolume_Slider.IsEnabled = true;
+                AudioAlertPlay_Button.IsEnabled = true;
+                overlayWindow.AudioAlertFilePath = "\\Sounds\\" + AudioAlert_ComboBox.SelectedValue + ".wav"; // TODO: Make this loadable.
                 overlayWindow.Closing += (o, ev) =>
                 {
                     overlayWindow = null;
@@ -133,6 +162,7 @@ namespace DakkaDataLink.UserControls
                 dataManager.userOptions.OverlayOpacity = OverlayOpacity_Slider.Value;
                 //opacity = OverlayOpacity_Slider.Value;
                 OverlayOpacity_Slider.DataContext = null;
+                AudioAlertVolume_Slider.DataContext = null;
                 OverlayOpacity_TextBox.DataContext = null;
                 OverlayOpacity_TextBox.Text = "N/A";
                 OverlayOpacity_Slider.IsEnabled = false;
@@ -143,6 +173,11 @@ namespace DakkaDataLink.UserControls
                 FontSize_TextBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.DataContext = null;
+                UseAudioAlert_CheckBox.IsEnabled = false;
+                UseAudioAlert_CheckBox.DataContext = null;
+                AudioAlert_ComboBox.IsEnabled = false;
+                AudioAlertVolume_Slider.IsEnabled = false;
+                AudioAlertPlay_Button.IsEnabled = false;
                 overlayWindow.Close();
             }
         }
@@ -159,6 +194,7 @@ namespace DakkaDataLink.UserControls
             if (m_FlashOnNewCoords)
             {
                 overlayWindow?.FlashOverlay();
+                overlayWindow?.PlayAudioAlert();
             }
         }
 
@@ -471,6 +507,10 @@ namespace DakkaDataLink.UserControls
                 
 
                 string selectedColorName = OverlayBackgroundColor_ComboBox.SelectedValue as string;
+                if (selectedColorName == null)
+                {
+                    return;
+                }
                 BrushConverter brushConverter = new BrushConverter();
                 SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
                 dataManager.userOptions.OverlayBackgroundColor = selectedColorBrush;
@@ -530,6 +570,20 @@ namespace DakkaDataLink.UserControls
             public string Tag { get; set; }
         }
 
+        private void AudioAlert_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedSound = AudioAlert_ComboBox.SelectedValue as string;
+            selectedSound = "Sounds\\" + selectedSound + ".wav";
+            if (overlayWindow != null)
+            {
+                overlayWindow.AudioAlertFilePath = selectedSound;
+            }
 
+        }
+
+        private void AudioAlertPlay_Button_Click(object sender, RoutedEventArgs e)
+        {
+            overlayWindow?.PlayAudioAlert();
+        }
     }
 }

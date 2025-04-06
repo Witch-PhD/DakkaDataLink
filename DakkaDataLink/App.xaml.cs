@@ -9,14 +9,14 @@ namespace DakkaDataLink
     /// </summary>
     public partial class App : Application
     {
-        MainWindow mainWindow;
+        MainWindow? mainWindow;
 
         private static GlobalLogger logger = GlobalLogger.Instance;
         public static KeyboardListener KListener = new KeyboardListener();
         private static SpotterKeystrokeHandler keystrokeHandler = SpotterKeystrokeHandler.Instance;
         DataManager dataManager = DataManager.Instance;
-        private static RawKeyEventHandler keyDownHandler;
-        private static RawKeyEventHandler keyUpHandler;
+        private static RawKeyEventHandler? keyDownHandler;
+        private static RawKeyEventHandler? keyUpHandler;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));

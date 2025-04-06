@@ -71,8 +71,11 @@
         {
             m_SetBindingInProgress = false;
             m_IsActive = false;
-            dataManager.userOptions.BindingDictionary[keyBindingBeingSet] = currentKeys;
-            currentKeys = new KeyCombo();
+            if (currentKeys.theComboList.Count >0)
+            {
+                dataManager.userOptions.BindingDictionary[keyBindingBeingSet] = currentKeys;
+                currentKeys = new KeyCombo();
+            }
         }
 
         

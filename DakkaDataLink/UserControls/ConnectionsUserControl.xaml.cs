@@ -15,7 +15,7 @@ namespace DakkaDataLink.UserControls
         {
             dataManager = DataManager.Instance;
             InitializeComponent();
-
+            dataManager.userOptions.PropertyChanged += UserOptions_PropertyChanged;
             MyCallsign_Textbox.DataContext = dataManager;
             ActiveUsers_DataGrid.ItemsSource = dataManager.ConnectedUsersCallsigns;
 
@@ -24,13 +24,19 @@ namespace DakkaDataLink.UserControls
 #endif
 
         }
+
+        private void UserOptions_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            serverIp_TextBox.Text = dataManager.userOptions.LastServerIp;
+        }
+
         private DataManager dataManager;
 
         private void StartStopUdpClient_Button_Click(object sender, RoutedEventArgs e)
         {
             if (dataManager.UdpHandlerActive) // Stopping
             {
-                DataManager.Instance.StopUdp();
+                dataManager.StopUdp();
                 StartStopUdpClient_Button.Content = "Connect to Server";
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
@@ -78,7 +84,8 @@ namespace DakkaDataLink.UserControls
                 }
 
                 setOperatingModes();
-                DataManager.Instance.StartUdpClient(targetIpString);
+                dataManager.userOptions.LastServerIp = serverIp_TextBox.Text;
+                dataManager.StartUdpClient(targetIpString);
                 StartStopUdpClient_Button.Content = "Disconnect from Server";
 
                 StartStopUdpServer_Button.IsEnabled = false;
