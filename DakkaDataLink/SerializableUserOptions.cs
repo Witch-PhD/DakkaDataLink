@@ -14,6 +14,8 @@ namespace DakkaDataLink
             OverlayAlertColor_BrushName = options.OverlayAlertBorderColor.ToString();
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
+            AudioAlertVolume = options.AudioAlertVolume;
+            AudioAlertFile = options.AudioAlertFile;
             Language = options.Language;
             SaveSelectedLanguage = options.SaveSelectedLanguage;
             MyCallSign = options.MyCallSign;
@@ -62,6 +64,9 @@ namespace DakkaDataLink
 
                 OverlayOpacity = tempObject.OverlayOpacity;
                 OverlayFontSize = tempObject.OverlayFontSize;
+
+                AudioAlertVolume = tempObject.AudioAlertVolume;
+                AudioAlertFile = tempObject.AudioAlertFile;
 
                 Language = tempObject.Language;
                 SaveSelectedLanguage = tempObject.SaveSelectedLanguage;
