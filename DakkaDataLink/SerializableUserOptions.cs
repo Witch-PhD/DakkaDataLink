@@ -12,6 +12,7 @@ namespace DakkaDataLink
             OverlayValuesFontColor_BrushName = options.OverlayValuesFontColor.ToString();
             OverlayLabelsFontColor_BrushName = options.OverlayLabelsFontColor.ToString();
             OverlayAlertColor_BrushName = options.OverlayAlertBorderColor.ToString();
+            OverlayFontWeight = options.OverlayFontWeight;
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
             Language = options.Language;
@@ -61,6 +62,7 @@ namespace DakkaDataLink
                 OverlayAlertBorderColor = (SolidColorBrush)brushConverter.ConvertFromString(tempObject.OverlayAlertColor_BrushName);
 
                 OverlayOpacity = tempObject.OverlayOpacity;
+                OverlayFontWeight = tempObject.OverlayFontWeight;
                 OverlayFontSize = tempObject.OverlayFontSize;
 
                 Language = tempObject.Language;
