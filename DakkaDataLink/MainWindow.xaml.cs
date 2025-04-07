@@ -27,13 +27,7 @@ namespace DakkaDataLink
             #endif
             dataManager = DataManager.Instance;
             LoadSettings();
-            InitializeComponent();
-            theUserOptionsUserControl.updateKeyBindingStrings();
-            Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
-            SizeToContent = SizeToContent.WidthAndHeight;
-
-            StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
-
+            
             if (dataManager.userOptions.SaveSelectedLanguage == false)
             {
                 string cultureName = CultureInfo.CurrentCulture.EnglishName;
@@ -55,6 +49,13 @@ namespace DakkaDataLink
                 //           CheckSaveSelectedLanguageWithoudEvent(true);
                 LoadLanguage(dataManager.userOptions.Language);
             }
+            InitializeComponent();
+            theUserOptionsUserControl.updateKeyBindingStrings();
+            Title = $"Dakka Data Link - v{DdlConstants.VERSION_STRING}";
+            SizeToContent = SizeToContent.WidthAndHeight;
+
+            StatusBar_GunsConnectedValue_TextBlock.DataContext = dataManager;
+
             SaveSelectedLanguage_MenuItem.DataContext = dataManager.userOptions;
         }
 

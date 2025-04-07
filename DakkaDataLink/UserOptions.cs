@@ -183,6 +183,44 @@ namespace DakkaDataLink
                 }
             }
         }
+
+        protected double m_AudioAlertVolume = 0.5;
+
+        public double AudioAlertVolume
+        {
+            get
+            {
+                return m_AudioAlertVolume;
+            }
+            set
+            {
+                if (m_AudioAlertVolume != value)
+                {
+                    m_AudioAlertVolume = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // Without the .wav at the end.
+        protected string m_AudioAlertFile = "Defcon";
+
+        public string AudioAlertFile
+        {
+            get
+            {
+                return m_AudioAlertFile;
+            }
+            set
+            {
+                if (m_AudioAlertFile != value)
+                {
+                    m_AudioAlertFile = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         #endregion
 
         #region KeyBindings
