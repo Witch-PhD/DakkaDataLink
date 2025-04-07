@@ -80,6 +80,11 @@
     <system:String x:Key="comboboxitem_color_gray">Gray</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">DarkGray</system:String>
     <system:String x:Key="textblock_font_size">Font Size:</system:String>
+    <system:String x:Key="textblock_font_weight">Font Weight:</system:String>
+    <system:String x:Key="comboboxitem_font_weight_light">Light</system:String>
+    <system:String x:Key="comboboxitem_font_weight_normal">Normal</system:String>
+    <system:String x:Key="comboboxitem_font_weight_bold">Bold</system:String>
+    <system:String x:Key="comboboxitem_font_weight_extrabold">ExtraBlod</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Flash On New Coords</system:String> 
     
     <!--Spotter settings-->

@@ -28,7 +28,7 @@
     <system:String x:Key="groupbox_coordinates_header">Współrzędne Ostrzału</system:String>
     <system:String x:Key="textblock_distance">Dystans:</system:String>
     <system:String x:Key="textblock_tooltip_distance">Odległość</system:String>
-    <system:String x:Key="textblock_azimuth">Az:</system:String>
+    <system:String x:Key="textblock_azimuth">Azymut:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azymut</system:String>
 
     <!--Spotter_UserControl-->
@@ -80,6 +80,11 @@
     <system:String x:Key="comboboxitem_color_gray">Szary</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Ciemnoszary</system:String>
     <system:String x:Key="textblock_font_size">Rozmiar czcionki:</system:String>
+    <system:String x:Key="textblock_font_weight">Waga czcionki:</system:String>
+    <system:String x:Key="comboboxitem_font_weight_light">Lekka</system:String>
+    <system:String x:Key="comboboxitem_font_weight_normal">Normalna</system:String>
+    <system:String x:Key="comboboxitem_font_weight_bold">Pogrubiona</system:String>
+    <system:String x:Key="comboboxitem_font_weight_extrabold">Ekstra pogrubiona</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Błyśnij przy nowych współrzędnych</system:String>
     
     <!--Spotter settings-->

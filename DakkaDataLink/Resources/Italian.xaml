@@ -80,6 +80,11 @@
     <system:String x:Key="comboboxitem_color_gray">Grigio</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Grigio Scuro</system:String>
     <system:String x:Key="textblock_font_size">Dimensione Caratteri:</system:String>
+    <system:String x:Key="textblock_font_weight">Peso del carattere:</system:String>
+    <system:String x:Key="comboboxitem_font_weight_light">Leggera</system:String>
+    <system:String x:Key="comboboxitem_font_weight_normal">Normale</system:String>
+    <system:String x:Key="comboboxitem_font_weight_bold">Grassetto</system:String>
+    <system:String x:Key="comboboxitem_font_weight_extrabold">Extra grassetto</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Brilla a nuove coordinate</system:String>
     
     <!--Spotter settings-->
