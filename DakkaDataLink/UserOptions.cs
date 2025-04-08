@@ -149,7 +149,7 @@ namespace DakkaDataLink
         }
 
         protected FontWeight m_OverlayFontWeight = FontWeights.Normal;
-
+        [XmlIgnore]
         public FontWeight OverlayFontWeight
         {
             get
@@ -158,9 +158,27 @@ namespace DakkaDataLink
             }
             set
             {
-                if(m_OverlayFontWeight != value)
+                if (m_OverlayFontWeight != value)
                 {
                     m_OverlayFontWeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        protected int m_OverlayFontWeightInt = 400;
+
+        public int OverlayFontWeightInt
+        {
+            get
+            {
+                return m_OverlayFontWeightInt;
+            }
+            set
+            {
+                if(m_OverlayFontWeightInt != value)
+                {
+                    m_OverlayFontWeightInt = value;
                     OnPropertyChanged();
                 }
             }
