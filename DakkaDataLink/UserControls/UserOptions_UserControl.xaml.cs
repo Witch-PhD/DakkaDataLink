@@ -595,11 +595,9 @@ namespace DakkaDataLink.UserControls
         {
             if (FontWeight_ComboBox.SelectedItem is TranslatableComboBoxItem selectedItem)
             {
-                string fontWeightString = selectedItem.Tag as string;
+                string fontWeightString = selectedItem.Tag?.ToLower();
 
-                FontWeight selectedFontWeight = FontWeights.Normal;
-
-                selectedFontWeight = (fontWeightString?.ToLower()) switch
+                FontWeight selectedFontWeight = fontWeightString switch
                 {
                     "light" => FontWeights.Light,
                     "normal" => FontWeights.Normal,
