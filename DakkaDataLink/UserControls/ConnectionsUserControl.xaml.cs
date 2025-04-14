@@ -37,7 +37,8 @@ namespace DakkaDataLink.UserControls
             if (dataManager.UdpHandlerActive) // Stopping
             {
                 dataManager.StopUdp();
-                StartStopUdpClient_Button.Content = "Connect to Server";
+                //StartStopUdpClient_Button.Content = "Connect to Server";
+                StartStopUdpClient_Button.SetResourceReference(ContentProperty, "button_connect");
 
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
                 mainWindow.SetOperatingMode(DataManager.ProgramOperatingMode.eIdle);
@@ -51,7 +52,10 @@ namespace DakkaDataLink.UserControls
             }
             else // Starting
             {
-                
+                if (serverIp_TextBox.Text.Length == 0)
+                {
+                    return;
+                }
                 serverIp_TextBox.Text = serverIp_TextBox.Text.Trim();
                 string targetIpString;
                 bool validUrl = false;
@@ -86,7 +90,8 @@ namespace DakkaDataLink.UserControls
                 setOperatingModes();
                 dataManager.userOptions.LastServerIp = serverIp_TextBox.Text;
                 dataManager.StartUdpClient(targetIpString);
-                StartStopUdpClient_Button.Content = "Disconnect from Server";
+                //StartStopUdpClient_Button.Content = "Disconnect from Server";
+                StartStopUdpClient_Button.SetResourceReference(ContentProperty, "button_disconnect");
 
                 StartStopUdpServer_Button.IsEnabled = false;
                 serverIp_TextBox.IsEnabled = false;

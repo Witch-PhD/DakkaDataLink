@@ -55,6 +55,7 @@
     <system:String x:Key="textblock_server_ip">IP-адрес сервера:</system:String>
     <system:String x:Key="textbox_server_ip_tooltip">например: 192.168.0.1</system:String>
     <system:String x:Key="button_connect">Подключиться к серверу</system:String>
+    <system:String x:Key="button_disconnect">Disconnect From Server</system:String>
     <system:String x:Key="button_start">Запустить как сервер</system:String>
     <system:String x:Key="textblock_user_ip">Ваш IP-адрес:</system:String>
     <system:String x:Key="button_copy">Скопировать IP-адрес</system:String>

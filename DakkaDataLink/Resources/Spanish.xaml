@@ -55,6 +55,7 @@
     <system:String x:Key="textblock_server_ip">IP del servidor:</system:String>
     <system:String x:Key="textbox_server_ip_tooltip">ej: 192.168.0.1</system:String>
     <system:String x:Key="button_connect">Conectar al servidor</system:String>
+    <system:String x:Key="button_disconnect">Disconnect From Server</system:String>
     <system:String x:Key="button_start">Iniciar como servidor</system:String>
     <system:String x:Key="textblock_user_ip">Su dirección IP:</system:String>
     <system:String x:Key="button_copy">Copiar dirección IP</system:String>
