@@ -30,6 +30,8 @@
     <system:String x:Key="textblock_tooltip_distance">Odległość</system:String>
     <system:String x:Key="textblock_azimuth">Azymut:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azymut</system:String>
+    <system:String x:Key="textblock_time">Czas</system:String>
+    <system:String x:Key="textblock_name">Nazwa</system:String>
 
     <!--Spotter_UserControl-->
     <system:String x:Key="textbox_tooltip_distance">Ctrl prawy + Strzałka w górę/dół, aby zmienić o 1 krok. Shift prawy + Strzałka w górę/dół, aby zmienić o 3 kroki.</system:String>
@@ -56,6 +58,8 @@
     <system:String x:Key="button_start">Uruchom jako serwer</system:String>
     <system:String x:Key="textblock_user_ip">Twój adres IP:</system:String>
     <system:String x:Key="button_copy">Skopiuj adres IP</system:String>
+    <system:String x:Key="textblock_my_callsign">Mój Znak Wywoławczy:</system:String>
+    <system:String x:Key="datagrid_column_header_callsign">Znak Wywoławczy</system:String>
 
     <!--Options-->
     <!--Overlay-->
@@ -86,7 +90,10 @@
     <system:String x:Key="comboboxitem_font_weight_bold">Pogrubiona</system:String>
     <system:String x:Key="comboboxitem_font_weight_extrabold">Ekstra pogrubiona</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Błyśnij przy nowych współrzędnych</system:String>
-    
+    <system:String x:Key="textblock_use_audio_alert_checkbox">Sygnał dźwiękowy przy nowych nspółrzędnych</system:String>
+    <system:String x:Key="textblock_audio_alert_file">Plik Dźwiękowy:</system:String>
+    <system:String x:Key="textblock_volume">Głośność</system:String>
+
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Ustawienia zwiadowcy</system:String>
     <system:String x:Key="textblock_artillery_progile">Profil artylerii:</system:String>

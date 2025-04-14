@@ -30,6 +30,8 @@
     <system:String x:Key="textblock_tooltip_distance">Distance</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azimuth</system:String>
+    <system:String x:Key="textblock_time">Time</system:String>
+    <system:String x:Key="textblock_name">Name</system:String>
 
     <!--Spotter_UserControl-->
     <system:String x:Key="textbox_tooltip_distance">Right Ctrl + Up/Down Arrow for 1 tick step. Right Shift + Up/Down Arrow for 3 tick step.</system:String>
@@ -56,6 +58,8 @@
     <system:String x:Key="button_start">Start as Server</system:String>
     <system:String x:Key="textblock_user_ip">My IP Address:</system:String>
     <system:String x:Key="button_copy">Copy IP Address</system:String>
+    <system:String x:Key="textblock_my_callsign">My Callsign:</system:String>
+    <system:String x:Key="datagrid_column_header_callsign">Callsign</system:String>
     
     <!--Options-->
     <!--Overlay-->
@@ -85,8 +89,11 @@
     <system:String x:Key="comboboxitem_font_weight_normal">Normal</system:String>
     <system:String x:Key="comboboxitem_font_weight_bold">Bold</system:String>
     <system:String x:Key="comboboxitem_font_weight_extrabold">ExtraBold</system:String>
-    <system:String x:Key="textblock_flash_on_new_cords">Flash On New Coords</system:String> 
-    
+    <system:String x:Key="textblock_flash_on_new_cords">Flash On New Coords</system:String>
+    <system:String x:Key="textblock_use_audio_alert_checkbox">Audio On New Coords</system:String>
+    <system:String x:Key="textblock_audio_alert_file">Audio File</system:String>
+    <system:String x:Key="textblock_volume">Volume</system:String>
+
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Spotter Settings</system:String>
     <system:String x:Key="textblock_artillery_progile">Artillery Profile:</system:String>

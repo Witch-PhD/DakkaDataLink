@@ -61,7 +61,7 @@
                 <GroupBox Header="{DynamicResource previous_coordinates_text}" Grid.Row="0" Grid.Column="0">
                     <DataGrid x:Name="PreviousCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Time" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_time}" Binding="{Binding Path=TimeStampHourMinSec}" MinWidth="70"/>
                             <DataGridTextColumn Header="{DynamicResource textblock_distance}" Binding="{Binding Path=Dist}" MinWidth="50"/>
                             <DataGridTextColumn Header="{DynamicResource textblock_azimuth}" Binding="{Binding Path=Az}" MinWidth="50"/>
                         </DataGrid.Columns>
@@ -81,7 +81,7 @@
                 <GroupBox Header="{DynamicResource saved_coordinates_text}" Grid.Row="0" Grid.Column="2">
                     <DataGrid x:Name="SavedCoords_DataGrid" MaxHeight="400" MinHeight="100" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Path=EntryName}" MinWidth="80"/>
+                            <DataGridTextColumn Header="{DynamicResource textblock_name}" Binding="{Binding Path=EntryName}" MinWidth="80"/>
                             <DataGridTextColumn Header="{DynamicResource textblock_distance}" Binding="{Binding Path=Dist}" IsReadOnly="True" MinWidth="50"/>
                             <DataGridTextColumn Header="{DynamicResource textblock_azimuth}" Binding="{Binding Path=Az}" IsReadOnly="True" MinWidth="50"/>
                         </DataGrid.Columns>

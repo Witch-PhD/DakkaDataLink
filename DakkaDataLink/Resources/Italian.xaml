@@ -30,6 +30,8 @@
     <system:String x:Key="textblock_tooltip_distance">Distanza</system:String>
     <system:String x:Key="textblock_azimuth">Az:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Azimut</system:String>
+    <system:String x:Key="textblock_time">Time</system:String>
+    <system:String x:Key="textblock_name">Name</system:String>
 
     <!--Spotter_UserControl-->
     <system:String x:Key="textbox_tooltip_distance">Ctrl Destro + Freccia Su/Giù per 1 incremento. Shift Destro + Freccia Su/Giù per 3 incrementi.</system:String>
@@ -56,6 +58,8 @@
     <system:String x:Key="button_start">Avvia come Server</system:String>
     <system:String x:Key="textblock_user_ip">Il tuo indirizzo IP:</system:String>
     <system:String x:Key="button_copy">Copia l'indirizzo IP</system:String>
+    <system:String x:Key="textblock_my_callsign">My Callsign:</system:String>
+    <system:String x:Key="datagrid_column_header_callsign">Callsign</system:String>
     
     <!--Options-->
     <!--Overlay-->
@@ -86,7 +90,10 @@
     <system:String x:Key="comboboxitem_font_weight_bold">Grassetto</system:String>
     <system:String x:Key="comboboxitem_font_weight_extrabold">Extra grassetto</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Brilla a nuove coordinate</system:String>
-    
+    <system:String x:Key="textblock_use_audio_alert_checkbox">Audio On New Coords</system:String>
+    <system:String x:Key="textblock_audio_alert_file">Audio File</system:String>
+    <system:String x:Key="textblock_volume">Volume</system:String>
+
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Impostazioni Osservatore</system:String>
     <system:String x:Key="textblock_artillery_progile">Provilo d'Artiglieria:</system:String>
