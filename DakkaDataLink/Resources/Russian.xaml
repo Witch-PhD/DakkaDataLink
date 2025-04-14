@@ -18,7 +18,7 @@
     <system:String x:Key="statusbar_statusbaritem_header">Подключенные пользователи:</system:String>
 
     <!--About Window-->
-    <system:String x:Key="textblock_description">Инструмент координации артиллерии Foxhole, 2024.</system:String>
+    <system:String x:Key="textblock_description">Инструмент координации артиллерии Foxhole, 2024-2025.</system:String>
     <system:String x:Key="textblock_author">Автор: [82DK-A|⦿] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Участники:</system:String>
     <system:String x:Key="textblock_version">Версия:</system:String>

@@ -18,7 +18,7 @@
     <system:String x:Key="statusbar_statusbaritem_header">Połączeni użytkownicy:</system:String>
 
     <!--About Window-->
-    <system:String x:Key="textblock_description">Narzędzie do koordynacji artylerii dla gry Foxhole, 2024.</system:String>
+    <system:String x:Key="textblock_description">Narzędzie do koordynacji artylerii dla gry Foxhole, 2024-2025.</system:String>
     <system:String x:Key="textblock_author">Napisane przez [82DK-A|⦿] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Współtwórcy:</system:String>
     <system:String x:Key="textblock_version">Wersja:</system:String>

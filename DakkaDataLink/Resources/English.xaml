@@ -18,7 +18,7 @@
     <system:String x:Key="statusbar_statusbaritem_header">Users connected: </system:String>
     
     <!--About Window-->
-    <system:String x:Key="textblock_description">A Foxhole artillery coordination tool, 2024.</system:String>
+    <system:String x:Key="textblock_description">A Foxhole artillery coordination tool, 2024-2025.</system:String>
     <system:String x:Key="textblock_author">Written by [82DK-A|⦿] Witch,PhD</system:String>
     <system:String x:Key="textblock_contributors">Contributors:</system:String>
     <system:String x:Key="textblock_version">Version:</system:String>

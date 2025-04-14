@@ -17,15 +17,17 @@
         <TextBlock Text="[82DK-☆] Ugo"/>
         <TextBlock Text="[82DK-☆] Valkyrjar ♡"/>
         <TextBlock Text="[82DK-☆] Cerber"/>
-        <TextBox Width="220" HorizontalAlignment="Left" IsReadOnly="True" Margin="0,10,0,5">
-            https://github.com/Witch-PhD/PitBoss
+        <TextBlock Text="[82DK-◆] Wixxarion"/>
+        <TextBlock Text="[82DK-A] Chaos"/>
+        <TextBox Width="255" HorizontalAlignment="Left" IsReadOnly="True" Margin="0,10,0,5">
+            https://github.com/Witch-PhD/DakkaDataLink
         </TextBox>
 
         <StackPanel Orientation="Horizontal">
             <TextBlock FontSize="24" Text="{DynamicResource textblock_version}"/>
             <TextBlock x:Name="Version_TextBlock" FontSize="24" Text="x.x.x"/>
         </StackPanel>
-        <StackPanel>
+        <StackPanel Visibility="Collapsed">
             <TextBlock FontSize="16">Donate via PayPal:</TextBlock>
             <Image Source="Resources/PayPalDonate.png" HorizontalAlignment="Left" Width="151" Height="151"/>
         </StackPanel>
