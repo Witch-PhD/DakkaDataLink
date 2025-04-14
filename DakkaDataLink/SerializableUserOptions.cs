@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
@@ -12,6 +13,7 @@ namespace DakkaDataLink
             OverlayValuesFontColor_BrushName = options.OverlayValuesFontColor.ToString();
             OverlayLabelsFontColor_BrushName = options.OverlayLabelsFontColor.ToString();
             OverlayAlertColor_BrushName = options.OverlayAlertBorderColor.ToString();
+            OverlayFontWeightInt = options.OverlayFontWeight.ToOpenTypeWeight();
             OverlayFontSize = options.OverlayFontSize;
             OverlayOpacity = options.OverlayOpacity;
             AudioAlertVolume = options.AudioAlertVolume;
@@ -64,6 +66,15 @@ namespace DakkaDataLink
 
                 OverlayOpacity = tempObject.OverlayOpacity;
                 OverlayFontSize = tempObject.OverlayFontSize;
+
+                OverlayFontWeight = tempObject.OverlayFontWeightInt switch
+                {
+                    300 => FontWeights.Light,
+                    400 => FontWeights.Normal,
+                    700 => FontWeights.Bold,
+                    800 => FontWeights.ExtraBold,
+                    _ => FontWeights.Normal,
+                };
 
                 AudioAlertVolume = tempObject.AudioAlertVolume;
                 AudioAlertFile = tempObject.AudioAlertFile;

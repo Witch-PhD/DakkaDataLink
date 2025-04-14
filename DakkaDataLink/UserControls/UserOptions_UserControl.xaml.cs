@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace DakkaDataLink.UserControls
 {
@@ -17,6 +18,7 @@ namespace DakkaDataLink.UserControls
         private double opacity = 0.1;
         private Uri checkedDictionaryUri;
         public ObservableCollection<TranslatableComboBoxItem> comboBoxColorOptions = new ObservableCollection<TranslatableComboBoxItem>();
+        public ObservableCollection<TranslatableComboBoxItem> comboBoxWeightOptions = new ObservableCollection<TranslatableComboBoxItem>();
         public ObservableCollection<string> comboBoxAudioAlertOptions = new ObservableCollection<string>();
 
         private SolidColorBrush[] brushes =
@@ -25,6 +27,12 @@ namespace DakkaDataLink.UserControls
                 Brushes.Blue, Brushes.Purple, Brushes.Magenta, Brushes.Pink,
                 Brushes.Black, Brushes.White, Brushes.Gray, Brushes.DarkGray
         };
+
+        private List<FontWeight> fontWeights =
+        [
+            FontWeights.Light, FontWeights.Normal, 
+            FontWeights.Bold, FontWeights.ExtraBold
+        ];
 
         private Dictionary<string, string> hexColorToBrushNameDict = new Dictionary<string, string>();
 
@@ -39,8 +47,6 @@ namespace DakkaDataLink.UserControls
             dataManager.userOptions.PropertyChanged += OnPropertyChanged;
         }
 
-        
-
         DataManager dataManager;
 
         private void initComboBoxes()
@@ -52,8 +58,10 @@ namespace DakkaDataLink.UserControls
             }
             ArtyProfile_ComboBox.SelectedItem = ArtyProfile_ComboBox.Items[0];
             LabelColor_ComboBox.SelectedValue = nameof(dataManager.userOptions.OverlayLabelsFontColor);
+            FontWeight_ComboBox.SelectedValue = dataManager.userOptions.OverlayFontWeight.ToString();
             initColors();
             initSounds();
+            initWeight();
         }
 
         private void initColors()
@@ -117,6 +125,23 @@ namespace DakkaDataLink.UserControls
             AudioAlertVolume_Slider.Value = dataManager.userOptions.AudioAlertVolume;
         }
 
+        private void initWeight()
+        {
+            comboBoxWeightOptions.Clear();
+            foreach (FontWeight weight in fontWeights)
+            {
+                TranslatableComboBoxItem weightItem = new TranslatableComboBoxItem
+                {
+                    Content = Application.Current.Resources["comboboxitem_font_weight_" + weight.ToString().ToLower()].ToString(),
+                    Tag = weight.ToString()
+                };
+                comboBoxWeightOptions.Add(weightItem);
+            }
+
+            FontWeight_ComboBox.ItemsSource = comboBoxWeightOptions;
+            FontWeight_ComboBox.SelectedValue = dataManager.userOptions.OverlayFontWeight.ToString();
+        }
+
         public void CloseAllWindows()
         {
             if (overlayWindow != null)
@@ -134,6 +159,7 @@ namespace DakkaDataLink.UserControls
             {
                 initColors();
                 initSounds();
+                initWeight();
                 overlayWindow = new Overlay_Window();
                 overlayWindow.BackGroundBrush.Color = dataManager.userOptions.OverlayBackgroundColor.Color;
                 overlayWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -143,6 +169,7 @@ namespace DakkaDataLink.UserControls
                 ValueColor_ComboBox.IsEnabled = true;
                 OverlayBackgroundColor_ComboBox.IsEnabled = true;
                 OverlayAlertColor_ComboBox.IsEnabled = true;
+                FontWeight_ComboBox.IsEnabled = true;
                 FontSize_TextBox.IsEnabled = true;
                 OverlayOpacity_Slider.DataContext = overlayWindow.BackGroundBrush;
                 OverlayOpacity_TextBox.DataContext = overlayWindow.BackGroundBrush;
@@ -178,6 +205,7 @@ namespace DakkaDataLink.UserControls
                 ValueColor_ComboBox.IsEnabled = false;
                 OverlayBackgroundColor_ComboBox.IsEnabled = false;
                 OverlayAlertColor_ComboBox.IsEnabled = false;
+                FontWeight_ComboBox.IsEnabled = false;
                 FontSize_TextBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.IsEnabled = false;
                 UseFlashAlert_CheckBox.DataContext = null;
@@ -484,6 +512,7 @@ namespace DakkaDataLink.UserControls
             if (e.PropertyName == "Language")
             {
                 initColors();
+                initWeight();
             }
         }
 
@@ -559,6 +588,25 @@ namespace DakkaDataLink.UserControls
                 BrushConverter brushConverter = new BrushConverter();
                 SolidColorBrush selectedColorBrush = (SolidColorBrush)brushConverter.ConvertFromString(selectedColorName);
                 dataManager.userOptions.OverlayValuesFontColor = selectedColorBrush;
+            }
+        }
+
+        private void FontWeight_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (FontWeight_ComboBox.SelectedItem is TranslatableComboBoxItem selectedItem)
+            {
+                string fontWeightString = selectedItem.Tag?.ToLower();
+
+                FontWeight selectedFontWeight = fontWeightString switch
+                {
+                    "light" => FontWeights.Light,
+                    "normal" => FontWeights.Normal,
+                    "bold" => FontWeights.Bold,
+                    "extrabold" => FontWeights.ExtraBold,
+                    "heavy" => FontWeights.Heavy,
+                    _ => FontWeights.Normal,
+                };
+                dataManager.userOptions.OverlayFontWeight = selectedFontWeight;
             }
         }
 

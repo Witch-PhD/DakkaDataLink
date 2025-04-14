@@ -58,6 +58,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_overlayBackground_color}" />
@@ -72,8 +73,11 @@
                     <TextBlock Grid.Column="0" Grid.Row="3" MinWidth="70" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_value_color}" />
                     <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ValueColor_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="ValueColor_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}" />
-                    <TextBox Grid.Column="1" Grid.Row="4" MinWidth="70" x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_weight}"/>
+                    <ComboBox Grid.Column="1" Grid.Row="4" x:Name="FontWeight_ComboBox" SelectedValuePath="Tag" DisplayMemberPath="Content" SelectionChanged="FontWeight_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="3,3,3,3" VerticalAlignment="Center" Text="{DynamicResource textblock_font_size}" />
+                    <TextBox Grid.Column="1" Grid.Row="5" MinWidth="70" x:Name="FontSize_TextBox" KeyDown="TextBox_UpdateOnEnter" Width="30" Margin="3,3,3,3" IsEnabled="False">
                         <TextBox.ToolTip>
                             Min: 8, Max: 72
                         </TextBox.ToolTip>

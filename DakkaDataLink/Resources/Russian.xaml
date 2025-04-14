@@ -80,6 +80,11 @@
     <system:String x:Key="comboboxitem_color_gray">Серый</system:String>
     <system:String x:Key="comboboxitem_color_darkgray">Темно-серый</system:String>
     <system:String x:Key="textblock_font_size">Размер шрифта:</system:String>
+    <system:String x:Key="textblock_font_weight">Толщина шрифта:</system:String>
+    <system:String x:Key="comboboxitem_font_weight_light">Легкий</system:String>
+    <system:String x:Key="comboboxitem_font_weight_normal">Обычный</system:String>
+    <system:String x:Key="comboboxitem_font_weight_bold">Жирный</system:String>
+    <system:String x:Key="comboboxitem_font_weight_extrabold">Очень жирный</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Блистайте на новых координатах</system:String>
 
     <!--Spotter settings-->

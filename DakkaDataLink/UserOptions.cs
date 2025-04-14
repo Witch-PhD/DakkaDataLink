@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Serialization;
@@ -142,6 +143,42 @@ namespace DakkaDataLink
                 if (m_OverlayLabelsFontColor != value)
                 {
                     m_OverlayLabelsFontColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        protected FontWeight m_OverlayFontWeight = FontWeights.Normal;
+        [XmlIgnore]
+        public FontWeight OverlayFontWeight
+        {
+            get
+            {
+                return m_OverlayFontWeight;
+            }
+            set
+            {
+                if (m_OverlayFontWeight != value)
+                {
+                    m_OverlayFontWeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        protected int m_OverlayFontWeightInt = 400;
+
+        public int OverlayFontWeightInt
+        {
+            get
+            {
+                return m_OverlayFontWeightInt;
+            }
+            set
+            {
+                if(m_OverlayFontWeightInt != value)
+                {
+                    m_OverlayFontWeightInt = value;
                     OnPropertyChanged();
                 }
             }
