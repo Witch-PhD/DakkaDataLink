@@ -40,7 +40,7 @@
                         <TextBlock VerticalAlignment="Center" Text="{DynamicResource textblock_audio_alert_file}"/>
                         <StackPanel Orientation="Horizontal">
                             <ComboBox Grid.Column="1" Grid.Row="0" x:Name="AudioAlert_ComboBox" SelectionChanged="AudioAlert_ComboBox_SelectionChanged" Margin="3,3,3,3" IsEnabled="False" HorizontalAlignment="Stretch"/>
-                            <Button x:Name="AudioAlertPlay_Button" Content=" Play " Click="AudioAlertPlay_Button_Click" Margin="3,3,3,3" IsEnabled="False"/>
+                            <Button x:Name="AudioAlertPlay_Button" Content="{DynamicResource textblock_play_sound}" Click="AudioAlertPlay_Button_Click" Margin="3,3,3,3" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Text="{DynamicResource textblock_volume}"/>

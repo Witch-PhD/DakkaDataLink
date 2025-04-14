@@ -94,6 +94,7 @@
     <system:String x:Key="textblock_use_audio_alert_checkbox">Audio On New Coords</system:String>
     <system:String x:Key="textblock_audio_alert_file">Audio File</system:String>
     <system:String x:Key="textblock_volume">Volume</system:String>
+    <system:String x:Key="textblock_play_sound">Play</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Spotter Settings</system:String>

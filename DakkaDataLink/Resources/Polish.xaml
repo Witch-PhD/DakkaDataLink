@@ -94,6 +94,7 @@
     <system:String x:Key="textblock_use_audio_alert_checkbox">Sygnał dźwiękowy przy nowych nspółrzędnych</system:String>
     <system:String x:Key="textblock_audio_alert_file">Plik Dźwiękowy:</system:String>
     <system:String x:Key="textblock_volume">Głośność</system:String>
+    <system:String x:Key="textblock_play_sound">Play</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Ustawienia zwiadowcy</system:String>

@@ -94,6 +94,7 @@
     <system:String x:Key="textblock_use_audio_alert_checkbox">Suono sul cambio di coordinate</system:String>
     <system:String x:Key="textblock_audio_alert_file">File audio</system:String>
     <system:String x:Key="textblock_volume">Volume</system:String>
+    <system:String x:Key="textblock_play_sound">Play</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Impostazioni Osservatore</system:String>

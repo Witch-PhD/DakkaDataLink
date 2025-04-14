@@ -30,8 +30,8 @@
     <system:String x:Key="textblock_tooltip_distance">Дистанция</system:String>
     <system:String x:Key="textblock_azimuth">Азим.:</system:String>
     <system:String x:Key="textblock_tooltip_azimuth">Азимут</system:String>
-    <system:String x:Key="textblock_time">Time</system:String>
-    <system:String x:Key="textblock_name">Name</system:String>
+    <system:String x:Key="textblock_time">время</system:String>
+    <system:String x:Key="textblock_name">Название точки прицеливания</system:String>
 
     <!--Spotter_UserControl-->
     <system:String x:Key="textbox_tooltip_distance">Правый Ctrl + Вверх/Вниз для 1 шага. Правый Shift + Вверх/Вниз для 3 шагов.</system:String>
@@ -49,8 +49,8 @@
     <system:String x:Key="user_role_header">Я являюсь:</system:String>
 
     <!-- Resources for handling noun declensions in languages that require case changes. -->
-    <system:String x:Key="user_role_gunner">Наводчик</system:String>
-    <system:String x:Key="user_role_spotter">Наблюдатель</system:String>
+    <system:String x:Key="user_role_gunner">Стрелок</system:String>
+    <system:String x:Key="user_role_spotter">Наводчик</system:String>
 
     <system:String x:Key="textblock_server_ip">IP-адрес сервера:</system:String>
     <system:String x:Key="textbox_server_ip_tooltip">например: 192.168.0.1</system:String>
@@ -59,13 +59,13 @@
     <system:String x:Key="button_start">Запустить как сервер</system:String>
     <system:String x:Key="textblock_user_ip">Ваш IP-адрес:</system:String>
     <system:String x:Key="button_copy">Скопировать IP-адрес</system:String>
-    <system:String x:Key="textblock_my_callsign">My Callsign:</system:String>
+    <system:String x:Key="textblock_my_callsign">Мой позывной</system:String>
     <system:String x:Key="datagrid_column_header_callsign">Callsign</system:String>
 
     <!--Options-->
     <!--Overlay-->
     <system:String x:Key="groupbox_overlay_header">Настройки оверлея</system:String>
-    <system:String x:Key="button_toggle">Переключить оверлей</system:String>
+    <system:String x:Key="button_toggle">Включить оверлей</system:String>
     <system:String x:Key="textblock_opacity">Прозрачность:</system:String>
     <system:String x:Key="textblock_overlayBackground_color">Цвет фона:</system:String>
     <system:String x:Key="textblock_label_color">Цвет метки:</system:String>
@@ -91,9 +91,10 @@
     <system:String x:Key="comboboxitem_font_weight_bold">Жирный</system:String>
     <system:String x:Key="comboboxitem_font_weight_extrabold">Очень жирный</system:String>
     <system:String x:Key="textblock_flash_on_new_cords">Блистайте на новых координатах</system:String>
-    <system:String x:Key="textblock_use_audio_alert_checkbox">Audio On New Coords</system:String>
-    <system:String x:Key="textblock_audio_alert_file">Audio File</system:String>
-    <system:String x:Key="textblock_volume">Volume</system:String>
+    <system:String x:Key="textblock_use_audio_alert_checkbox">Звук при смене координат</system:String>
+    <system:String x:Key="textblock_audio_alert_file">Аудио файл</system:String>
+    <system:String x:Key="textblock_volume">громкость</system:String>
+    <system:String x:Key="textblock_play_sound">проиграть файл</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Настройки наблюдателя</system:String>
@@ -101,14 +102,14 @@
     <system:String x:Key="textblock_custom_shortcuts">Меню пользовательских ярлыков:</system:String>
     <system:String x:Key="button_show">Показать</system:String>
     <system:String x:Key="button_hide">Скрыть</system:String>
-    <system:String x:Key="textblock_custom_shortcut_1">Аз + 1 Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_2">Аз - 1 Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_3">Аз + 10 Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_4">Аз - 10 Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_5">Дист + 1 Тик Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_6">Дист - 1 Тик Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_7">Дист + 3 Тика Ярлык</system:String>
-    <system:String x:Key="textblock_custom_shortcut_8">Дист - 3 Тика Ярлык</system:String>
+    <system:String x:Key="textblock_custom_shortcut_1">Аз + 1 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_2">Аз - 1 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_3">Аз + 10 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_4">Аз - 10 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_5">Дист + 1 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_6">Дист - 1 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_7">Дист + 3 клавиша</system:String>
+    <system:String x:Key="textblock_custom_shortcut_8">Дист - 3 клавиша</system:String>
     <system:String x:Key="textblock_custom_shortcut_9">Отправить координаты Ярлык</system:String>
     <system:String x:Key="button_change">Изменить клавишу(и)</system:String>
 

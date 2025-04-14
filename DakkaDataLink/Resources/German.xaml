@@ -94,6 +94,7 @@
     <system:String x:Key="textblock_use_audio_alert_checkbox">Audio bei neuen Koordinaten</system:String>
     <system:String x:Key="textblock_audio_alert_file">Audio Datei:</system:String>
     <system:String x:Key="textblock_volume">Lautstärke</system:String>
+    <system:String x:Key="textblock_play_sound">Play</system:String>
 
     <!--Spotter settings-->
     <system:String x:Key="groupbox_settings_header">Aufklärereinstellungen</system:String>
